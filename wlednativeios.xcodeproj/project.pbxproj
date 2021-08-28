@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D9BB7E8726D9F4250062E5B5 /* wlednativeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */; };
+		D9BB7E8926D9F4250062E5B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7E8826D9F4250062E5B5 /* ContentView.swift */; };
+		D9BB7E8B26D9F4270062E5B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB7E8A26D9F4270062E5B5 /* Assets.xcassets */; };
+		D9BB7E8E26D9F4270062E5B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB7E8D26D9F4270062E5B5 /* Preview Assets.xcassets */; };
+		D9BB7E9926D9F4270062E5B5 /* wlednativeiosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7E9826D9F4270062E5B5 /* wlednativeiosTests.swift */; };
+		D9BB7EA426D9F4270062E5B5 /* wlednativeiosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EA326D9F4270062E5B5 /* wlednativeiosUITests.swift */; };
+		D9BB7EB226DA03910062E5B5 /* DeviceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB126DA03910062E5B5 /* DeviceItem.swift */; };
+		D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */; };
+		D9BB7EB826DA07D20062E5B5 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */; };
+		D9BB7EBC26DA0B560062E5B5 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D9BB7EBB26DA0B560062E5B5 /* .gitignore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D9BB7E9526D9F4270062E5B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9BB7E7B26D9F4250062E5B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9BB7E8226D9F4250062E5B5;
+			remoteInfo = wlednativeios;
+		};
+		D9BB7EA026D9F4270062E5B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9BB7E7B26D9F4250062E5B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9BB7E8226D9F4250062E5B5;
+			remoteInfo = wlednativeios;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D9BB7E8326D9F4250062E5B5 /* wlednativeios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wlednativeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wlednativeiosApp.swift; sourceTree = "<group>"; };
+		D9BB7E8826D9F4250062E5B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D9BB7E8A26D9F4270062E5B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D9BB7E8D26D9F4270062E5B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D9BB7E8F26D9F4270062E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9BB7E9426D9F4270062E5B5 /* wlednativeiosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wlednativeiosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9BB7E9826D9F4270062E5B5 /* wlednativeiosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wlednativeiosTests.swift; sourceTree = "<group>"; };
+		D9BB7E9A26D9F4270062E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9BB7E9F26D9F4270062E5B5 /* wlednativeiosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wlednativeiosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9BB7EA326D9F4270062E5B5 /* wlednativeiosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wlednativeiosUITests.swift; sourceTree = "<group>"; };
+		D9BB7EA526D9F4270062E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9BB7EB126DA03910062E5B5 /* DeviceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceItem.swift; sourceTree = "<group>"; };
+		D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItem.swift; sourceTree = "<group>"; };
+		D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
+		D9BB7EBB26DA0B560062E5B5 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D9BB7E8026D9F4250062E5B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9BB7E9126D9F4270062E5B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9BB7E9C26D9F4270062E5B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D9BB7E7A26D9F4250062E5B5 = {
+			isa = PBXGroup;
+			children = (
+				D9BB7E8426D9F4250062E5B5 /* Products */,
+				D9BB7EBB26DA0B560062E5B5 /* .gitignore */,
+				D9BB7E8526D9F4250062E5B5 /* wlednativeios */,
+				D9BB7E9726D9F4270062E5B5 /* wlednativeiosTests */,
+				D9BB7EA226D9F4270062E5B5 /* wlednativeiosUITests */,
+			);
+			sourceTree = "<group>";
+		};
+		D9BB7E8426D9F4250062E5B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7E8326D9F4250062E5B5 /* wlednativeios.app */,
+				D9BB7E9426D9F4270062E5B5 /* wlednativeiosTests.xctest */,
+				D9BB7E9F26D9F4270062E5B5 /* wlednativeiosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9BB7E8526D9F4250062E5B5 /* wlednativeios */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7EB426DA045E0062E5B5 /* Model */,
+				D9BB7EB326DA041D0062E5B5 /* Views */,
+				D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */,
+				D9BB7E8A26D9F4270062E5B5 /* Assets.xcassets */,
+				D9BB7E8F26D9F4270062E5B5 /* Info.plist */,
+				D9BB7E8C26D9F4270062E5B5 /* Preview Content */,
+			);
+			path = wlednativeios;
+			sourceTree = "<group>";
+		};
+		D9BB7E8C26D9F4270062E5B5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7E8D26D9F4270062E5B5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D9BB7E9726D9F4270062E5B5 /* wlednativeiosTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7E9826D9F4270062E5B5 /* wlednativeiosTests.swift */,
+				D9BB7E9A26D9F4270062E5B5 /* Info.plist */,
+			);
+			path = wlednativeiosTests;
+			sourceTree = "<group>";
+		};
+		D9BB7EA226D9F4270062E5B5 /* wlednativeiosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7EA326D9F4270062E5B5 /* wlednativeiosUITests.swift */,
+				D9BB7EA526D9F4270062E5B5 /* Info.plist */,
+			);
+			path = wlednativeiosUITests;
+			sourceTree = "<group>";
+		};
+		D9BB7EB326DA041D0062E5B5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7E8826D9F4250062E5B5 /* ContentView.swift */,
+				D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */,
+				D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D9BB7EB426DA045E0062E5B5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7EB126DA03910062E5B5 /* DeviceItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D9BB7E8226D9F4250062E5B5 /* wlednativeios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9BB7EA826D9F4270062E5B5 /* Build configuration list for PBXNativeTarget "wlednativeios" */;
+			buildPhases = (
+				D9BB7E7F26D9F4250062E5B5 /* Sources */,
+				D9BB7E8026D9F4250062E5B5 /* Frameworks */,
+				D9BB7E8126D9F4250062E5B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wlednativeios;
+			productName = wlednativeios;
+			productReference = D9BB7E8326D9F4250062E5B5 /* wlednativeios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D9BB7E9326D9F4270062E5B5 /* wlednativeiosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9BB7EAB26D9F4270062E5B5 /* Build configuration list for PBXNativeTarget "wlednativeiosTests" */;
+			buildPhases = (
+				D9BB7E9026D9F4270062E5B5 /* Sources */,
+				D9BB7E9126D9F4270062E5B5 /* Frameworks */,
+				D9BB7E9226D9F4270062E5B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9BB7E9626D9F4270062E5B5 /* PBXTargetDependency */,
+			);
+			name = wlednativeiosTests;
+			productName = wlednativeiosTests;
+			productReference = D9BB7E9426D9F4270062E5B5 /* wlednativeiosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D9BB7E9E26D9F4270062E5B5 /* wlednativeiosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9BB7EAE26D9F4270062E5B5 /* Build configuration list for PBXNativeTarget "wlednativeiosUITests" */;
+			buildPhases = (
+				D9BB7E9B26D9F4270062E5B5 /* Sources */,
+				D9BB7E9C26D9F4270062E5B5 /* Frameworks */,
+				D9BB7E9D26D9F4270062E5B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9BB7EA126D9F4270062E5B5 /* PBXTargetDependency */,
+			);
+			name = wlednativeiosUITests;
+			productName = wlednativeiosUITests;
+			productReference = D9BB7E9F26D9F4270062E5B5 /* wlednativeiosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D9BB7E7B26D9F4250062E5B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					D9BB7E8226D9F4250062E5B5 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					D9BB7E9326D9F4270062E5B5 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = D9BB7E8226D9F4250062E5B5;
+					};
+					D9BB7E9E26D9F4270062E5B5 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = D9BB7E8226D9F4250062E5B5;
+					};
+				};
+			};
+			buildConfigurationList = D9BB7E7E26D9F4250062E5B5 /* Build configuration list for PBXProject "wlednativeios" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D9BB7E7A26D9F4250062E5B5;
+			productRefGroup = D9BB7E8426D9F4250062E5B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D9BB7E8226D9F4250062E5B5 /* wlednativeios */,
+				D9BB7E9326D9F4270062E5B5 /* wlednativeiosTests */,
+				D9BB7E9E26D9F4270062E5B5 /* wlednativeiosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D9BB7E8126D9F4250062E5B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9BB7E8E26D9F4270062E5B5 /* Preview Assets.xcassets in Resources */,
+				D9BB7EBC26DA0B560062E5B5 /* .gitignore in Resources */,
+				D9BB7E8B26D9F4270062E5B5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9BB7E9226D9F4270062E5B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9BB7E9D26D9F4270062E5B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9BB7E7F26D9F4250062E5B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9BB7EB826DA07D20062E5B5 /* DeviceList.swift in Sources */,
+				D9BB7E8926D9F4250062E5B5 /* ContentView.swift in Sources */,
+				D9BB7EB226DA03910062E5B5 /* DeviceItem.swift in Sources */,
+				D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */,
+				D9BB7E8726D9F4250062E5B5 /* wlednativeiosApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9BB7E9026D9F4270062E5B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9BB7E9926D9F4270062E5B5 /* wlednativeiosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9BB7E9B26D9F4270062E5B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9BB7EA426D9F4270062E5B5 /* wlednativeiosUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D9BB7E9626D9F4270062E5B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9BB7E8226D9F4250062E5B5 /* wlednativeios */;
+			targetProxy = D9BB7E9526D9F4270062E5B5 /* PBXContainerItemProxy */;
+		};
+		D9BB7EA126D9F4270062E5B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9BB7E8226D9F4250062E5B5 /* wlednativeios */;
+			targetProxy = D9BB7EA026D9F4270062E5B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D9BB7EA626D9F4270062E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D9BB7EA726D9F4270062E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9BB7EA926D9F4270062E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"wlednativeios/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = wlednativeios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.wlednativeios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D9BB7EAA26D9F4270062E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"wlednativeios/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = wlednativeios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.wlednativeios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D9BB7EAC26D9F4270062E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = wlednativeiosTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.wlednativeiosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wlednativeios.app/wlednativeios";
+			};
+			name = Debug;
+		};
+		D9BB7EAD26D9F4270062E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = wlednativeiosTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.wlednativeiosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wlednativeios.app/wlednativeios";
+			};
+			name = Release;
+		};
+		D9BB7EAF26D9F4270062E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = wlednativeiosUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.wlednativeiosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = wlednativeios;
+			};
+			name = Debug;
+		};
+		D9BB7EB026D9F4270062E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = wlednativeiosUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.wlednativeiosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = wlednativeios;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D9BB7E7E26D9F4250062E5B5 /* Build configuration list for PBXProject "wlednativeios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9BB7EA626D9F4270062E5B5 /* Debug */,
+				D9BB7EA726D9F4270062E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9BB7EA826D9F4270062E5B5 /* Build configuration list for PBXNativeTarget "wlednativeios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9BB7EA926D9F4270062E5B5 /* Debug */,
+				D9BB7EAA26D9F4270062E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9BB7EAB26D9F4270062E5B5 /* Build configuration list for PBXNativeTarget "wlednativeiosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9BB7EAC26D9F4270062E5B5 /* Debug */,
+				D9BB7EAD26D9F4270062E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9BB7EAE26D9F4270062E5B5 /* Build configuration list for PBXNativeTarget "wlednativeiosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9BB7EAF26D9F4270062E5B5 /* Debug */,
+				D9BB7EB026D9F4270062E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D9BB7E7B26D9F4250062E5B5 /* Project object */;
+}
