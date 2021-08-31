@@ -17,6 +17,7 @@
 		D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */; };
 		D9BB7EB826DA07D20062E5B5 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */; };
 		D9BB7EBC26DA0B560062E5B5 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D9BB7EBB26DA0B560062E5B5 /* .gitignore */; };
+		D9BB7EBF26DC50480062E5B5 /* DeviceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EBE26DC50480062E5B5 /* DeviceRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItem.swift; sourceTree = "<group>"; };
 		D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		D9BB7EBB26DA0B560062E5B5 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		D9BB7EBE26DC50480062E5B5 /* DeviceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		D9BB7E8526D9F4250062E5B5 /* wlednativeios */ = {
 			isa = PBXGroup;
 			children = (
+				D9BB7EBD26DC502A0062E5B5 /* Repository */,
 				D9BB7EB426DA045E0062E5B5 /* Model */,
 				D9BB7EB326DA041D0062E5B5 /* Views */,
 				D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */,
@@ -156,6 +159,14 @@
 				D9BB7EB126DA03910062E5B5 /* DeviceItem.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D9BB7EBD26DC502A0062E5B5 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB7EBE26DC50480062E5B5 /* DeviceRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,6 +304,7 @@
 				D9BB7EB226DA03910062E5B5 /* DeviceItem.swift in Sources */,
 				D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */,
 				D9BB7E8726D9F4250062E5B5 /* wlednativeiosApp.swift in Sources */,
+				D9BB7EBF26DC50480062E5B5 /* DeviceRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
