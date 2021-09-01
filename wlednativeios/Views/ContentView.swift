@@ -3,9 +3,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, Wled!")
-            .font(.largeTitle)
-            .padding()
+        List(DeviceRepository.instance.getAll(), id: \.address) { deviceItem in
+            DeviceListItem(device: deviceItem)
+            
+        }
     }
 }
 

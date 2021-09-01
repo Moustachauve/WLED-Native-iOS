@@ -15,7 +15,6 @@
 		D9BB7EA426D9F4270062E5B5 /* wlednativeiosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EA326D9F4270062E5B5 /* wlednativeiosUITests.swift */; };
 		D9BB7EB226DA03910062E5B5 /* DeviceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB126DA03910062E5B5 /* DeviceItem.swift */; };
 		D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */; };
-		D9BB7EB826DA07D20062E5B5 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */; };
 		D9BB7EBC26DA0B560062E5B5 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D9BB7EBB26DA0B560062E5B5 /* .gitignore */; };
 		D9BB7EBF26DC50480062E5B5 /* DeviceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7EBE26DC50480062E5B5 /* DeviceRepository.swift */; };
 /* End PBXBuildFile section */
@@ -52,7 +51,6 @@
 		D9BB7EA526D9F4270062E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9BB7EB126DA03910062E5B5 /* DeviceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceItem.swift; sourceTree = "<group>"; };
 		D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItem.swift; sourceTree = "<group>"; };
-		D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		D9BB7EBB26DA0B560062E5B5 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D9BB7EBE26DC50480062E5B5 /* DeviceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,7 +146,6 @@
 			children = (
 				D9BB7E8826D9F4250062E5B5 /* ContentView.swift */,
 				D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */,
-				D9BB7EB726DA07D20062E5B5 /* DeviceList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,7 +296,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9BB7EB826DA07D20062E5B5 /* DeviceList.swift in Sources */,
 				D9BB7E8926D9F4250062E5B5 /* ContentView.swift in Sources */,
 				D9BB7EB226DA03910062E5B5 /* DeviceItem.swift in Sources */,
 				D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */,
