@@ -10,12 +10,35 @@ struct ContentView: View {
                 deviceItem in DeviceListItem(device: deviceItem)
             }
             
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image("wled_logo_akemi")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(20)
                 }
-            })
+                
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    NavigationLink(destination: DeviceDiscovery()) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "pencil")
+                        }
+                    }
+                }
+                
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: DeviceDiscovery()) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Devices")
         }
     }
 }

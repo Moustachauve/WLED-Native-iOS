@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D943A4B026E9D16600D894F3 /* DeviceDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4AF26E9D16600D894F3 /* DeviceDiscovery.swift */; };
+		D943A4B226E9DA7400D894F3 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4B126E9DA7400D894F3 /* DeviceView.swift */; };
+		D943A4B426E9DC3A00D894F3 /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4B326E9DC3A00D894F3 /* Webview.swift */; };
 		D9BB7E8726D9F4250062E5B5 /* wlednativeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */; };
 		D9BB7E8926D9F4250062E5B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7E8826D9F4250062E5B5 /* ContentView.swift */; };
 		D9BB7E8B26D9F4270062E5B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB7E8A26D9F4270062E5B5 /* Assets.xcassets */; };
@@ -37,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D943A4AF26E9D16600D894F3 /* DeviceDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscovery.swift; sourceTree = "<group>"; };
+		D943A4B126E9DA7400D894F3 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
+		D943A4B326E9DC3A00D894F3 /* Webview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
 		D9BB7E8326D9F4250062E5B5 /* wlednativeios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wlednativeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wlednativeiosApp.swift; sourceTree = "<group>"; };
 		D9BB7E8826D9F4250062E5B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +117,7 @@
 				D9BB7E8A26D9F4270062E5B5 /* Assets.xcassets */,
 				D9BB7E8F26D9F4270062E5B5 /* Info.plist */,
 				D9BB7E8C26D9F4270062E5B5 /* Preview Content */,
+				D943A4B326E9DC3A00D894F3 /* Webview.swift */,
 			);
 			path = wlednativeios;
 			sourceTree = "<group>";
@@ -146,6 +153,8 @@
 			children = (
 				D9BB7E8826D9F4250062E5B5 /* ContentView.swift */,
 				D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */,
+				D943A4AF26E9D16600D894F3 /* DeviceDiscovery.swift */,
+				D943A4B126E9DA7400D894F3 /* DeviceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,9 +306,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9BB7E8926D9F4250062E5B5 /* ContentView.swift in Sources */,
+				D943A4B426E9DC3A00D894F3 /* Webview.swift in Sources */,
 				D9BB7EB226DA03910062E5B5 /* DeviceItem.swift in Sources */,
 				D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */,
+				D943A4B226E9DA7400D894F3 /* DeviceView.swift in Sources */,
 				D9BB7E8726D9F4250062E5B5 /* wlednativeiosApp.swift in Sources */,
+				D943A4B026E9D16600D894F3 /* DeviceDiscovery.swift in Sources */,
 				D9BB7EBF26DC50480062E5B5 /* DeviceRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,9 +471,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"wlednativeios/Preview Content\"";
+				DEVELOPMENT_TEAM = RWLNCUSDCJ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = wlednativeios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -480,9 +493,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"wlednativeios/Preview Content\"";
+				DEVELOPMENT_TEAM = RWLNCUSDCJ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = wlednativeios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

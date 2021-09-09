@@ -4,24 +4,38 @@ import SwiftUI
 struct DeviceListItem: View {
     var device: DeviceItem
     
+    
     @State private var brightness: Double = 50
+    @State private var isDeviceOn = true
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(device.name != "" ? device.name : "(New Device)")
-                    .font(.title2)
-                    .lineLimit(1)
-                Text(device.address)
-                    .font(.body)
-                    .lineLimit(1)
-                Slider(
-                    value: $brightness,
-                    in: 0...255
-                )
+        NavigationLink(destination: DeviceView(device: device)) {
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(device.name != "" ? device.name : "(New Device)")
+                                .font(.title2)
+                                .lineLimit(1)
+                            Text(device.address)
+                                .font(.body)
+                                .lineLimit(1)
+                        }
+                        Toggle("Light On", isOn: $isDeviceOn)
+                            .labelsHidden()
+                            .frame(
+                                maxWidth: .infinity,
+                                alignment: .trailing
+                            )
+                    }
                     
+                    Slider(
+                        value: $brightness,
+                        in: 0...255
+                    )
+                }
+                Spacer()
             }
-            Spacer()
         }
     }
 }
