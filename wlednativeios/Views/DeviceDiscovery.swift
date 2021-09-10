@@ -3,7 +3,7 @@ import SwiftUI
 
 struct DeviceDiscovery: View {
     
-    
+    @State private var isAddModalShowing = false
     var deviceList = [DeviceItem]()
     
     var body: some View {
@@ -29,7 +29,7 @@ struct DeviceDiscovery: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     NavigationLink(destination: DeviceDiscovery()) {
                         Button {
-                            
+                            isAddModalShowing.toggle()
                         } label: {
                             Image(systemName: "plus")
                             Text("Add Manually")
@@ -38,6 +38,13 @@ struct DeviceDiscovery: View {
                 }
             }
         }
+        .sheet(isPresented: $isAddModalShowing, onDismiss: onAddModalDismiss) {
+            DeviceAddManually(isVisible: $isAddModalShowing)
+        }
+    }
+    
+    func onAddModalDismiss() {
+        
     }
 }
 
