@@ -7,15 +7,26 @@ struct DeviceAddManually: View {
     
     @State private var address: String = ""
     @State private var customName: String = ""
+    @State private var isDeviceHidden: Bool = false
+    
+    @State private var addressHasError = false
     
     var body: some View {
         NavigationView {
             VStack {
                 Divider()
-                HStack {
-                    Text("Address")
-                        .fontWeight(.semibold)
-                    TextField("IP Address or URL", text: $address)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Address")
+                            .fontWeight(.semibold)
+                            .foregroundColor(addressHasError ? .red : .primary)
+                        TextField("IP Address or URL", text: $address)
+                    }
+                    if (addressHasError) {
+                        Text("Please enter an address")
+                            .font(.subheadline)
+                            .foregroundColor(.red)
+                    }
                 }
                 .padding(15)
                 Divider()
@@ -26,6 +37,12 @@ struct DeviceAddManually: View {
                     TextField("(Empty to get from device)", text: $customName)
                 }
                 .padding(15)
+                Divider()
+                
+                Toggle("Hide Device", isOn: $isDeviceHidden)
+                    .font(Font.body.weight(.semibold))
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 15)
                 Divider()
                 
                 Spacer()
@@ -42,6 +59,7 @@ struct DeviceAddManually: View {
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
+                        addDevice()
                     } label: {
                         Text("Add")
                     }
@@ -49,10 +67,29 @@ struct DeviceAddManually: View {
             }
         }
     }
+    
+    func addDevice() {
+        addressHasError = address == ""
+        if (addressHasError) {
+            return;
+        }
+        
+        let device = DeviceItem(
+            address: address,
+            name: customName,
+            isHidden: isDeviceHidden
+        )
+        
+        DeviceRepository.instance.put(device: device)
+        
+        isVisible = false
+    }
 }
 
 struct DeviceAddManually_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceAddManually(isVisible: .constant(true))
+        Group {
+            DeviceAddManually(isVisible: .constant(true))
+        }
     }
 }
