@@ -11,6 +11,8 @@
 		D943A4B226E9DA7400D894F3 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4B126E9DA7400D894F3 /* DeviceView.swift */; };
 		D943A4B426E9DC3A00D894F3 /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4B326E9DC3A00D894F3 /* Webview.swift */; };
 		D943A4B626EB249100D894F3 /* DeviceAddManually.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4B526EB249100D894F3 /* DeviceAddManually.swift */; };
+		D943A4B826EF0B3500D894F3 /* DeviceManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4B726EF0B3500D894F3 /* DeviceManage.swift */; };
+		D943A4BA26EF0C8800D894F3 /* DeviceManageListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943A4B926EF0C8800D894F3 /* DeviceManageListItem.swift */; };
 		D9BB7E8726D9F4250062E5B5 /* wlednativeiosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */; };
 		D9BB7E8926D9F4250062E5B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB7E8826D9F4250062E5B5 /* ContentView.swift */; };
 		D9BB7E8B26D9F4270062E5B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB7E8A26D9F4270062E5B5 /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		D943A4B126E9DA7400D894F3 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
 		D943A4B326E9DC3A00D894F3 /* Webview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
 		D943A4B526EB249100D894F3 /* DeviceAddManually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAddManually.swift; sourceTree = "<group>"; };
+		D943A4B726EF0B3500D894F3 /* DeviceManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManage.swift; sourceTree = "<group>"; };
+		D943A4B926EF0C8800D894F3 /* DeviceManageListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManageListItem.swift; sourceTree = "<group>"; };
 		D9BB7E8326D9F4250062E5B5 /* wlednativeios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wlednativeios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB7E8626D9F4250062E5B5 /* wlednativeiosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wlednativeiosApp.swift; sourceTree = "<group>"; };
 		D9BB7E8826D9F4250062E5B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,9 +159,11 @@
 			children = (
 				D9BB7E8826D9F4250062E5B5 /* ContentView.swift */,
 				D9BB7EB526DA04E60062E5B5 /* DeviceListItem.swift */,
+				D943A4B926EF0C8800D894F3 /* DeviceManageListItem.swift */,
 				D943A4AF26E9D16600D894F3 /* DeviceDiscovery.swift */,
 				D943A4B126E9DA7400D894F3 /* DeviceView.swift */,
 				D943A4B526EB249100D894F3 /* DeviceAddManually.swift */,
+				D943A4B726EF0B3500D894F3 /* DeviceManage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -308,10 +314,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D943A4B826EF0B3500D894F3 /* DeviceManage.swift in Sources */,
 				D9BB7E8926D9F4250062E5B5 /* ContentView.swift in Sources */,
 				D943A4B426E9DC3A00D894F3 /* Webview.swift in Sources */,
 				D9BB7EB226DA03910062E5B5 /* DeviceItem.swift in Sources */,
 				D9BB7EB626DA04E60062E5B5 /* DeviceListItem.swift in Sources */,
+				D943A4BA26EF0C8800D894F3 /* DeviceManageListItem.swift in Sources */,
 				D943A4B226E9DA7400D894F3 /* DeviceView.swift in Sources */,
 				D9BB7E8726D9F4250062E5B5 /* wlednativeiosApp.swift in Sources */,
 				D943A4B026E9D16600D894F3 /* DeviceDiscovery.swift in Sources */,
