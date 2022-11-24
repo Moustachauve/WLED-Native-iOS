@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct DeviceItem: Hashable, Codable {
+struct Device: Hashable, Codable {
     var address: String
     var name: String = ""
     var isCustomName: Bool = false
