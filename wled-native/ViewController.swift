@@ -2,6 +2,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     @IBOutlet var tableView: UITableView!
     
     var devices = [Device]()
@@ -22,29 +24,30 @@ class ViewController: UIViewController {
     }
     
     func updateDevices() {
-        devices.removeAll()
-        
-        guard let count = UserDefaults().value(forKey: "count") as? Int else {
-            return
-        }
-        
-        for x in 0..<count {
-            if let deviceAddress = UserDefaults().value(forKey: "device_\(x)") as? String {
-                let device = Device(address: deviceAddress, name: "device_\(x)")
-                devices.append(device)
+        do {
+            devices = try context.fetch(Device.fetchRequest())
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
+        } catch {
+            
         }
-        
-        tableView.reloadData()
+    }
+    
+    func saveDevices() {
+        do {
+            try context.save()
+            updateDevices()
+        } catch {
+            
+        }
     }
 
     @IBAction func didTappAdd() {
         let entryViewController = storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
         entryViewController.title = "New Device"
-        entryViewController.update = {
-            DispatchQueue.main.async {
-                self.updateDevices()
-            }
+        entryViewController.update = { (device: Device) -> Void in
+            self.saveDevices()
         }
         navigationController?.pushViewController(entryViewController, animated: true)
     }
@@ -58,10 +61,9 @@ extension ViewController: UITableViewDelegate {
         deviceViewController.title = devices[indexPath.row].name
         deviceViewController.position = indexPath.row
         deviceViewController.device = devices[indexPath.row]
-        deviceViewController.update = {
-            DispatchQueue.main.async {
-                self.updateDevices()
-            }
+        deviceViewController.delete = { (device: Device) -> Void in
+            self.context.delete(device)
+            self.saveDevices()
         }
         
         navigationController?.pushViewController(deviceViewController, animated: true)

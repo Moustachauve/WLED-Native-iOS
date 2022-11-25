@@ -4,7 +4,7 @@ import WebKit
 class DeviceViewController: UIViewController, WKUIDelegate {
 
     var webView: WKWebView!
-    var update : (() -> Void)?
+    var delete : ((_: Device) -> Void)?
     var device: Device?
     var position: Int?
     
@@ -19,7 +19,11 @@ class DeviceViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let deviceUrl = URL(string: "http://\(device!.address)")
+        guard let deviceAddress = device?.address else {
+            return
+        }
+        
+        let deviceUrl = URL(string: "http://\(deviceAddress)")
         let request = URLRequest(url: deviceUrl!)
         webView.load(request)
         
@@ -35,7 +39,7 @@ class DeviceViewController: UIViewController, WKUIDelegate {
         
         
         UserDefaults().set(newCount, forKey: "count")
-        update?()
+        delete?(device!)
         navigationController?.popViewController(animated: true)
     }
     

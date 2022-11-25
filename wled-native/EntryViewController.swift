@@ -2,13 +2,16 @@ import UIKit
 
 class EntryViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet var field: UITextField!
+    @IBOutlet var addressField: UITextField!
+    @IBOutlet var nameField: UITextField!
     
-    var update : (() -> Void)?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var update : ((_: Device) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        field.delegate = self
+        addressField.delegate = self
+        nameField.delegate = self
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveDevice))
     }
@@ -19,18 +22,16 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func saveDevice() {
-        guard let text = field.text, !text.isEmpty else {
+        guard let address = addressField.text, !address.isEmpty else {
             return
         }
+        let name = nameField.text
         
-        guard let count = UserDefaults().value(forKey: "count") as? Int else {
-            return
-        }
-        UserDefaults().set(text, forKey: "device_\(count)")
-        let newCount = count + 1
-        UserDefaults().set(newCount, forKey: "count")
+        let device = Device(context: context)
+        device.address = address
+        device.name = name
         
-        update?()
+        update?(device)
         navigationController?.popViewController(animated: true)
     }
 }

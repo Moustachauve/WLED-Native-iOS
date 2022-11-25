@@ -3,6 +3,7 @@
     <device id="ipad7_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,30 +17,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="744" height="1133"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hJX-6G-LDw">
-                                <rect key="frame" x="20" y="44" width="704" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="tzM-kW-4NP"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="IP Address or URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hJX-6G-LDw" userLabel="address">
+                                <rect key="frame" x="20" y="24" width="704" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="continue" textContentType="url"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Custom Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W9H-Cv-xXk" userLabel="name">
+                                <rect key="frame" x="20" y="68" width="704" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="name"/>
+                            </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jGB-X3-17Q">
+                                <rect key="frame" x="675" y="112" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hide this Device" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HY4-qc-5og">
+                                <rect key="frame" x="22" y="117" width="633" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kmi-E5-uxb"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="hJX-6G-LDw" firstAttribute="leading" secondItem="Kmi-E5-uxb" secondAttribute="leading" constant="20" id="4Tm-RR-rSJ"/>
-                            <constraint firstItem="hJX-6G-LDw" firstAttribute="top" secondItem="Kmi-E5-uxb" secondAttribute="top" constant="20" id="ifX-Ly-RvQ"/>
+                            <constraint firstItem="W9H-Cv-xXk" firstAttribute="leading" secondItem="Kmi-E5-uxb" secondAttribute="leading" constant="20" id="EXY-dA-U2H"/>
+                            <constraint firstItem="jGB-X3-17Q" firstAttribute="top" secondItem="W9H-Cv-xXk" secondAttribute="bottom" constant="10" id="G8p-d5-ZXx"/>
+                            <constraint firstItem="HY4-qc-5og" firstAttribute="leading" secondItem="Kmi-E5-uxb" secondAttribute="leading" constant="22" id="QMQ-vb-Txh"/>
+                            <constraint firstItem="Kmi-E5-uxb" firstAttribute="trailing" secondItem="jGB-X3-17Q" secondAttribute="trailing" constant="20" id="QhG-MX-AZm"/>
+                            <constraint firstItem="jGB-X3-17Q" firstAttribute="leading" secondItem="HY4-qc-5og" secondAttribute="trailing" constant="20" id="bmR-BJ-pe7"/>
+                            <constraint firstItem="hJX-6G-LDw" firstAttribute="top" secondItem="Kmi-E5-uxb" secondAttribute="top" id="ifX-Ly-RvQ"/>
+                            <constraint firstItem="Kmi-E5-uxb" firstAttribute="trailing" secondItem="W9H-Cv-xXk" secondAttribute="trailing" constant="20" id="otV-te-qJt"/>
+                            <constraint firstItem="W9H-Cv-xXk" firstAttribute="top" secondItem="hJX-6G-LDw" secondAttribute="bottom" constant="10" id="pBC-by-S2w"/>
                             <constraint firstItem="Kmi-E5-uxb" firstAttribute="trailing" secondItem="hJX-6G-LDw" secondAttribute="trailing" constant="20" id="xUp-dv-NY7"/>
+                            <constraint firstItem="HY4-qc-5og" firstAttribute="centerY" secondItem="jGB-X3-17Q" secondAttribute="centerY" id="yOf-P8-JId"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="field" destination="hJX-6G-LDw" id="KOf-Be-g1r"/>
+                        <outlet property="addressField" destination="hJX-6G-LDw" id="8Ri-Iq-33H"/>
+                        <outlet property="nameField" destination="W9H-Cv-xXk" id="nbG-Xx-ZWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kl3-n8-cbp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056" y="632"/>
+            <point key="canvasLocation" x="1055.6451612903227" y="631.50926743159755"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -110,7 +131,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rFp-dt-yYr">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="lhh-Fy-1HR">
+                        <barButtonItem key="rightBarButtonItem" id="lhh-Fy-1HR">
+                            <imageReference key="image" image="plus" catalog="system" symbolScale="default"/>
                             <connections>
                                 <action selector="didTappAdd" destination="BYZ-38-t0r" id="CtG-FO-thU"/>
                             </connections>
@@ -144,8 +166,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bRt-E7-wJm" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4gA-GT-yZE">
-                        <rect key="frame" x="0.0" y="24" width="744" height="50"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="4gA-GT-yZE">
+                        <rect key="frame" x="0.0" y="24" width="744" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -159,6 +181,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

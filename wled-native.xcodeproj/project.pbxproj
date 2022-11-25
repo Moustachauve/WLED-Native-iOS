@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C96BF3F9291FFDE70011BC3B /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3F8291FFDE70011BC3B /* Device.swift */; };
 		C96BF3FD292007F30011BC3B /* DeviceControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */; };
+		C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */; };
+		C96BF4072930495D0011BC3B /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */; };
 		C9A9E5C12918D1C3005B5C22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C02918D1C3005B5C22 /* AppDelegate.swift */; };
 		C9A9E5C32918D1C3005B5C22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C22918D1C3005B5C22 /* SceneDelegate.swift */; };
 		C9A9E5C52918D1C3005B5C22 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C42918D1C3005B5C22 /* ViewController.swift */; };
@@ -20,8 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C96BF3F8291FFDE70011BC3B /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceControlCell.swift; sourceTree = "<group>"; };
+		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C9A9E5BD2918D1C3005B5C22 /* wled-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wled-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A9E5C02918D1C3005B5C22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A9E5C22918D1C3005B5C22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +50,7 @@
 		C96BF3F7291FFDC90011BC3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C96BF3F8291FFDE70011BC3B /* Device.swift */,
+				C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -83,6 +85,7 @@
 				C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */,
 				C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */,
 				C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */,
+				C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */,
 			);
 			path = "wled-native";
 			sourceTree = "<group>";
@@ -158,11 +161,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */,
+				C96BF4072930495D0011BC3B /* Device+CoreDataClass.swift in Sources */,
 				C9A9E5C52918D1C3005B5C22 /* ViewController.swift in Sources */,
 				C96BF3FD292007F30011BC3B /* DeviceControlCell.swift in Sources */,
 				C9A9E5D52918D5DB005B5C22 /* EntryViewController.swift in Sources */,
 				C9A9E5D72918D5FC005B5C22 /* DeviceViewController.swift in Sources */,
-				C96BF3F9291FFDE70011BC3B /* Device.swift in Sources */,
 				C9A9E5C12918D1C3005B5C22 /* AppDelegate.swift in Sources */,
 				C9A9E5C32918D1C3005B5C22 /* SceneDelegate.swift in Sources */,
 			);
@@ -380,6 +384,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */,
+			);
+			currentVersion = C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C9A9E5B52918D1C3005B5C22 /* Project object */;
 }
