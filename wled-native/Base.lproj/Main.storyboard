@@ -96,7 +96,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bEI-cx-CnN">
                                                     <rect key="frame" x="679" y="34.5" width="51" height="31"/>
                                                 </switch>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="K12-Yj-4nH">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="K12-Yj-4nH">
                                                     <rect key="frame" x="14" y="62" width="659" height="31"/>
                                                 </slider>
                                             </subviews>
@@ -114,7 +114,9 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="address" destination="rGF-br-exN" id="5Ow-qw-yRJ"/>
+                                            <outlet property="brightnessSlider" destination="K12-Yj-4nH" id="67Z-I3-zhs"/>
                                             <outlet property="name" destination="o2J-LI-vto" id="ZkB-QI-aWZ"/>
+                                            <outlet property="powerStatus" destination="bEI-cx-CnN" id="ye2-Gi-XgO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -156,6 +158,8 @@
                         <viewLayoutGuide key="safeArea" id="zSC-ua-Ncv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OOY-d4-dBE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

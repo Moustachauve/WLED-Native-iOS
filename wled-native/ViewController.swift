@@ -5,39 +5,64 @@ class ViewController: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet var tableView: UITableView!
+    let refreshControl = UIRefreshControl()
     
     var devices = [Device]()
+    let deviceApi = DeviceApi()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.title = "My Devices"
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        
+        tableView.addSubview(refreshControl)
         tableView.delegate = self
         tableView.dataSource = self
+        
         
         if !UserDefaults().bool(forKey: "setup") {
             UserDefaults().set(true, forKey: "setup")
             UserDefaults().set(0, forKey: "count")
         }
         // Get all devices
+        loadDevices()
         updateDevices()
     }
     
-    func updateDevices() {
+    @objc func refresh(_ sender: AnyObject) {
+        loadDevices()
+        updateDevices()
+    }
+    
+    func loadDevices() {
         do {
             devices = try context.fetch(Device.fetchRequest())
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            tableView.reloadData()
+            return
         } catch {
-            
+            print(error)
         }
     }
     
-    func saveDevices() {
+    func updateDevices() {
+        for device in devices {
+            deviceApi.updateDevice(device: device, completionHandler: { [weak self] device in
+                DispatchQueue.main.async {
+                    self!.saveDevices()
+                }
+            })
+        }
+    }
+    
+    func saveDevices(reloadDevices: Bool = true) {
         do {
             try context.save()
-            updateDevices()
+            
+            if (reloadDevices) {
+                loadDevices()
+            }
         } catch {
             
         }
@@ -90,6 +115,8 @@ extension ViewController: UITableViewDataSource {
         let device = devices[indexPath.row]
         cell.name?.text = device.name
         cell.address?.text = device.address
+        cell.powerStatus?.isOn = device.isPoweredOn
+        cell.brightnessSlider?.value = Float(device.brightness)
         return cell
     }
 }

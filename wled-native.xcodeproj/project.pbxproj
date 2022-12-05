@@ -18,6 +18,17 @@
 		C9A9E5CD2918D1C4005B5C22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5CB2918D1C4005B5C22 /* LaunchScreen.storyboard */; };
 		C9A9E5D52918D5DB005B5C22 /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */; };
 		C9A9E5D72918D5FC005B5C22 /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */; };
+		C9FCC380293DAF9500DEDDEA /* DeviceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */; };
+		C9FCC385293DB69F00DEDDEA /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC384293DB69F00DEDDEA /* State.swift */; };
+		C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC388293DB86900DEDDEA /* FileSystem.swift */; };
+		C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC38A293DB8A000DEDDEA /* JsonPost.swift */; };
+		C9FCC38F293DB90C00DEDDEA /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC38E293DB90C00DEDDEA /* Segment.swift */; };
+		C9FCC391293DB95500DEDDEA /* Wifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC390293DB95500DEDDEA /* Wifi.swift */; };
+		C9FCC393293DB9A500DEDDEA /* Nightlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC392293DB9A500DEDDEA /* Nightlight.swift */; };
+		C9FCC397293DBD1800DEDDEA /* DeviceStateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC396293DBD1800DEDDEA /* DeviceStateInfo.swift */; };
+		C9FCC3A3293DBD2200DEDDEA /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC3A0293DBD2200DEDDEA /* Info.swift */; };
+		C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC39C293DBD2200DEDDEA /* Leds.swift */; };
+		C9FCC3A5293DBD2200DEDDEA /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC398293DBD2200DEDDEA /* Segment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +45,17 @@
 		C9A9E5CE2918D1C4005B5C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
 		C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
+		C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceApi.swift; sourceTree = "<group>"; };
+		C9FCC384293DB69F00DEDDEA /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = "wled-native/Model/wledapi/State.swift"; sourceTree = SOURCE_ROOT; };
+		C9FCC388293DB86900DEDDEA /* FileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileSystem.swift; path = "wled-native/Model/wledapi/FileSystem.swift"; sourceTree = SOURCE_ROOT; };
+		C9FCC38A293DB8A000DEDDEA /* JsonPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonPost.swift; path = "wled-native/Model/wledapi/JsonPost.swift"; sourceTree = SOURCE_ROOT; };
+		C9FCC38E293DB90C00DEDDEA /* Segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Segment.swift; path = "wled-native/Model/wledapi/Segment.swift"; sourceTree = SOURCE_ROOT; };
+		C9FCC390293DB95500DEDDEA /* Wifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wifi.swift; path = "wled-native/Model/wledapi/Wifi.swift"; sourceTree = SOURCE_ROOT; };
+		C9FCC392293DB9A500DEDDEA /* Nightlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Nightlight.swift; path = "wled-native/Model/wledapi/Nightlight.swift"; sourceTree = SOURCE_ROOT; };
+		C9FCC396293DBD1800DEDDEA /* DeviceStateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStateInfo.swift; sourceTree = "<group>"; };
+		C9FCC398293DBD2200DEDDEA /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
+		C9FCC39C293DBD2200DEDDEA /* Leds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leds.swift; sourceTree = "<group>"; };
+		C9FCC3A0293DBD2200DEDDEA /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +72,7 @@
 		C96BF3F7291FFDC90011BC3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C9FCC381293DB18100DEDDEA /* wledapi */,
 				C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */,
 			);
 			path = Model;
@@ -60,6 +83,7 @@
 			children = (
 				C9A9E5BF2918D1C3005B5C22 /* wled-native */,
 				C9A9E5BE2918D1C3005B5C22 /* Products */,
+				C9FCC3AA293DC63900DEDDEA /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +98,7 @@
 		C9A9E5BF2918D1C3005B5C22 /* wled-native */ = {
 			isa = PBXGroup;
 			children = (
+				C9FCC37E293DAF8300DEDDEA /* Service */,
 				C96BF3F7291FFDC90011BC3B /* Model */,
 				C9A9E5C02918D1C3005B5C22 /* AppDelegate.swift */,
 				C9A9E5C22918D1C3005B5C22 /* SceneDelegate.swift */,
@@ -88,6 +113,38 @@
 				C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */,
 			);
 			path = "wled-native";
+			sourceTree = "<group>";
+		};
+		C9FCC37E293DAF8300DEDDEA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C9FCC381293DB18100DEDDEA /* wledapi */ = {
+			isa = PBXGroup;
+			children = (
+				C9FCC396293DBD1800DEDDEA /* DeviceStateInfo.swift */,
+				C9FCC388293DB86900DEDDEA /* FileSystem.swift */,
+				C9FCC3A0293DBD2200DEDDEA /* Info.swift */,
+				C9FCC38A293DB8A000DEDDEA /* JsonPost.swift */,
+				C9FCC39C293DBD2200DEDDEA /* Leds.swift */,
+				C9FCC392293DB9A500DEDDEA /* Nightlight.swift */,
+				C9FCC398293DBD2200DEDDEA /* Segment.swift */,
+				C9FCC384293DB69F00DEDDEA /* State.swift */,
+				C9FCC390293DB95500DEDDEA /* Wifi.swift */,
+			);
+			path = wledapi;
+			sourceTree = "<group>";
+		};
+		C9FCC3AA293DC63900DEDDEA /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				C9FCC38E293DB90C00DEDDEA /* Segment.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,13 +219,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */,
+				C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */,
+				C9FCC391293DB95500DEDDEA /* Wifi.swift in Sources */,
 				C96BF4072930495D0011BC3B /* Device+CoreDataClass.swift in Sources */,
+				C9FCC385293DB69F00DEDDEA /* State.swift in Sources */,
+				C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */,
+				C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */,
 				C9A9E5C52918D1C3005B5C22 /* ViewController.swift in Sources */,
 				C96BF3FD292007F30011BC3B /* DeviceControlCell.swift in Sources */,
 				C9A9E5D52918D5DB005B5C22 /* EntryViewController.swift in Sources */,
+				C9FCC393293DB9A500DEDDEA /* Nightlight.swift in Sources */,
+				C9FCC380293DAF9500DEDDEA /* DeviceApi.swift in Sources */,
+				C9FCC38F293DB90C00DEDDEA /* Segment.swift in Sources */,
 				C9A9E5D72918D5FC005B5C22 /* DeviceViewController.swift in Sources */,
+				C9FCC397293DBD1800DEDDEA /* DeviceStateInfo.swift in Sources */,
+				C9FCC3A5293DBD2200DEDDEA /* Segment.swift in Sources */,
 				C9A9E5C12918D1C3005B5C22 /* AppDelegate.swift in Sources */,
 				C9A9E5C32918D1C3005B5C22 /* SceneDelegate.swift in Sources */,
+				C9FCC3A3293DBD2200DEDDEA /* Info.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

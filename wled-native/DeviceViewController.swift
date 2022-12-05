@@ -18,7 +18,8 @@ class DeviceViewController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(deleteDevice))
+        
         guard let deviceAddress = device?.address else {
             return
         }
@@ -27,29 +28,10 @@ class DeviceViewController: UIViewController, WKUIDelegate {
         let request = URLRequest(url: deviceUrl!)
         webView.load(request)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(deleteDevice))
     }
 
     @objc func deleteDevice() {
-        guard let count = UserDefaults().value(forKey: "count") as? Int else {
-            return
-        }
-        let newCount = count - 1
-        downshiftOtherDevices(startFrom: position!, limit: count)
-        
-        
-        UserDefaults().set(newCount, forKey: "count")
         delete?(device!)
         navigationController?.popViewController(animated: true)
-    }
-    
-    func downshiftOtherDevices(startFrom: Int, limit: Int) {
-        if (startFrom == limit) {
-            return
-        }
-        let valToShift = UserDefaults().value(forKey: "device_\(startFrom + 1)")
-        UserDefaults().set(valToShift, forKey: "device_\(startFrom)")
-        
-        downshiftOtherDevices(startFrom: startFrom + 1, limit: limit)
     }
 }
