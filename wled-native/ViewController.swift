@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         
-        tableView.addSubview(refreshControl)
+        tableView.refreshControl = refreshControl
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     @objc func refresh(_ sender: AnyObject) {
         loadDevices()
         updateDevices()
+        refreshControl.endRefreshing()
     }
     
     func loadDevices() {
@@ -117,6 +118,24 @@ extension ViewController: UITableViewDataSource {
         cell.address?.text = device.address
         cell.powerStatus?.isOn = device.isPoweredOn
         cell.brightnessSlider?.value = Float(device.brightness)
+        
+        cell.powerStatus?.tag = indexPath.row
+        cell.powerStatus?.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+        
         return cell
+    }
+    
+    @objc func switchChanged(_ sender : UISwitch!) {
+        let device = devices[sender.tag]
+        print("table row switch Changed \(sender.tag):\(device.address)")
+        print("The switch is \(sender.isOn ? "ON" : "OFF")")
+        
+        let postParam = JsonPost(isOn: sender.isOn)
+        print(postParam)
+        deviceApi.postJson(device: device, jsonData: postParam) { Device in
+            DispatchQueue.main.async {
+                self.saveDevices()
+            }
+        }
     }
 }

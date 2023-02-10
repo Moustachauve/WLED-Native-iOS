@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct JsonPost: Decodable {
+struct JsonPost: Decodable, Encodable {
     var isOn : Bool?
     var brightness : Int64?
 
