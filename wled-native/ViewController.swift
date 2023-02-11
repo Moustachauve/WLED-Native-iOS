@@ -133,6 +133,7 @@ extension ViewController: UITableViewDataSource {
         cell.brightnessSlider?.tag = indexPath.row
         cell.brightnessSlider?.addTarget(self, action: #selector(self.brightnessChanged(_:)), for: .valueChanged)
         
+        cell.signalImage?.image = UIImage(systemName: getSignalImage(signalStrength: Int(device.networkRssi)), variableValue: getSignalValue(signalStrength: Int(device.networkRssi)))
         
         return cell
     }
@@ -186,5 +187,25 @@ extension ViewController: UITableViewDataSource {
         color.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         b = traitCollection.userInterfaceStyle == .dark ? fmax(b, 0.2) : fmin(b, 0.75)
         return UIColor(hue: h, saturation: s, brightness: b, alpha: a)
+    }
+    
+    func getSignalImage(signalStrength: Int) -> String {
+        if (signalStrength == 0) {
+            return "wifi.slash"
+        }
+        return "wifi"
+    }
+    
+    func getSignalValue(signalStrength: Int) -> Double {
+        if (signalStrength >= -70) {
+            return 1
+        }
+        if (signalStrength >= -85) {
+            return 0.64
+        }
+        if (signalStrength >= -100) {
+            return 0.33
+        }
+        return 0
     }
 }

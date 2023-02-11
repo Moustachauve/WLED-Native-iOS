@@ -82,13 +82,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2J-LI-vto">
-                                                    <rect key="frame" x="16" y="11" width="121" height="24"/>
+                                                    <rect key="frame" x="16" y="11" width="121" height="23"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.slash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bb5-4b-pd8" userLabel="signal">
+                                                    <rect key="frame" x="75" y="34" width="22.5" height="25"/>
+                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGF-br-exN">
-                                                    <rect key="frame" x="16" y="38" width="51" height="20"/>
+                                                    <rect key="frame" x="16" y="37" width="51" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -101,9 +104,13 @@
                                                 </slider>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="bb5-4b-pd8" firstAttribute="centerY" secondItem="rGF-br-exN" secondAttribute="centerY" id="JwR-di-hNm"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="leading" secondItem="K12-Yj-4nH" secondAttribute="trailing" constant="8" id="KGk-tE-o2d"/>
+                                                <constraint firstItem="bb5-4b-pd8" firstAttribute="leading" secondItem="rGF-br-exN" secondAttribute="trailing" constant="8" symbolic="YES" id="Mzn-k0-at0"/>
+                                                <constraint firstItem="bb5-4b-pd8" firstAttribute="top" secondItem="JDg-U9-qUc" secondAttribute="topMargin" constant="23" id="XIY-hS-nMz"/>
                                                 <constraint firstItem="rGF-br-exN" firstAttribute="leading" secondItem="JDg-U9-qUc" secondAttribute="leadingMargin" id="eEO-7t-FGU"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="trailing" secondItem="JDg-U9-qUc" secondAttribute="trailingMargin" id="hBI-3P-Rke"/>
+                                                <constraint firstItem="bb5-4b-pd8" firstAttribute="baseline" secondItem="rGF-br-exN" secondAttribute="baseline" id="iAf-bB-lA2"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="centerY" secondItem="JDg-U9-qUc" secondAttribute="centerY" id="iPE-gH-ouX"/>
                                                 <constraint firstItem="K12-Yj-4nH" firstAttribute="top" secondItem="rGF-br-exN" secondAttribute="bottom" constant="4" id="jRz-QC-USS"/>
                                                 <constraint firstItem="o2J-LI-vto" firstAttribute="leading" secondItem="JDg-U9-qUc" secondAttribute="leadingMargin" id="kxO-NR-jWL"/>
@@ -117,6 +124,7 @@
                                             <outlet property="brightnessSlider" destination="K12-Yj-4nH" id="67Z-I3-zhs"/>
                                             <outlet property="name" destination="o2J-LI-vto" id="ZkB-QI-aWZ"/>
                                             <outlet property="powerStatus" destination="bEI-cx-CnN" id="ye2-Gi-XgO"/>
+                                            <outlet property="signalImage" destination="bb5-4b-pd8" id="CNC-qz-cBu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -186,6 +194,7 @@
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="wifi.slash" catalog="system" width="128" height="101"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
