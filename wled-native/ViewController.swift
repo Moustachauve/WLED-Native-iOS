@@ -7,6 +7,8 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     let refreshControl = UIRefreshControl()
     
+    var refreshTimer: Timer?
+
     var devices = [Device]()
     let deviceApi = DeviceApi()
     
@@ -29,9 +31,12 @@ class ViewController: UIViewController {
         // Get all devices
         loadDevices()
         updateDevices()
+        
+        refreshTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
     }
     
     @objc func refresh(_ sender: AnyObject) {
+        print("refreshing...")
         loadDevices()
         updateDevices()
         refreshControl.endRefreshing()
@@ -116,11 +121,18 @@ extension ViewController: UITableViewDataSource {
         let device = devices[indexPath.row]
         cell.name?.text = device.name
         cell.address?.text = device.address
-        cell.powerStatus?.isOn = device.isPoweredOn
-        cell.brightnessSlider?.value = Float(device.brightness)
         
+        cell.powerStatus?.isOn = device.isPoweredOn
+        cell.powerStatus?.onTintColor = uiColorFromHex(rgbValue: Int(device.color))
         cell.powerStatus?.tag = indexPath.row
         cell.powerStatus?.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+        
+        cell.brightnessSlider?.value = Float(device.brightness)
+        cell.brightnessSlider?.tintColor = uiColorFromHex(rgbValue: Int(device.color))
+        cell.brightnessSlider?.maximumTrackTintColor = uiColorFromHex(rgbValue: Int(device.color), alpha: 0.3)
+        cell.brightnessSlider?.tag = indexPath.row
+        cell.brightnessSlider?.addTarget(self, action: #selector(self.brightnessChanged(_:)), for: .valueChanged)
+        
         
         return cell
     }
@@ -137,5 +149,42 @@ extension ViewController: UITableViewDataSource {
                 self.saveDevices()
             }
         }
+    }
+    
+    
+    @objc func brightnessChanged(_ sender : UISlider!) {
+        let device = devices[sender.tag]
+        print("table row brightness Changed \(sender.tag):\(device.address)")
+        print("The switch is \(sender.value)")
+        
+        let postParam = JsonPost(brightness: Int64(sender.value))
+        print(postParam)
+        deviceApi.postJson(device: device, jsonData: postParam) { Device in
+            DispatchQueue.main.async {
+                self.saveDevices()
+            }
+        }
+    }
+    
+    func uiColorFromHex(rgbValue: Int, alpha: Double? = 1.0) -> UIColor {
+        
+        // &  binary AND operator to zero out other color values
+        // >>  bitwise right shift operator
+        // Divide by 0xFF because UIColor takes CGFloats between 0.0 and 1.0
+        
+        let red =   CGFloat((rgbValue & 0xFF0000) >> 16) / 0xFF
+        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 0xFF
+        let blue =  CGFloat(rgbValue & 0x0000FF) / 0xFF
+        let alpha = CGFloat(alpha ?? 1.0)
+        
+        return fixColor(color: UIColor(red: red, green: green, blue: blue, alpha: alpha))
+    }
+    
+    // Fixes the color if it is too dark or too bright depending of the dark/light theme
+    func fixColor(color: UIColor) -> UIColor {
+        var h = CGFloat(0), s = CGFloat(0), b = CGFloat(0), a = CGFloat(0)
+        color.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        b = traitCollection.userInterfaceStyle == .dark ? fmax(b, 0.2) : fmin(b, 0.75)
+        return UIColor(hue: h, saturation: s, brightness: b, alpha: a)
     }
 }

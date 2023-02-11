@@ -77,6 +77,13 @@ class DeviceApi {
                 device.isRefreshing = false
                 device.networkRssi = deviceStateInfo.info.wifi.rssi ?? 0
                 
+                
+                let colorInfo = deviceStateInfo.state.segment?[0].colors?[0]
+                let red = Int64(Double(colorInfo![0]) + 0.5)
+                let green = Int64(Double(colorInfo![1]) + 0.5)
+                let blue = Int64(Double(colorInfo![2]) + 0.5)
+                device.color = (red << 16) | (green << 8) | blue
+                
                 completionHandler(device)
                 
             } catch {
