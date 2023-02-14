@@ -12,6 +12,9 @@ class ViewController: UIViewController {
     var devices = [Device]()
     let deviceApi = DeviceApi()
     
+    let serviceBrowser = NetServiceBrowser()
+    var services = [NetService]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "My Devices"
@@ -33,6 +36,10 @@ class ViewController: UIViewController {
         updateDevices()
         
         refreshTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
+        
+        services.removeAll()
+        serviceBrowser.delegate = self
+        serviceBrowser.searchForServices(ofType: "_wled._tcp.", inDomain: "")
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -54,6 +61,9 @@ class ViewController: UIViewController {
     
     func updateDevices() {
         for device in devices {
+            if (device.address == nil) {
+                return
+            }
             deviceApi.updateDevice(device: device, completionHandler: { [weak self] device in
                 DispatchQueue.main.async {
                     self!.saveDevices()
@@ -81,6 +91,47 @@ class ViewController: UIViewController {
             self.saveDevices()
         }
         navigationController?.pushViewController(entryViewController, animated: true)
+    }
+}
+
+extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
+    func updateInterface () {
+        for service in self.services {
+            if service.port == -1 {
+                service.delegate = self
+                service.resolve(withTimeout:10)
+            }
+        }
+    }
+    
+    @objc func netServiceBrowser(_ serviceBrowser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
+        print("Detecting a device")
+        self.services.append(service)
+        if (!moreComing) {
+            updateInterface()
+        }
+    }
+    
+    @objc func netServiceDidResolveAddress(_ sender: NetService) {
+        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+        guard let data = sender.addresses?.first else { return }
+        data.withUnsafeBytes { ptr in
+            guard let sockaddr_ptr = ptr.baseAddress?.assumingMemoryBound(to: sockaddr.self) else {
+                // handle error
+                return
+            }
+            var sockaddr = sockaddr_ptr.pointee
+            guard getnameinfo(sockaddr_ptr, socklen_t(sockaddr.sa_len), &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 else {
+                return
+            }
+        }
+        let ipAddress = String(cString:hostname)
+        print("discovered " + ipAddress)
+        //let device = Device(context: context)
+        //device.address = ipAddress
+        //device.name = sender.name
+        //updateDevices()
+        //self.updateInterface()
     }
 }
 
