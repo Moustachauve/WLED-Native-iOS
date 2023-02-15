@@ -18,6 +18,7 @@ class DeviceViewController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .dark
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(deleteDevice))
         
         guard let deviceAddress = device?.address else {
@@ -28,6 +29,16 @@ class DeviceViewController: UIViewController, WKUIDelegate {
         let request = URLRequest(url: deviceUrl!)
         webView.load(request)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isTranslucent = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isTranslucent = true
     }
 
     @objc func deleteDevice() {

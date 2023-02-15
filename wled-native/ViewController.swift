@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "My Devices"
+        setLogoInTitle()
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
@@ -40,6 +40,14 @@ class ViewController: UIViewController {
         services.removeAll()
         serviceBrowser.delegate = self
         serviceBrowser.searchForServices(ofType: "_wled._tcp.", inDomain: "")
+    }
+    
+    func setLogoInTitle() {
+        let logo = UIImage(named: "wled_logo_akemi")
+        let logoImageView = UIImageView(image: logo)
+        logoImageView.contentMode = .scaleAspectFit
+
+        navigationItem.titleView = logoImageView
     }
     
     @objc func refresh(_ sender: AnyObject) {

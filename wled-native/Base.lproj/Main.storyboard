@@ -178,9 +178,15 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bRt-E7-wJm" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="4gA-GT-yZE">
-                        <rect key="frame" x="0.0" y="24" width="744" height="102"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4gA-GT-yZE">
+                        <rect key="frame" x="0.0" y="24" width="744" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -195,6 +201,9 @@
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="wifi.slash" catalog="system" width="128" height="101"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
