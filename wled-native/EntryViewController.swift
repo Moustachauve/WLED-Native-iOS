@@ -22,6 +22,8 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func saveDevice() {
+        // TODO Add validation that the address doesnt return nil when passed to URL(string:)
+        // TODO Add error message in the interface
         guard let address = addressField.text, !address.isEmpty else {
             return
         }

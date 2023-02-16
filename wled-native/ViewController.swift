@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLogoInTitle()
+        setMenu()
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
@@ -25,7 +26,6 @@ class ViewController: UIViewController {
         tableView.refreshControl = refreshControl
         tableView.delegate = self
         tableView.dataSource = self
-        
         
         if !UserDefaults().bool(forKey: "setup") {
             UserDefaults().set(true, forKey: "setup")
@@ -50,11 +50,48 @@ class ViewController: UIViewController {
         navigationItem.titleView = logoImageView
     }
     
+    func setMenu() {
+        let barButtonMenu = UIMenu(title: "", children: [
+            UIAction(title: NSLocalizedString("Add New Device", comment: ""), image: UIImage(systemName: "plus"), handler: menuAddDevice),
+            UIAction(title: NSLocalizedString("Refresh", comment: ""), image: UIImage(systemName: "arrow.clockwise"), handler: menuRefresh),
+            UIAction(title: NSLocalizedString("Manage Devices", comment: ""), image: UIImage(systemName: "square.and.pencil"), handler: menuManageDevices)
+        ])
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: barButtonMenu)
+    }
+    
     @objc func refresh(_ sender: AnyObject) {
         print("refreshing...")
         loadDevices()
         updateDevices()
         refreshControl.endRefreshing()
+    }
+    
+    func menuAddDevice(_ sender: AnyObject) {
+        let entryViewController = storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
+        entryViewController.title = "New Device"
+        entryViewController.update = { (device: Device) -> Void in
+            self.saveDevices()
+        }
+        navigationController?.pushViewController(entryViewController, animated: true)
+    }
+    
+    func menuRefresh(_ sender: AnyObject) {
+        refresh(sender)
+    }
+    
+    func menuManageDevices(_ sender: AnyObject) {
+        // TODO: remove slider/switch when in edit mode
+        // TODO: Clicking device opens edit page
+        // TODO: Clicking delete button deletes it
+        // TODO: Add single edit mode with edit and delete button
+        tableView.setEditing(true, animated: true)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(menuDoneManageDevice))
+    }
+    
+    @objc func menuDoneManageDevice(_ sender: AnyObject) {
+        
+            tableView.setEditing(false, animated: true)
+        setMenu()
     }
     
     func loadDevices() {
@@ -90,15 +127,6 @@ class ViewController: UIViewController {
         } catch {
             
         }
-    }
-
-    @IBAction func didTappAdd() {
-        let entryViewController = storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
-        entryViewController.title = "New Device"
-        entryViewController.update = { (device: Device) -> Void in
-            self.saveDevices()
-        }
-        navigationController?.pushViewController(entryViewController, animated: true)
     }
 }
 
@@ -178,7 +206,7 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "deviceCell", for: indexPath) as! DeviceControlCell
         
         let device = devices[indexPath.row]
-        cell.name?.text = device.name
+        cell.name?.text = (device.name?.isEmpty ?? false) ? "(New Device)" : device.name
         cell.address?.text = device.address
         
         cell.powerStatus?.isOn = device.isPoweredOn

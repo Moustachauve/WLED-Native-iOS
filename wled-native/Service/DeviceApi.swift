@@ -4,8 +4,12 @@ class DeviceApi {
     func updateDevice(device: Device, completionHandler: @escaping (Device) -> Void) {
         let url = getJsonApiUrl(device: device, path: "json/si")
         print(url)
+        if (url == nil) {
+            print("Can't update device, url nil")
+            return
+        }
         
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
             if let error = error {
                 print("Error with fetching device: \(error)")
                 return
@@ -24,10 +28,15 @@ class DeviceApi {
     
     func postJson(device: Device, jsonData: JsonPost, completionHandler: @escaping (Device) -> Void) {
         let url = getJsonApiUrl(device: device, path: "json")
+        print(url)
+        if (url == nil) {
+            print("Can't post to device, url nil")
+            return
+        }
         do {
             let jsonData = try JSONEncoder().encode(jsonData)
             
-            var request = URLRequest(url: url)
+            var request = URLRequest(url: url!)
             request.httpMethod = "post"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
@@ -51,8 +60,10 @@ class DeviceApi {
         }
     }
     
-    private func getJsonApiUrl(device: Device, path: String) -> URL {
-        return URL(string: "http://\(device.address!)/\(path)")!
+    private func getJsonApiUrl(device: Device, path: String) -> URL? {
+        let urlString = "http://\(device.address!)/\(path)"
+        print(urlString)
+        return URL(string: urlString)
     }
     
     private func onResultFetchDataSuccess(device: Device, completionHandler: @escaping (Device) -> Void, data: Data?) {
