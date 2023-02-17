@@ -67,9 +67,7 @@ class DeviceApi {
     }
     
     private func onResultFetchDataSuccess(device: Device, completionHandler: @escaping (Device) -> Void, data: Data?) {
-            guard var data = data else { return }
-            print("JSON String: \(String(data: data, encoding: .utf8))")
-            
+            guard var data = data else { return }            
             do {
                 let deviceStateInfo = try JSONDecoder().decode(DeviceStateInfo.self, from: data)
                 print(deviceStateInfo.info.name)

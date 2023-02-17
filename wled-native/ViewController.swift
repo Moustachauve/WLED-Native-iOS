@@ -34,8 +34,7 @@ class ViewController: UIViewController {
         // Get all devices
         loadDevices()
         updateDevices()
-        
-        refreshTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
+        startTimer()
         
         services.removeAll()
         serviceBrowser.delegate = self
@@ -52,6 +51,7 @@ class ViewController: UIViewController {
     
     func setMenu() {
         let barButtonMenu = UIMenu(title: "", children: [
+            // TODO: Add button to toggle showing hidden devices
             UIAction(title: NSLocalizedString("Add New Device", comment: ""), image: UIImage(systemName: "plus"), handler: menuAddDevice),
             UIAction(title: NSLocalizedString("Refresh", comment: ""), image: UIImage(systemName: "arrow.clockwise"), handler: menuRefresh),
             UIAction(title: NSLocalizedString("Manage Devices", comment: ""), image: UIImage(systemName: "square.and.pencil"), handler: menuManageDevices)
@@ -82,22 +82,24 @@ class ViewController: UIViewController {
     func menuManageDevices(_ sender: AnyObject) {
         // TODO: remove slider/switch when in edit mode
         // TODO: Clicking device opens edit page
-        // TODO: Clicking delete button deletes it
-        // TODO: Add single edit mode with edit and delete button
         tableView.setEditing(true, animated: true)
+        stopTimer()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(menuDoneManageDevice))
     }
     
     @objc func menuDoneManageDevice(_ sender: AnyObject) {
-        
-            tableView.setEditing(false, animated: true)
+        tableView.setEditing(false, animated: true)
         setMenu()
+        startTimer()
+        refresh(self)
     }
     
     func loadDevices() {
         do {
             devices = try context.fetch(Device.fetchRequest())
-            tableView.reloadData()
+            if (!tableView.isEditing) {
+                tableView.reloadData()
+            }
             return
         } catch {
             print(error)
@@ -128,6 +130,15 @@ class ViewController: UIViewController {
             
         }
     }
+    
+    func startTimer() {
+        refreshTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
+    }
 }
 
 extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
@@ -156,18 +167,28 @@ extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
                 // handle error
                 return
             }
-            var sockaddr = sockaddr_ptr.pointee
+            let sockaddr = sockaddr_ptr.pointee
             guard getnameinfo(sockaddr_ptr, socklen_t(sockaddr.sa_len), &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 else {
                 return
             }
         }
         let ipAddress = String(cString:hostname)
+        
+        // TODO: Maybe not loop over the whole thing, using hashtable? idk
+        for device in devices {
+            if (device.address == ipAddress) {
+                // We already have a device with the same IP
+                print("re-discovered " + ipAddress + ", abort")
+                return
+            }
+        }
+        
         print("discovered " + ipAddress)
-        //let device = Device(context: context)
-        //device.address = ipAddress
-        //device.name = sender.name
-        //updateDevices()
-        //self.updateInterface()
+        let device = Device(context: context)
+        device.address = ipAddress
+        device.name = sender.name
+        saveDevices()
+        updateDevices()
     }
 }
 
@@ -189,6 +210,49 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            print("delete button clicked at \(indexPath.section)\\\(indexPath.row)")
+            self.context.delete(devices[indexPath.row])
+            self.saveDevices()
+            
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            print("insert button clicked at \(indexPath.section)\\\(indexPath.row)")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        print("trailingSwipeActionsConfigurationForRowAt called, is Editing \(tableView.isEditing)")
+        stopTimer()
+            
+        let add = UIContextualAction(style: .normal, title: "Edit") { (action, view, completion ) in
+            print("edit called, table is Editing \(tableView.isEditing)")
+            let alert = UIAlertController(title: "Coming Soon...", message: "This feature is not ready yet.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            completion(true)
+        }
+        add.backgroundColor = UIColor.link
+        
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion ) in
+            print("delete called, table is Editing \(tableView.isEditing)")
+            self.context.delete(self.devices[indexPath.row])
+            self.saveDevices()
+            self.tableView.deleteRows(at: [indexPath], with: .none)
+            completion(true)
+        }
+        let config = UISwipeActionsConfiguration(actions: [delete, add])
+        return config
+    }
+    
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        print("didEndEditingRowAt called, is finished editing \(tableView.isEditing)")
+        startTimer()
+        refresh(self)
     }
 }
 
