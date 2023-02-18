@@ -34,6 +34,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         device.address = address
         device.name = name
         device.isHidden = isHiddenSwitch.isOn
+        device.isOnline = false
         
         update?(device)
         navigationController?.popViewController(animated: true)

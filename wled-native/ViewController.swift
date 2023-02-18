@@ -34,8 +34,7 @@ class ViewController: UIViewController {
             UserDefaults().set(0, forKey: "count")
         }
         // Get all devices
-        loadDevices()
-        updateDevices()
+        refresh(self)
         startTimer()
         
         services.removeAll()
@@ -53,7 +52,6 @@ class ViewController: UIViewController {
     
     func setMenu() {
         let barButtonMenu = UIMenu(title: "", children: [
-            // TODO: Add button to toggle showing hidden devices
             UIAction(title: NSLocalizedString("Add New Device", comment: ""), image: UIImage(systemName: "plus"), handler: menuAddDevice),
             UIAction(title: NSLocalizedString("Show Hidden Devices", comment: ""), image: UIImage(systemName: "eye"), state: (showHiddenDevices ? .on : .off), handler: toggleShowHidden),
             UIAction(title: NSLocalizedString("Refresh", comment: ""), image: UIImage(systemName: "arrow.clockwise"), handler: menuRefresh),
@@ -81,7 +79,7 @@ class ViewController: UIViewController {
     func toggleShowHidden(_ sender: AnyObject) {
         showHiddenDevices = !showHiddenDevices
         setMenu()
-        loadDevices()
+        refresh(self)
     }
     
     func menuRefresh(_ sender: AnyObject) {
@@ -106,7 +104,14 @@ class ViewController: UIViewController {
     func loadDevices() {
         do {
             let request = Device.fetchRequest()
-            request.predicate = NSPredicate(format: "isHidden == %@ || isHidden == nil", NSNumber(value: showHiddenDevices))
+            if (!showHiddenDevices) {
+                request.predicate = NSPredicate(format: "isHidden == %@ || isHidden == nil", NSNumber(value: showHiddenDevices))
+            }
+            request.sortDescriptors = [
+                NSSortDescriptor(key: #keyPath(Device.isOnline), ascending: false),
+                NSSortDescriptor(key: #keyPath(Device.name), ascending: true),
+                NSSortDescriptor(key: #keyPath(Device.address), ascending: true),
+            ]
             devices = try context.fetch(request)
             if (!tableView.isEditing) {
                 tableView.reloadData()
