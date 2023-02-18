@@ -55,6 +55,7 @@
                     </view>
                     <connections>
                         <outlet property="addressField" destination="hJX-6G-LDw" id="8Ri-Iq-33H"/>
+                        <outlet property="isHiddenSwitch" destination="jGB-X3-17Q" id="3Xf-PD-x8q"/>
                         <outlet property="nameField" destination="W9H-Cv-xXk" id="nbG-Xx-ZWI"/>
                     </connections>
                 </viewController>

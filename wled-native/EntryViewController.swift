@@ -4,6 +4,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var addressField: UITextField!
     @IBOutlet var nameField: UITextField!
+    @IBOutlet var isHiddenSwitch: UISwitch!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var update : ((_: Device) -> Void)?
@@ -32,6 +33,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         let device = Device(context: context)
         device.address = address
         device.name = name
+        device.isHidden = isHiddenSwitch.isOn
         
         update?(device)
         navigationController?.popViewController(animated: true)

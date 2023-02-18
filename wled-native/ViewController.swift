@@ -9,6 +9,8 @@ class ViewController: UIViewController {
     
     var refreshTimer: Timer?
 
+    var showHiddenDevices = false
+    
     var devices = [Device]()
     let deviceApi = DeviceApi()
     
@@ -53,6 +55,7 @@ class ViewController: UIViewController {
         let barButtonMenu = UIMenu(title: "", children: [
             // TODO: Add button to toggle showing hidden devices
             UIAction(title: NSLocalizedString("Add New Device", comment: ""), image: UIImage(systemName: "plus"), handler: menuAddDevice),
+            UIAction(title: NSLocalizedString("Show Hidden Devices", comment: ""), image: UIImage(systemName: "eye"), state: (showHiddenDevices ? .on : .off), handler: toggleShowHidden),
             UIAction(title: NSLocalizedString("Refresh", comment: ""), image: UIImage(systemName: "arrow.clockwise"), handler: menuRefresh),
             UIAction(title: NSLocalizedString("Manage Devices", comment: ""), image: UIImage(systemName: "square.and.pencil"), handler: menuManageDevices)
         ])
@@ -73,6 +76,12 @@ class ViewController: UIViewController {
             self.saveDevices()
         }
         navigationController?.pushViewController(entryViewController, animated: true)
+    }
+    
+    func toggleShowHidden(_ sender: AnyObject) {
+        showHiddenDevices = !showHiddenDevices
+        setMenu()
+        loadDevices()
     }
     
     func menuRefresh(_ sender: AnyObject) {
@@ -96,7 +105,9 @@ class ViewController: UIViewController {
     
     func loadDevices() {
         do {
-            devices = try context.fetch(Device.fetchRequest())
+            let request = Device.fetchRequest()
+            request.predicate = NSPredicate(format: "isHidden == %@ || isHidden == nil", NSNumber(value: showHiddenDevices))
+            devices = try context.fetch(request)
             if (!tableView.isEditing) {
                 tableView.reloadData()
             }
@@ -270,7 +281,12 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "deviceCell", for: indexPath) as! DeviceControlCell
         
         let device = devices[indexPath.row]
-        cell.name?.text = (device.name?.isEmpty ?? false) ? "(New Device)" : device.name
+        var deviceName = (device.name?.isEmpty ?? false) ? "(New Device)" : device.name
+        if (device.isHidden) {
+            deviceName! += " [HIDDEN]"
+        }
+        
+        cell.name?.text = deviceName
         cell.address?.text = device.address
         
         cell.powerStatus?.isOn = device.isPoweredOn
