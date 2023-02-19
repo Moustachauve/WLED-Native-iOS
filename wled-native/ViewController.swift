@@ -87,8 +87,6 @@ class ViewController: UIViewController {
     }
     
     func menuManageDevices(_ sender: AnyObject) {
-        // TODO: remove slider/switch when in edit mode
-        // TODO: Clicking device opens edit page
         tableView.setEditing(true, animated: true)
         stopTimer()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(menuDoneManageDevice))
@@ -127,6 +125,7 @@ class ViewController: UIViewController {
             if (device.address == nil) {
                 return
             }
+            // TODO: merge diff to prevent reloading the whole thing
             deviceApi.updateDevice(device: device, completionHandler: { [weak self] device in
                 DispatchQueue.main.async {
                     self!.saveDevices()
@@ -154,6 +153,12 @@ class ViewController: UIViewController {
     func stopTimer() {
         refreshTimer?.invalidate()
         refreshTimer = nil
+    }
+    
+    func openEditDevice(device: Device) {
+        let alert = UIAlertController(title: "Coming Soon...", message: "This feature is not ready yet.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -211,17 +216,21 @@ extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let device = devices[indexPath.row]
         
-        let deviceViewController = storyboard?.instantiateViewController(withIdentifier: "device") as! DeviceViewController
-        deviceViewController.title = devices[indexPath.row].name
-        deviceViewController.position = indexPath.row
-        deviceViewController.device = devices[indexPath.row]
-        deviceViewController.delete = { (device: Device) -> Void in
-            self.context.delete(device)
-            self.saveDevices()
+        if (tableView.isEditing) {
+            openEditDevice(device: device)
+        } else {
+            let deviceViewController = storyboard?.instantiateViewController(withIdentifier: "device") as! DeviceViewController
+            deviceViewController.title = device.name
+            deviceViewController.position = indexPath.row
+            deviceViewController.device = device
+            deviceViewController.delete = { (device: Device) -> Void in
+                self.context.delete(device)
+                self.saveDevices()
+            }
+            navigationController?.pushViewController(deviceViewController, animated: true)
         }
-        
-        navigationController?.pushViewController(deviceViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -247,9 +256,7 @@ extension ViewController: UITableViewDelegate {
             
         let add = UIContextualAction(style: .normal, title: "Edit") { (action, view, completion ) in
             print("edit called, table is Editing \(tableView.isEditing)")
-            let alert = UIAlertController(title: "Coming Soon...", message: "This feature is not ready yet.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            self.openEditDevice(device: self.devices[indexPath.row])
             completion(true)
         }
         add.backgroundColor = UIColor.link

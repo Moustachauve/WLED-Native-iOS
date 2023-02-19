@@ -71,7 +71,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="744" height="1133"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JbA-Mj-jIz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JbA-Mj-jIz">
                                 <rect key="frame" x="0.0" y="74" width="744" height="1039"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -103,29 +103,43 @@
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="255" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K12-Yj-4nH">
                                                     <rect key="frame" x="14" y="58.5" width="659" height="31"/>
                                                 </slider>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kDa-og-wFb">
+                                                    <rect key="frame" x="691" y="39.5" width="25" height="21.5"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rVk-3p-3lK">
+                                                    <rect key="frame" x="716" y="40" width="16" height="21"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="kDa-og-wFb" firstAttribute="centerY" secondItem="bEI-cx-CnN" secondAttribute="centerY" id="5qh-zu-Ik2"/>
                                                 <constraint firstItem="bb5-4b-pd8" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="bEI-cx-CnN" secondAttribute="leading" constant="-8" id="AH9-hh-0dg"/>
                                                 <constraint firstItem="bb5-4b-pd8" firstAttribute="centerY" secondItem="rGF-br-exN" secondAttribute="centerY" id="JwR-di-hNm"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="leading" secondItem="K12-Yj-4nH" secondAttribute="trailing" constant="8" id="KGk-tE-o2d"/>
                                                 <constraint firstItem="bb5-4b-pd8" firstAttribute="leading" secondItem="rGF-br-exN" secondAttribute="trailing" constant="8" symbolic="YES" id="Mzn-k0-at0"/>
                                                 <constraint firstItem="o2J-LI-vto" firstAttribute="trailing" secondItem="bEI-cx-CnN" secondAttribute="leading" constant="-14" id="SpF-ef-y4y"/>
+                                                <constraint firstItem="kDa-og-wFb" firstAttribute="top" secondItem="JDg-U9-qUc" secondAttribute="topMargin" constant="26" id="WxD-1d-ilQ"/>
                                                 <constraint firstItem="bb5-4b-pd8" firstAttribute="top" secondItem="JDg-U9-qUc" secondAttribute="topMargin" constant="23" id="XIY-hS-nMz"/>
+                                                <constraint firstItem="kDa-og-wFb" firstAttribute="centerY" secondItem="rVk-3p-3lK" secondAttribute="centerY" id="XVk-VN-hN4"/>
                                                 <constraint firstItem="rGF-br-exN" firstAttribute="leading" secondItem="JDg-U9-qUc" secondAttribute="leadingMargin" id="eEO-7t-FGU"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="trailing" secondItem="JDg-U9-qUc" secondAttribute="trailingMargin" id="hBI-3P-Rke"/>
                                                 <constraint firstItem="bb5-4b-pd8" firstAttribute="baseline" secondItem="rGF-br-exN" secondAttribute="baseline" id="iAf-bB-lA2"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="centerY" secondItem="JDg-U9-qUc" secondAttribute="centerY" id="iPE-gH-ouX"/>
                                                 <constraint firstItem="K12-Yj-4nH" firstAttribute="top" secondItem="rGF-br-exN" secondAttribute="bottom" constant="4" id="jRz-QC-USS"/>
                                                 <constraint firstItem="o2J-LI-vto" firstAttribute="leading" secondItem="JDg-U9-qUc" secondAttribute="leadingMargin" id="kxO-NR-jWL"/>
+                                                <constraint firstItem="kDa-og-wFb" firstAttribute="leading" secondItem="K12-Yj-4nH" secondAttribute="trailing" constant="20" id="mVM-N4-XfS"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="o2J-LI-vto" secondAttribute="trailing" constant="63" id="mcW-u9-za7"/>
                                                 <constraint firstItem="o2J-LI-vto" firstAttribute="top" secondItem="JDg-U9-qUc" secondAttribute="topMargin" id="ogz-Ee-eCQ"/>
                                                 <constraint firstItem="K12-Yj-4nH" firstAttribute="leading" secondItem="JDg-U9-qUc" secondAttribute="leadingMargin" id="pOF-Z2-pbf"/>
                                                 <constraint firstItem="rGF-br-exN" firstAttribute="top" secondItem="o2J-LI-vto" secondAttribute="bottom" constant="3" id="rUM-g2-Sah"/>
+                                                <constraint firstItem="kDa-og-wFb" firstAttribute="centerX" secondItem="bEI-cx-CnN" secondAttribute="centerX" id="tuw-6X-UTg"/>
+                                                <constraint firstItem="rVk-3p-3lK" firstAttribute="leading" secondItem="kDa-og-wFb" secondAttribute="trailing" id="w1V-Vy-Q56"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="address" destination="rGF-br-exN" id="5Ow-qw-yRJ"/>
                                             <outlet property="brightnessSlider" destination="K12-Yj-4nH" id="67Z-I3-zhs"/>
+                                            <outlet property="editChevronImage" destination="rVk-3p-3lK" id="2bf-Gs-BDm"/>
+                                            <outlet property="editImage" destination="kDa-og-wFb" id="ejK-Ji-RYR"/>
                                             <outlet property="name" destination="o2J-LI-vto" id="ZkB-QI-aWZ"/>
                                             <outlet property="powerStatus" destination="bEI-cx-CnN" id="ye2-Gi-XgO"/>
                                             <outlet property="signalImage" destination="bb5-4b-pd8" id="CNC-qz-cBu"/>
@@ -203,7 +217,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="123"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="wifi.slash" catalog="system" width="128" height="101"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
