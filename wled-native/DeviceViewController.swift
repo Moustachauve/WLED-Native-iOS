@@ -4,7 +4,6 @@ import WebKit
 class DeviceViewController: UIViewController, WKUIDelegate {
 
     var webView: WKWebView!
-    var delete : ((_: Device) -> Void)?
     var device: Device?
     var position: Int?
     
@@ -19,7 +18,6 @@ class DeviceViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .dark
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(deleteDevice))
         
         guard let deviceAddress = device?.address else {
             return
@@ -27,6 +25,7 @@ class DeviceViewController: UIViewController, WKUIDelegate {
         
         let deviceUrl = URL(string: "http://\(deviceAddress)")
         let request = URLRequest(url: deviceUrl!)
+        // TODO: custom error page
         webView.load(request)
         
     }
@@ -39,10 +38,5 @@ class DeviceViewController: UIViewController, WKUIDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isTranslucent = true
-    }
-
-    @objc func deleteDevice() {
-        delete?(device!)
-        navigationController?.popViewController(animated: true)
     }
 }

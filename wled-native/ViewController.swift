@@ -105,6 +105,7 @@ class ViewController: UIViewController {
     }
     
     func loadDevices() {
+        // TODO: Display message when no devices in the list
         do {
             let request = Device.fetchRequest()
             if (!showHiddenDevices) {
@@ -230,10 +231,6 @@ extension ViewController: UITableViewDelegate {
             deviceViewController.title = device.name
             deviceViewController.position = indexPath.row
             deviceViewController.device = device
-            deviceViewController.delete = { (device: Device) -> Void in
-                self.context.delete(device)
-                self.saveDevices()
-            }
             navigationController?.pushViewController(deviceViewController, animated: true)
         }
     }
