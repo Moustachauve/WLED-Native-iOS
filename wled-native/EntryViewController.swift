@@ -66,7 +66,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     }
     
     func isAddressValid() -> Bool {
-        // TODO Add validation that the address doesnt return nil when passed to URL(string:)
+        // TODO: Add validation that the address doesnt return nil when passed to URL(string:)
         return !(addressField?.text?.isEmpty ?? false)
     }
     
@@ -75,7 +75,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        // TODO Add error message in the interface
+        // TODO: Add error message in the interface
         let addressIsValid = isAddressValid()
         let nameIsValid = isNameValid()
         navigationItem.rightBarButtonItem?.isEnabled = addressIsValid && nameIsValid
