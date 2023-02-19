@@ -45,9 +45,14 @@ class ViewController: UIViewController {
     func setLogoInTitle() {
         let logo = UIImage(named: "wled_logo_akemi")
         let logoImageView = UIImageView(image: logo)
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 165, height: (navigationController?.navigationBar.frame.size.height)!))
+        logoImageView.frame = titleView.bounds
         logoImageView.contentMode = .scaleAspectFit
+        
+        titleView.addSubview(logoImageView)
 
-        navigationItem.titleView = logoImageView
+
+        navigationItem.titleView = titleView
     }
     
     func setMenu() {
