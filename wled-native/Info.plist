@@ -4,6 +4,10 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_wled._tcp</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -23,11 +27,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>WLED uses the local network to connect to WLED devices around you.</string>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_wled._tcp</string>
-	</array>
 </dict>
 </plist>

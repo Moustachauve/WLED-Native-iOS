@@ -1,1 +1,1 @@
-NSLocalNetworkUsageDescription = "Illumidel uses the local network to connect to WLED devices around you.";
+NSLocalNetworkUsageDescription = "WLED Native uses the local network to connect to WLED devices around you.";
