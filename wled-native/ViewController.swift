@@ -74,7 +74,7 @@ class ViewController: UIViewController {
     
     func menuAddDevice(_ sender: AnyObject) {
         let entryViewController = storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
-        entryViewController.title = NSLocalizedString("New Device", comment: "")
+        entryViewController.title = "New Device"
         entryViewController.update = { (device: Device) -> Void in
             self.saveDevices()
         }
@@ -260,14 +260,14 @@ extension ViewController: UITableViewDelegate {
         print("trailingSwipeActionsConfigurationForRowAt called, is Editing \(tableView.isEditing)")
         stopTimer()
             
-        let add = UIContextualAction(style: .normal, title: NSLocalizedString("Edit", comment: "")) { (action, view, completion ) in
+        let add = UIContextualAction(style: .normal, title: "Edit") { (action, view, completion ) in
             print("edit called, table is Editing \(tableView.isEditing)")
             self.openEditDevice(device: self.devices[indexPath.row])
             completion(true)
         }
         add.backgroundColor = UIColor.link
         
-        let delete = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { (action, view, completion ) in
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion ) in
             print("delete called, table is Editing \(tableView.isEditing)")
             self.context.delete(self.devices[indexPath.row])
             self.saveDevices()
@@ -301,7 +301,7 @@ extension ViewController: UITableViewDataSource {
         let device = devices[indexPath.row]
         var deviceName = (device.name?.isEmpty ?? false) ? NSLocalizedString("(New Device)", comment: "") : device.name
         if (device.isHidden) {
-            deviceName! += NSLocalizedString(" [HIDDEN]", comment: "")
+            deviceName! += " [HIDDEN]"
         }
         
         cell.name?.text = deviceName
