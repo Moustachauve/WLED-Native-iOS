@@ -12,7 +12,7 @@
         <!--Entry View Controller-->
         <scene sceneID="tGP-7b-6S5">
             <objects>
-                <viewController storyboardIdentifier="entry" id="n8b-uG-1oV" customClass="EntryViewController" customModule="wled_native" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="entry" id="n8b-uG-1oV" customClass="EntryViewController" customModule="Illumidel" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kQd-ka-qOX">
                         <rect key="frame" x="0.0" y="0.0" width="744" height="1133"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,7 +67,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="wled_native" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Illumidel" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="744" height="1133"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -76,7 +76,7 @@
                                 <rect key="frame" x="0.0" y="74" width="744" height="1039"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="deviceCell" rowHeight="100" id="3WA-qk-4qL" customClass="DeviceControlCell" customModule="wled_native" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="deviceCell" rowHeight="100" id="3WA-qk-4qL" customClass="DeviceControlCell" customModule="Illumidel" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="744" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3WA-qk-4qL" id="JDg-U9-qUc">
@@ -89,11 +89,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="wifi.slash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bb5-4b-pd8" userLabel="signal">
-                                                    <rect key="frame" x="536.5" y="34" width="22.5" height="18"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.slash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bb5-4b-pd8" userLabel="signal">
+                                                    <rect key="frame" x="86.5" y="34" width="22.5" height="18"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="eryretgerb  er er yery eryery ery rey rey rey rey ery werth srtjhs tjrtjtre yert yhrthyrth rthsrt hsrthst  hdfhsdt hthart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGF-br-exN">
-                                                    <rect key="frame" x="16" y="33.5" width="512.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGF-br-exN">
+                                                    <rect key="frame" x="16" y="33.5" width="62.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -178,7 +178,7 @@
         <!--Device View Controller-->
         <scene sceneID="yCV-0B-2yJ">
             <objects>
-                <viewController storyboardIdentifier="device" id="3zD-jr-99Q" customClass="DeviceViewController" customModule="wled_native" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="device" id="3zD-jr-99Q" customClass="DeviceViewController" customModule="Illumidel" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e07-eP-TIZ">
                         <rect key="frame" x="0.0" y="0.0" width="744" height="1133"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
