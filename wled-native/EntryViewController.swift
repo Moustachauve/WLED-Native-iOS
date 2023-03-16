@@ -14,10 +14,9 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTextFields()
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveDevice))
         navigationItem.rightBarButtonItem?.isEnabled = false
+        setupTextFields()
     }
     
     func setupTextFields() {
@@ -62,6 +61,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         }
         nameField.becomeFirstResponder()
         isHiddenSwitch.isOn = device.isHidden
+        navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     func getPaddedImageView(_ imageView: UIImage) -> UIView {
@@ -108,11 +108,15 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let device = Device(context: context)
-        device.address = address
+        let isEditMode = device != nil
+        let device = device ?? Device(context: context)
+        if (!isEditMode) {
+            device.address = address
+            device.isOnline = false
+        }
         device.name = name
+        device.isCustomName = name != ""
         device.isHidden = isHiddenSwitch.isOn
-        device.isOnline = false
         
         update?(device)
         navigationController?.popViewController(animated: true)

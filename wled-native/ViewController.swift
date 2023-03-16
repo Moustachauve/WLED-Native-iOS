@@ -166,7 +166,11 @@ class ViewController: UIViewController {
         entryViewController.title = NSLocalizedString("Edit Device", comment: "")
         entryViewController.device = device
         entryViewController.update = { (device: Device) -> Void in
-            self.saveDevices()
+            self.deviceApi.updateDevice(device: device, completionHandler: { [weak self] device in
+                DispatchQueue.main.async {
+                    self!.saveDevices()
+                }
+            })
         }
         navigationController?.pushViewController(entryViewController, animated: true)
     }
