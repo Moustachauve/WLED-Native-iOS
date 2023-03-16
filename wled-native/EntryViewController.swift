@@ -10,6 +10,8 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var update : ((_: Device) -> Void)?
     
+    var device : Device?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextFields()
@@ -21,6 +23,10 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     func setupTextFields() {
         addressField.delegate = self
         nameField.delegate = self
+        
+        if (device != nil) {
+            setFieldsFromDevice(device: device!)
+        }
         
         addressField.addTarget(self,
                                action: #selector(self.textFieldDidChange(_:)),
@@ -46,6 +52,16 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         let myString = NSMutableAttributedString(string: " " + isHiddenLabel.text!)
         attachmentString.append(myString)
         isHiddenLabel.attributedText = attachmentString
+    }
+    
+    func setFieldsFromDevice(device: Device) {
+        addressField.text = device.address
+        addressField.isEnabled = false
+        if (device.isCustomName) {
+            nameField.text = device.name
+        }
+        nameField.becomeFirstResponder()
+        isHiddenSwitch.isOn = device.isHidden
     }
     
     func getPaddedImageView(_ imageView: UIImage) -> UIView {

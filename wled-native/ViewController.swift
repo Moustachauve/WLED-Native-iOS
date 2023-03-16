@@ -162,9 +162,13 @@ class ViewController: UIViewController {
     }
     
     func openEditDevice(device: Device) {
-        let alert = UIAlertController(title: "Coming Soon...", message: "This feature is not ready yet.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        let entryViewController = storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
+        entryViewController.title = NSLocalizedString("Edit Device", comment: "")
+        entryViewController.device = device
+        entryViewController.update = { (device: Device) -> Void in
+            self.saveDevices()
+        }
+        navigationController?.pushViewController(entryViewController, animated: true)
     }
 }
 
@@ -295,7 +299,7 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "deviceCell", for: indexPath) as! DeviceControlCell
         
         let device = devices[indexPath.row]
-        var deviceName = (device.name?.isEmpty ?? false) ? "(New Device)" : device.name
+        var deviceName = (device.name?.isEmpty ?? false) ? NSLocalizedString("(New Device)", comment: "") : device.name
         if (device.isHidden) {
             deviceName! += " [HIDDEN]"
         }
