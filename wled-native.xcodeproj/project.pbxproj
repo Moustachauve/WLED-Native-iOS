@@ -18,8 +18,6 @@
 		C9A9E5CD2918D1C4005B5C22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5CB2918D1C4005B5C22 /* LaunchScreen.storyboard */; };
 		C9A9E5D52918D5DB005B5C22 /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */; };
 		C9A9E5D72918D5FC005B5C22 /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */; };
-		C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */; };
-		C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */; };
 		C9FCC380293DAF9500DEDDEA /* DeviceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */; };
 		C9FCC385293DB69F00DEDDEA /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC384293DB69F00DEDDEA /* State.swift */; };
 		C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC388293DB86900DEDDEA /* FileSystem.swift */; };
@@ -37,7 +35,7 @@
 		C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceControlCell.swift; sourceTree = "<group>"; };
 		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C9A9E5BD2918D1C3005B5C22 /* Illumidel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Illumidel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9A9E5BD2918D1C3005B5C22 /* wled-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wled-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A9E5C02918D1C3005B5C22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A9E5C22918D1C3005B5C22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C9A9E5C42918D1C3005B5C22 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,12 +45,6 @@
 		C9A9E5CE2918D1C4005B5C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
 		C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
-		C9D43A7C29BAE3BA005A71C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C9D43A7E29BAE3F8005A71C2 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Main.strings"; sourceTree = "<group>"; };
-		C9D43A7F29BAE3F8005A71C2 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		C9D43A8029BAE3F8005A71C2 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		C9F82F2329BBD0E100B8A5EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C9F82F2529BBD0E300B8A5EE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceApi.swift; sourceTree = "<group>"; };
 		C9FCC384293DB69F00DEDDEA /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = "wled-native/Model/wledapi/State.swift"; sourceTree = SOURCE_ROOT; };
 		C9FCC388293DB86900DEDDEA /* FileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileSystem.swift; path = "wled-native/Model/wledapi/FileSystem.swift"; sourceTree = SOURCE_ROOT; };
@@ -98,7 +90,7 @@
 		C9A9E5BE2918D1C3005B5C22 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C9A9E5BD2918D1C3005B5C22 /* Illumidel.app */,
+				C9A9E5BD2918D1C3005B5C22 /* wled-native.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,8 +111,6 @@
 				C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */,
 				C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */,
 				C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */,
-				C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */,
-				C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */,
 			);
 			path = "wled-native";
 			sourceTree = "<group>";
@@ -174,7 +164,7 @@
 			);
 			name = "wled-native";
 			productName = "wled-native";
-			productReference = C9A9E5BD2918D1C3005B5C22 /* Illumidel.app */;
+			productReference = C9A9E5BD2918D1C3005B5C22 /* wled-native.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -199,7 +189,6 @@
 			knownRegions = (
 				en,
 				Base,
-				"fr-CA",
 			);
 			mainGroup = C9A9E5B42918D1C3005B5C22;
 			productRefGroup = C9A9E5BE2918D1C3005B5C22 /* Products */;
@@ -217,10 +206,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9A9E5CD2918D1C4005B5C22 /* LaunchScreen.storyboard in Resources */,
-				C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */,
 				C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */,
 				C9A9E5C82918D1C3005B5C22 /* Main.storyboard in Resources */,
-				C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +247,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C9A9E5C72918D1C3005B5C22 /* Base */,
-				C9D43A7E29BAE3F8005A71C2 /* fr-CA */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -269,27 +255,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C9A9E5CC2918D1C4005B5C22 /* Base */,
-				C9D43A7F29BAE3F8005A71C2 /* fr-CA */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9D43A7C29BAE3BA005A71C2 /* en */,
-				C9D43A8029BAE3F8005A71C2 /* fr-CA */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9F82F2329BBD0E100B8A5EE /* en */,
-				C9F82F2529BBD0E300B8A5EE /* fr-CA */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -299,7 +266,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -346,7 +312,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -360,7 +326,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -401,7 +366,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -416,14 +381,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 49VYFAQHCG;
+				DEVELOPMENT_TEAM = RWLNCUSDCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native/Info.plist";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Illumidel uses the local network to connect to devices around you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -434,9 +396,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.illumidel;
-				PRODUCT_NAME = Illumidel;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cgagnier.wled-native";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -448,14 +409,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 49VYFAQHCG;
+				DEVELOPMENT_TEAM = RWLNCUSDCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native/Info.plist";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Illumidel uses the local network to connect to devices around you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -466,9 +424,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.illumidel;
-				PRODUCT_NAME = Illumidel;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cgagnier.wled-native";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
