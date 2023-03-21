@@ -322,7 +322,11 @@ extension ViewController: UITableViewDataSource {
         cell.brightnessSlider?.tag = indexPath.row
         cell.brightnessSlider?.addTarget(self, action: #selector(self.brightnessChanged(_:)), for: .valueChanged)
         
-        cell.signalImage?.image = UIImage(systemName: getSignalImage(signalStrength: Int(device.networkRssi)), variableValue: getSignalValue(signalStrength: Int(device.networkRssi)))
+        if #available(iOS 16.0, *) {
+            cell.signalImage?.image = UIImage(systemName: getSignalImage(signalStrength: Int(device.networkRssi)), variableValue: getSignalValue(signalStrength: Int(device.networkRssi)))
+        } else {
+            cell.signalImage?.isHidden = true
+        }
         
         return cell
     }
