@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C93470AC29D904C20085D9D5 /* errorPage.html in Resources */ = {isa = PBXBuildFile; fileRef = C93470AB29D904C20085D9D5 /* errorPage.html */; };
+		C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */ = {isa = PBXBuildFile; fileRef = C93470AD29D905BD0085D9D5 /* 012_rip.png */; };
 		C96BF3FD292007F30011BC3B /* DeviceControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */; };
 		C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */; };
 		C96BF4072930495D0011BC3B /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */; };
@@ -32,6 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C93470AB29D904C20085D9D5 /* errorPage.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.html; sourceTree = "<group>"; };
+		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
+		C93470AF29D905CA0085D9D5 /* wled-native */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "wled-native"; sourceTree = "<group>"; };
 		C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceControlCell.swift; sourceTree = "<group>"; };
 		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -111,6 +116,9 @@
 				C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */,
 				C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */,
 				C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */,
+				C93470AD29D905BD0085D9D5 /* 012_rip.png */,
+				C93470AB29D904C20085D9D5 /* errorPage.html */,
+				C93470AF29D905CA0085D9D5 /* wled-native */,
 			);
 			path = "wled-native";
 			sourceTree = "<group>";
@@ -205,7 +213,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C93470AC29D904C20085D9D5 /* errorPage.html in Resources */,
 				C9A9E5CD2918D1C4005B5C22 /* LaunchScreen.storyboard in Resources */,
+				C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */,
 				C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */,
 				C9A9E5C82918D1C3005B5C22 /* Main.storyboard in Resources */,
 			);
@@ -382,7 +392,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = RWLNCUSDCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native/Info.plist";
@@ -398,7 +408,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cgagnier.wled-native";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -414,7 +424,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = RWLNCUSDCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native/Info.plist";
@@ -430,7 +440,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.cgagnier.wled-native";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -1,7 +1,7 @@
 import UIKit
 import WebKit
 
-class DeviceViewController: UIViewController, WKUIDelegate {
+class DeviceViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
     var webView: WKWebView!
     var device: Device?
@@ -10,8 +10,9 @@ class DeviceViewController: UIViewController, WKUIDelegate {
     override func loadView() {
         super.loadView()
         let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 400, height: 400), configuration: webConfiguration)
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
+        webView.navigationDelegate = self
         view = webView
     }
     
@@ -38,5 +39,11 @@ class DeviceViewController: UIViewController, WKUIDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        let htmlPath = Bundle.main.path(forResource: "errorPage", ofType: "html")
+        let htmlUrl = URL(fileURLWithPath: htmlPath!, isDirectory: false)
+        webView.loadFileURL(htmlUrl, allowingReadAccessTo: htmlUrl)
     }
 }
