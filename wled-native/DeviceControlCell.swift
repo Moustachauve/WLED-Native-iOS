@@ -7,8 +7,11 @@ class DeviceControlCell: UITableViewCell {
     @IBOutlet var powerStatus : UISwitch?
     @IBOutlet var brightnessSlider : UISlider?
     @IBOutlet var signalImage : UIImageView?
+    @IBOutlet var offlineLabel : UILabel?
     @IBOutlet var editImage : UIImageView?
     @IBOutlet var editChevronImage : UIImageView?
+    
+    @IBOutlet var offlineConstraint : NSLayoutConstraint?
     
     
     override func setEditing(_ editing: Bool, animated: Bool) {

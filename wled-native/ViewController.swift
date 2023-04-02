@@ -153,7 +153,7 @@ class ViewController: UIViewController {
     }
     
     func startTimer() {
-        refreshTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
+        refreshTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
     }
     
     func stopTimer() {
@@ -181,7 +181,7 @@ extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
         for service in self.services {
             if service.port == -1 {
                 service.delegate = self
-                service.resolve(withTimeout:10)
+                service.resolve(withTimeout:15)
             }
         }
     }
@@ -322,10 +322,17 @@ extension ViewController: UITableViewDataSource {
         cell.brightnessSlider?.tag = indexPath.row
         cell.brightnessSlider?.addTarget(self, action: #selector(self.brightnessChanged(_:)), for: .valueChanged)
         
+        cell.offlineLabel?.isHidden = device.isOnline
+        
         if #available(iOS 16.0, *) {
             cell.signalImage?.image = UIImage(systemName: getSignalImage(signalStrength: Int(device.networkRssi)), variableValue: getSignalValue(signalStrength: Int(device.networkRssi)))
         } else {
-            cell.signalImage?.isHidden = true
+            if (device.isOnline) {
+                cell.signalImage?.image = UIImage(systemName: getSignalImage(signalStrength: Int(device.networkRssi)))
+            } else {
+                cell.signalImage?.isHidden = true
+                cell.offlineConstraint?.constant = -25
+            }
         }
         
         return cell

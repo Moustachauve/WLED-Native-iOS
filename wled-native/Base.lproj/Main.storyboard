@@ -111,6 +111,12 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rVk-3p-3lK" userLabel="EditChevronImage">
                                                     <rect key="frame" x="716" y="40" width="18" height="21.5"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="[Offline]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="okE-nD-fnb">
+                                                    <rect key="frame" x="170" y="33" width="68" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="kDa-og-wFb" firstAttribute="centerY" secondItem="bEI-cx-CnN" secondAttribute="centerY" id="5qh-zu-Ik2"/>
@@ -125,8 +131,10 @@
                                                 <constraint firstItem="rGF-br-exN" firstAttribute="leading" secondItem="JDg-U9-qUc" secondAttribute="leadingMargin" id="eEO-7t-FGU"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="trailing" secondItem="JDg-U9-qUc" secondAttribute="trailingMargin" id="hBI-3P-Rke"/>
                                                 <constraint firstItem="bb5-4b-pd8" firstAttribute="baseline" secondItem="rGF-br-exN" secondAttribute="baseline" id="iAf-bB-lA2"/>
+                                                <constraint firstItem="okE-nD-fnb" firstAttribute="centerY" secondItem="bb5-4b-pd8" secondAttribute="centerY" id="iNi-Z4-x4B"/>
                                                 <constraint firstItem="bEI-cx-CnN" firstAttribute="centerY" secondItem="JDg-U9-qUc" secondAttribute="centerY" id="iPE-gH-ouX"/>
                                                 <constraint firstItem="K12-Yj-4nH" firstAttribute="top" secondItem="rGF-br-exN" secondAttribute="bottom" constant="4" id="jRz-QC-USS"/>
+                                                <constraint firstItem="okE-nD-fnb" firstAttribute="baseline" secondItem="rGF-br-exN" secondAttribute="firstBaseline" id="kjf-ES-XiB"/>
                                                 <constraint firstItem="o2J-LI-vto" firstAttribute="leading" secondItem="JDg-U9-qUc" secondAttribute="leadingMargin" id="kxO-NR-jWL"/>
                                                 <constraint firstItem="kDa-og-wFb" firstAttribute="leading" secondItem="K12-Yj-4nH" secondAttribute="trailing" constant="20" id="mVM-N4-XfS"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="o2J-LI-vto" secondAttribute="trailing" constant="63" id="mcW-u9-za7"/>
@@ -135,6 +143,7 @@
                                                 <constraint firstItem="rGF-br-exN" firstAttribute="top" secondItem="o2J-LI-vto" secondAttribute="bottom" constant="3" id="rUM-g2-Sah"/>
                                                 <constraint firstItem="kDa-og-wFb" firstAttribute="centerX" secondItem="bEI-cx-CnN" secondAttribute="centerX" id="tuw-6X-UTg"/>
                                                 <constraint firstItem="rVk-3p-3lK" firstAttribute="leading" secondItem="kDa-og-wFb" secondAttribute="trailing" id="w1V-Vy-Q56"/>
+                                                <constraint firstItem="okE-nD-fnb" firstAttribute="leading" secondItem="bb5-4b-pd8" secondAttribute="trailing" constant="8" symbolic="YES" id="zhz-8i-rzo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -143,6 +152,8 @@
                                             <outlet property="editChevronImage" destination="rVk-3p-3lK" id="2bf-Gs-BDm"/>
                                             <outlet property="editImage" destination="kDa-og-wFb" id="ejK-Ji-RYR"/>
                                             <outlet property="name" destination="o2J-LI-vto" id="ZkB-QI-aWZ"/>
+                                            <outlet property="offlineConstraint" destination="zhz-8i-rzo" id="PKu-jt-x2a"/>
+                                            <outlet property="offlineLabel" destination="okE-nD-fnb" id="tZe-X9-0pQ"/>
                                             <outlet property="powerStatus" destination="bEI-cx-CnN" id="ye2-Gi-XgO"/>
                                             <outlet property="signalImage" destination="bb5-4b-pd8" id="CNC-qz-cBu"/>
                                         </connections>
@@ -223,6 +234,9 @@
         <image name="ellipsis.circle" catalog="system" width="128" height="123"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="wifi.slash" catalog="system" width="128" height="101"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
