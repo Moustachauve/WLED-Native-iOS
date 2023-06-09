@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         setLogoInTitle()
         setMenu()
         
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Pull to refresh", comment: ""))
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         
         tableView.refreshControl = refreshControl
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
     func menuManageDevices(_ sender: AnyObject) {
         tableView.setEditing(true, animated: true)
         stopTimer()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(menuDoneManageDevice))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: .done, target: self, action: #selector(menuDoneManageDevice))
     }
     
     @objc func menuDoneManageDevice(_ sender: AnyObject) {
