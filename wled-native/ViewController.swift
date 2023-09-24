@@ -56,7 +56,8 @@ class ViewController: UIViewController {
             UIAction(title: NSLocalizedString("Add New Device", comment: ""), image: UIImage(systemName: "plus"), handler: menuAddDevice),
             UIAction(title: NSLocalizedString("Show Hidden Devices", comment: ""), image: UIImage(systemName: "eye"), state: (showHiddenDevices ? .on : .off), handler: toggleShowHidden),
             UIAction(title: NSLocalizedString("Refresh", comment: ""), image: UIImage(systemName: "arrow.clockwise"), handler: menuRefresh),
-            UIAction(title: NSLocalizedString("Manage Devices", comment: ""), image: UIImage(systemName: "square.and.pencil"), handler: menuManageDevices)
+            UIAction(title: NSLocalizedString("Manage Devices", comment: ""), image: UIImage(systemName: "square.and.pencil"), handler: menuManageDevices),
+            UIAction(title: NSLocalizedString("WLED Documentation", comment: ""), image: UIImage(systemName: "questionmark.circle"), handler: menuOpenDocumentation)
         ])
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: barButtonMenu)
     }
@@ -106,6 +107,12 @@ class ViewController: UIViewController {
         tableView.setEditing(true, animated: true)
         stopTimer()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: .done, target: self, action: #selector(menuDoneManageDevice))
+    }
+    
+    func menuOpenDocumentation(_ sender: AnyObject) {
+        if let url = URL(string: "https://kno.wled.ge/") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     @objc func menuDoneManageDevice(_ sender: AnyObject) {
