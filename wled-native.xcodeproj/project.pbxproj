@@ -115,7 +115,6 @@
 				C9A9E5C62918D1C3005B5C22 /* Main.storyboard */,
 				C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */,
 				C9A9E5CB2918D1C4005B5C22 /* LaunchScreen.storyboard */,
-				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
 				C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */,
 				C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */,
 				C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */,
@@ -125,6 +124,7 @@
 				C93470AD29D905BD0085D9D5 /* 012_rip.png */,
 				C93470AB29D904C20085D9D5 /* errorPage.html */,
 				C93470AF29D905CA0085D9D5 /* wled-native */,
+				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
 			);
 			path = "wled-native";
 			sourceTree = "<group>";
@@ -181,7 +181,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					C9A9E5BC2918D1C3005B5C22 = {
 						CreatedOnToolsVersion = 14.1;
@@ -266,7 +266,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C9A9E5CC2918D1C4005B5C22 /* Base */,
-				C9D43A7F29BAE3F8005A71C2 /* fr-CA */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -329,6 +328,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -357,6 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -389,6 +390,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
