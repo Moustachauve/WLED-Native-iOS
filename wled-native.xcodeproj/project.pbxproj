@@ -37,7 +37,6 @@
 /* Begin PBXFileReference section */
 		C93470AB29D904C20085D9D5 /* errorPage.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.html; sourceTree = "<group>"; };
 		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
-		C93470AF29D905CA0085D9D5 /* wled-native */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "wled-native"; sourceTree = "<group>"; };
 		C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceControlCell.swift; sourceTree = "<group>"; };
 		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -123,7 +122,6 @@
 				C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */,
 				C93470AD29D905BD0085D9D5 /* 012_rip.png */,
 				C93470AB29D904C20085D9D5 /* errorPage.html */,
-				C93470AF29D905CA0085D9D5 /* wled-native */,
 				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
 			);
 			path = "wled-native";
