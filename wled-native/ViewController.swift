@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         setMenu()
         
         refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Pull to refresh", comment: ""))
-        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(manualRefresh), for: .valueChanged)
         
         tableView.refreshControl = refreshControl
         tableView.delegate = self
@@ -34,12 +34,8 @@ class ViewController: UIViewController {
             UserDefaults().set(0, forKey: "count")
         }
         // Get all devices
-        refresh(self)
         startTimer()
-        
-        services.removeAll()
-        serviceBrowser.delegate = self
-        serviceBrowser.searchForServices(ofType: "_wled._tcp.", inDomain: "")
+        manualRefresh()
     }
     
     func setLogoInTitle() {
@@ -65,11 +61,26 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: barButtonMenu)
     }
     
+    func startDiscovery() {
+        print("starting discovery")
+        services.removeAll()
+        serviceBrowser.delegate = self
+        serviceBrowser.searchForServices(ofType: "_wled._tcp.", inDomain: "")
+    }
+    
+    @objc func manualRefresh() {
+        print("manual refresh triggered")
+        refresh(self)
+        startDiscovery()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
+            self.refreshControl.endRefreshing()
+        })
+    }
+    
     @objc func refresh(_ sender: AnyObject) {
         print("refreshing...")
         loadDevices()
         updateDevices()
-        refreshControl.endRefreshing()
     }
     
     func menuAddDevice(_ sender: AnyObject) {
@@ -88,7 +99,7 @@ class ViewController: UIViewController {
     }
     
     func menuRefresh(_ sender: AnyObject) {
-        refresh(sender)
+        manualRefresh()
     }
     
     func menuManageDevices(_ sender: AnyObject) {
@@ -195,6 +206,16 @@ extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
     }
     
     @objc func netServiceDidResolveAddress(_ sender: NetService) {
+        // This is probably bad
+        var allDevices: [Device]
+        do {
+            let request = Device.fetchRequest()
+            allDevices = try context.fetch(request)
+        } catch {
+            print(error)
+            return
+        }
+
         var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
         guard let data = sender.addresses?.first else { return }
         data.withUnsafeBytes { ptr in
@@ -210,7 +231,7 @@ extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
         let ipAddress = String(cString:hostname)
         
         // TODO: Maybe not loop over the whole thing, using hashtable? idk
-        for device in devices {
+        for device in allDevices {
             if (device.address == ipAddress) {
                 // We already have a device with the same IP
                 print("re-discovered " + ipAddress + ", abort")
