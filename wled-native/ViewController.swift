@@ -374,7 +374,11 @@ extension ViewController: UITableViewDataSource {
     
     @objc func switchChanged(_ sender : UISwitch!) {
         let device = devices[sender.tag]
-        print("table row switch Changed \(sender.tag):\(device.address)")
+        guard let deviceAddress = device.address else {
+            print("device didn't have address?! \(sender.tag)")
+            return
+        }
+        print("table row switch Changed \(sender.tag):\(deviceAddress)")
         print("The switch is \(sender.isOn ? "ON" : "OFF")")
         
         let postParam = JsonPost(isOn: sender.isOn)
@@ -389,7 +393,11 @@ extension ViewController: UITableViewDataSource {
     
     @objc func brightnessChanged(_ sender : UISlider!) {
         let device = devices[sender.tag]
-        print("table row brightness Changed \(sender.tag):\(device.address)")
+        guard let deviceAddress = device.address else {
+            print("device didn't have address?! \(sender.tag)")
+            return
+        }
+        print("table row brightness Changed \(sender.tag):\(deviceAddress)")
         print("The switch is \(sender.value)")
         
         let postParam = JsonPost(brightness: Int64(sender.value))

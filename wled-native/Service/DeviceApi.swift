@@ -3,21 +3,24 @@ import Foundation
 class DeviceApi {
     func updateDevice(device: Device, completionHandler: @escaping (Device) -> Void) {
         let url = getJsonApiUrl(device: device, path: "json/si")
-        print(url)
-        if (url == nil) {
+        guard let url else {
             print("Can't update device, url nil")
             return
         }
+        print("Reading api at: \(url)")
         
-        let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             if let error = error {
                 print("Error with fetching device: \(error)")
                 return
             }
             
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                print("Error with the response, unexpected status code: \(response)")
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid httpResponse in update")
+                return
+            }
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("Error with the response in update, unexpected status code: \(httpResponse)")
                 return
             }
             
@@ -28,15 +31,15 @@ class DeviceApi {
     
     func postJson(device: Device, jsonData: JsonPost, completionHandler: @escaping (Device) -> Void) {
         let url = getJsonApiUrl(device: device, path: "json")
-        print(url)
-        if (url == nil) {
+        guard let url else {
             print("Can't post to device, url nil")
             return
         }
+        print("Posting api at: \(url)")
         do {
             let jsonData = try JSONEncoder().encode(jsonData)
             
-            var request = URLRequest(url: url!)
+            var request = URLRequest(url: url)
             request.httpMethod = "post"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
@@ -46,9 +49,13 @@ class DeviceApi {
                     print("Error with fetching device after post: \(error)")
                     return
                 }
-                guard let httpResponse = response as? HTTPURLResponse,
-                      (200...299).contains(httpResponse.statusCode) else {
-                    print("Error with the response, unexpected status code: \(response)")
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    print("Invalid httpResponse in post")
+                    return
+                }
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    print("Error with the response in post, unexpected status code: \(httpResponse)")
                     return
                 }
                 
@@ -67,7 +74,7 @@ class DeviceApi {
     }
     
     private func onResultFetchDataSuccess(device: Device, completionHandler: @escaping (Device) -> Void, data: Data?) {
-            guard var data = data else { return }            
+            guard let data else { return }            
             do {
                 let deviceStateInfo = try JSONDecoder().decode(DeviceStateInfo.self, from: data)
                 print(deviceStateInfo.info.name)
