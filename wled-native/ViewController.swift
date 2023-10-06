@@ -134,7 +134,9 @@ class ViewController: UIViewController {
                 NSSortDescriptor(key: #keyPath(Device.name), ascending: true),
                 NSSortDescriptor(key: #keyPath(Device.address), ascending: true),
             ]
-            devices = try context.fetch(request)
+            try context.performAndWait() {
+                devices = try context.fetch(request)
+            }
             if (!tableView.isEditing) {
                 tableView.reloadData()
             }
@@ -160,7 +162,9 @@ class ViewController: UIViewController {
     
     func saveDevices(reloadDevices: Bool = true) {
         do {
-            try context.save()
+            try context.performAndWait() {
+                try context.save()
+            }
             
             if (reloadDevices) {
                 loadDevices()
@@ -214,10 +218,12 @@ extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
     
     @objc func netServiceDidResolveAddress(_ sender: NetService) {
         // This is probably bad
-        var allDevices: [Device]
+        var allDevices: [Device] = []
         do {
             let request = Device.fetchRequest()
-            allDevices = try context.fetch(request)
+            try context.performAndWait() {
+                allDevices = try context.fetch(request)
+            }
         } catch {
             print(error)
             return
