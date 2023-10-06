@@ -256,8 +256,25 @@ extension ViewController: NetServiceBrowserDelegate, NetServiceDelegate {
         let device = Device(context: context)
         device.address = ipAddress
         device.name = sender.name
-        saveDevices()
-        updateDevices()
+        
+        deviceApi.updateDevice(device: device, completionHandler: { [weak self] device in
+            for otherDevice in allDevices {
+                if (device.macAddress == otherDevice.macAddress) {
+                    device.isHidden = otherDevice.isHidden
+                    if (otherDevice.isCustomName) {
+                        device.name = otherDevice.name
+                    }
+                    self!.context.performAndWait() {
+                        self!.context.delete(otherDevice)
+                    }
+                    break
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self!.saveDevices()
+            }
+        })
     }
 }
 
