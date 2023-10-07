@@ -12,15 +12,18 @@ class DeviceApi {
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             if let error = error {
                 print("Error with fetching device: \(error)")
+                self.updateDeviceOnError(device: device, completionHandler: completionHandler)
                 return
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Invalid httpResponse in update")
+                self.updateDeviceOnError(device: device, completionHandler: completionHandler)
                 return
             }
             guard (200...299).contains(httpResponse.statusCode) else {
                 print("Error with the response in update, unexpected status code: \(httpResponse)")
+                self.updateDeviceOnError(device: device, completionHandler: completionHandler)
                 return
             }
             
@@ -33,6 +36,7 @@ class DeviceApi {
         let url = getJsonApiUrl(device: device, path: "json")
         guard let url else {
             print("Can't post to device, url nil")
+            self.updateDeviceOnError(device: device, completionHandler: completionHandler)
             return
         }
         print("Posting api at: \(url)")
@@ -47,15 +51,18 @@ class DeviceApi {
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let error = error {
                     print("Error with fetching device after post: \(error)")
+                    self.updateDeviceOnError(device: device, completionHandler: completionHandler)
                     return
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     print("Invalid httpResponse in post")
+                    self.updateDeviceOnError(device: device, completionHandler: completionHandler)
                     return
                 }
                 guard (200...299).contains(httpResponse.statusCode) else {
                     print("Error with the response in post, unexpected status code: \(httpResponse)")
+                    self.updateDeviceOnError(device: device, completionHandler: completionHandler)
                     return
                 }
                 
@@ -64,7 +71,16 @@ class DeviceApi {
             task.resume()
         } catch {
             print(error)
+            self.updateDeviceOnError(device: device, completionHandler: completionHandler)
         }
+    }
+    
+    private func updateDeviceOnError(device: Device, completionHandler: @escaping (Device) -> Void) {
+        print("Device \(device.address ?? "unknown") could not be updated. Marking as offline.")
+        device.isOnline = false
+        device.networkRssi = 0
+        device.isRefreshing = false
+        completionHandler(device)
     }
     
     private func getJsonApiUrl(device: Device, path: String) -> URL? {
@@ -77,7 +93,7 @@ class DeviceApi {
             guard let data else { return }            
             do {
                 let deviceStateInfo = try JSONDecoder().decode(DeviceStateInfo.self, from: data)
-                print(deviceStateInfo.info.name)
+                print("Updating \(deviceStateInfo.info.name)")
                 device.macAddress = deviceStateInfo.info.mac
                 device.isOnline = true
                 device.name = device.isCustomName ? device.name : deviceStateInfo.info.name
@@ -97,6 +113,7 @@ class DeviceApi {
                 
             } catch {
                 print(error)
+                updateDeviceOnError(device: device, completionHandler: completionHandler)
             }
     }
 }

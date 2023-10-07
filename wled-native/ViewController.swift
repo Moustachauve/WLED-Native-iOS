@@ -35,7 +35,8 @@ class ViewController: UIViewController {
         }
         // Get all devices
         startTimer()
-        manualRefresh()
+        refresh(self)
+        startDiscovery()
     }
     
     func setLogoInTitle() {
