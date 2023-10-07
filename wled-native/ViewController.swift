@@ -379,12 +379,12 @@ extension ViewController: UITableViewDataSource {
         let config = UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue)
         if #available(iOS 16.0, *) {
             cell.signalImage?.image = UIImage(
-                systemName: getSignalImage(signalStrength: Int(device.networkRssi)),
+                systemName: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)),
                 variableValue: getSignalValue(signalStrength: Int(device.networkRssi))
             )?.applyingSymbolConfiguration(config)
         } else {
             cell.signalImage?.image = UIImage(
-                systemName: getSignalImage(signalStrength: Int(device.networkRssi))
+                systemName: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi))
             )?.applyingSymbolConfiguration(config)
         }
         
@@ -450,8 +450,8 @@ extension ViewController: UITableViewDataSource {
         return UIColor(hue: h, saturation: s, brightness: b, alpha: a)
     }
     
-    func getSignalImage(signalStrength: Int) -> String {
-        if (signalStrength == 0) {
+    func getSignalImage(isOnline: Bool, signalStrength: Int) -> String {
+        if (!isOnline || signalStrength == 0) {
             return "wifi.slash"
         }
         return "wifi"
