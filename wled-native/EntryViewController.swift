@@ -81,9 +81,21 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func isAddressValid() -> Bool {
+    func isAddressValid(address: String?) -> Bool {
         // TODO: Add validation that the address doesnt return nil when passed to URL(string:)
-        return !(addressField?.text?.isEmpty ?? false)
+        guard let address = removeProtocol(address: address), !address.isEmpty else {
+            return false
+        }
+        
+        if let url = NSURL(string: address) {
+            if (UIApplication.shared.canOpenURL(url as URL)) {
+                return true
+            }
+        }
+        if let url = NSURL(string: "http://\(address)") {
+            return UIApplication.shared.canOpenURL(url as URL)
+        }
+        return false
     }
     
     func isNameValid() -> Bool {
@@ -92,7 +104,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         // TODO: Add error message in the interface
-        let addressIsValid = isAddressValid()
+        let addressIsValid = isAddressValid(address: addressField.text)
         let nameIsValid = isNameValid()
         navigationItem.rightBarButtonItem?.isEnabled = addressIsValid && nameIsValid
         
@@ -101,7 +113,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func saveDevice() {
-        guard let address = addressField.text, isAddressValid() else {
+        guard let address = removeProtocol(address: addressField.text), isAddressValid(address: address) else {
             return
         }
         guard let name = nameField.text, isNameValid() else {
@@ -120,5 +132,14 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         
         update?(device)
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func removeProtocol(address: String?) -> String? {
+        guard let address else {
+            return address
+        }
+        return address
+            .replacingOccurrences(of: "https://", with: "", options: .anchored)
+            .replacingOccurrences(of: "http://", with: "", options: .anchored)
     }
 }
