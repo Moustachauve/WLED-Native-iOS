@@ -376,15 +376,16 @@ extension ViewController: UITableViewDataSource {
         
         cell.offlineLabel?.isHidden = device.isOnline
         
+        let config = UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue)
         if #available(iOS 16.0, *) {
-            cell.signalImage?.image = UIImage(systemName: getSignalImage(signalStrength: Int(device.networkRssi)), variableValue: getSignalValue(signalStrength: Int(device.networkRssi)))
+            cell.signalImage?.image = UIImage(
+                systemName: getSignalImage(signalStrength: Int(device.networkRssi)),
+                variableValue: getSignalValue(signalStrength: Int(device.networkRssi))
+            )?.applyingSymbolConfiguration(config)
         } else {
-            if (device.isOnline) {
-                cell.signalImage?.image = UIImage(systemName: getSignalImage(signalStrength: Int(device.networkRssi)))
-            } else {
-                cell.signalImage?.isHidden = true
-                cell.offlineConstraint?.constant = -25
-            }
+            cell.signalImage?.image = UIImage(
+                systemName: getSignalImage(signalStrength: Int(device.networkRssi))
+            )?.applyingSymbolConfiguration(config)
         }
         
         return cell
