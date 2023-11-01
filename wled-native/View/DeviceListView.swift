@@ -21,14 +21,11 @@ struct DeviceListView: View {
         NavigationView {
             List {
                 ForEach(devices) { device in
-                    NavigationLink {
-                        Text(device.name!)
-                    } label: {
-                        Text(device.address!)
-                    }
+                    DeviceListItemView(device: device)
                 }
                 .onDelete(perform: deleteItems)
             }
+            .navigationBarTitle("Your Devices")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
@@ -48,6 +45,7 @@ struct DeviceListView: View {
             let newItem = Device(context: viewContext)
             newItem.name = Date().formatted()
             newItem.address = "192.168.11.101"
+            newItem.color = 2552555;
 
             do {
                 try viewContext.save()
