@@ -1,9 +1,3 @@
-//
-//  DeviceListItemView.swift
-//  wled-native
-//
-//  Created by Christophe Perso on 2023-10-30.
-//
 
 import SwiftUI
 

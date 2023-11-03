@@ -1,9 +1,4 @@
-//
-//  DeviceListView.swift
-//  wled-native
-//
-//  Created by Christophe Perso on 2023-10-29.
-//
+
 
 import SwiftUI
 import CoreData
@@ -15,7 +10,11 @@ struct DeviceListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Device.name, ascending: true)],
         animation: .default)
     private var devices: FetchedResults<Device>
-
+    
+    init() {
+        let discoveryService = DiscoveryService()
+        discoveryService.scan()
+    }
     
     var body: some View {
         NavigationView {
@@ -43,6 +42,7 @@ struct DeviceListView: View {
     private func addItem() {
         withAnimation {
             let newItem = Device(context: viewContext)
+            // TODO: Show new device form
             newItem.name = Date().formatted()
             newItem.address = "192.168.11.101"
             newItem.color = 2552555;
