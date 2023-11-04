@@ -19,7 +19,7 @@ struct DeviceListItemView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(device.name!)
+                    Text(device.name ?? "[New Device]")
                         .font(.headline)
                     HStack {
                         Text(device.address!)
@@ -27,11 +27,13 @@ struct DeviceListItemView: View {
                         Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
                             .offset(y: -2)
                         Text("[Offline]")
-                            .font(.subheadline).foregroundStyle(.secondary)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .opacity(device.isOnline ? 0 : 1)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                Toggle("Turn On/Off", isOn: $device.isOnline)
+                Toggle("Turn On/Off", isOn: $device.isPoweredOn)
                     .labelsHidden()
                     .frame(alignment: .trailing)
                     .tint(colorFromHex(rgbValue: Int(device.color)))
