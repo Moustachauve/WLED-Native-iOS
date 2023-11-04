@@ -24,10 +24,17 @@ struct DeviceListView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
-            .navigationBarTitle("Your Devices")
+            .listStyle(PlainListStyle())
+            .refreshable(action: refreshDevices)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Image(.wledLogoAkemi)
+                            .resizable()
+                            .scaledToFit()
+                            .padding(2)
+                    }
+                    .frame(maxWidth: 200)
                 }
                 ToolbarItem {
                     Button(action: addItem) {
@@ -35,6 +42,7 @@ struct DeviceListView: View {
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
             Text("Select an item")
         }
     }
@@ -70,6 +78,14 @@ struct DeviceListView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+        }
+    }
+    
+    @Sendable
+    private func refreshDevices() async {
+        let deviceApi = DeviceApi()
+        for device in devices {
+            deviceApi.updateDevice(device: device, context: viewContext)
         }
     }
 }

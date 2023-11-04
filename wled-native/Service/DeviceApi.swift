@@ -1,7 +1,8 @@
 import Foundation
+import CoreData
 
 class DeviceApi {
-    func updateDevice(device: Device) {
+    func updateDevice(device: Device, context: NSManagedObjectContext) {
         let url = getJsonApiUrl(device: device, path: "json/si")
         guard let url else {
             print("Can't update device, url nil")
@@ -12,31 +13,31 @@ class DeviceApi {
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             if let error = error {
                 print("Error with fetching device: \(error)")
-                self.updateDeviceOnError(device: device)
+                self.updateDeviceOnError(device: device, context: context)
                 return
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Invalid httpResponse in update")
-                self.updateDeviceOnError(device: device)
+                self.updateDeviceOnError(device: device, context: context)
                 return
             }
             guard (200...299).contains(httpResponse.statusCode) else {
                 print("Error with the response in update, unexpected status code: \(httpResponse)")
-                self.updateDeviceOnError(device: device)
+                self.updateDeviceOnError(device: device, context: context)
                 return
             }
             
-            self.onResultFetchDataSuccess(device: device, data: data)
+            self.onResultFetchDataSuccess(device: device, context: context, data: data)
         })
         task.resume()
     }
     
-    func postJson(device: Device, jsonData: JsonPost) {
+    func postJson(device: Device, context: NSManagedObjectContext, jsonData: JsonPost) {
         let url = getJsonApiUrl(device: device, path: "json")
         guard let url else {
             print("Can't post to device, url nil")
-            self.updateDeviceOnError(device: device)
+            self.updateDeviceOnError(device: device, context: context)
             return
         }
         print("Posting api at: \(url)")
@@ -51,35 +52,38 @@ class DeviceApi {
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let error = error {
                     print("Error with fetching device after post: \(error)")
-                    self.updateDeviceOnError(device: device)
+                    self.updateDeviceOnError(device: device, context: context)
                     return
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     print("Invalid httpResponse in post")
-                    self.updateDeviceOnError(device: device)
+                    self.updateDeviceOnError(device: device, context: context)
                     return
                 }
                 guard (200...299).contains(httpResponse.statusCode) else {
                     print("Error with the response in post, unexpected status code: \(httpResponse)")
-                    self.updateDeviceOnError(device: device)
+                    self.updateDeviceOnError(device: device, context: context)
                     return
                 }
                 
-                self.onResultFetchDataSuccess(device: device, data: data)
+                self.onResultFetchDataSuccess(device: device, context: context, data: data)
             }
             task.resume()
         } catch {
             print(error)
-            self.updateDeviceOnError(device: device)
+            self.updateDeviceOnError(device: device, context: context)
         }
     }
     
-    private func updateDeviceOnError(device: Device) {
+    private func updateDeviceOnError(device: Device, context: NSManagedObjectContext) {
         print("Device \(device.address ?? "unknown") could not be updated. Marking as offline.")
-        device.isOnline = false
-        device.networkRssi = 0
-        device.isRefreshing = false
+        
+        context.performAndWait {
+            device.isOnline = false
+            device.networkRssi = 0
+            device.isRefreshing = false
+        }
     }
     
     private func getJsonApiUrl(device: Device, path: String) -> URL? {
@@ -88,8 +92,9 @@ class DeviceApi {
         return URL(string: urlString)
     }
     
-    private func onResultFetchDataSuccess(device: Device, data: Data?) {
-            guard let data else { return }            
+    private func onResultFetchDataSuccess(device: Device, context: NSManagedObjectContext, data: Data?) {
+        guard let data else { return }
+        context.performAndWait {
             do {
                 let deviceStateInfo = try JSONDecoder().decode(DeviceStateInfo.self, from: data)
                 print("Updating \(deviceStateInfo.info.name)")
@@ -109,7 +114,8 @@ class DeviceApi {
                 device.color = (red << 16) | (green << 8) | blue
             } catch {
                 print(error)
-                updateDeviceOnError(device: device)
+                updateDeviceOnError(device: device, context: context)
             }
+        }
     }
 }

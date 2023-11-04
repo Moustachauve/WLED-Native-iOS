@@ -53,7 +53,7 @@ class DiscoveryService: NSObject, Identifiable {
                                     let newDevice = Device(context: viewContext)
                                     newDevice.name = name
                                     newDevice.address = "\(remoteHost)"
-                                    deviceApi.updateDevice(device: newDevice)
+                                    deviceApi.updateDevice(device: newDevice, context: viewContext)
                                 }
                             default:
                                 break
