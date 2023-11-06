@@ -16,36 +16,38 @@ struct DeviceListItemView: View {
 
     
     var body: some View {
-        VStack {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(getDeviceDisplayName())
-                        .font(.headline)
-                    HStack {
-                        Text(device.address!)
-                            .font(.subheadline)
-                        Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
-                            .offset(y: -2)
-                        Text(String(localized: "[Offline]"))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .opacity(device.isOnline ? 0 : 1)
+        HStack {
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(getDeviceDisplayName())
+                            .font(.headline)
+                        HStack {
+                            Text(device.address!)
+                                .font(.subheadline)
+                            Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
+                                .offset(y: -2)
+                            Text(String(localized: "[Offline]"))
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .opacity(device.isOnline ? 0 : 1)
+                        }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Toggle(String(localized: "Turn On/Off"), isOn: $device.isPoweredOn)
-                    .labelsHidden()
-                    .frame(alignment: .trailing)
-                    .tint(colorFromHex(rgbValue: Int(device.color)))
+                Slider(
+                    value: brightness,
+                    in: 0...255,
+                    onEditingChanged: { editing in
+                        
+                    }
+                )
+                .tint(colorFromHex(rgbValue: Int(device.color)))
             }
-            Slider(
-                value: brightness,
-                in: 0...255,
-                onEditingChanged: { editing in
-                    
-                }
-            )
-            .tint(colorFromHex(rgbValue: Int(device.color)))
+            Toggle(String(localized: "Turn On/Off"), isOn: $device.isPoweredOn)
+                .labelsHidden()
+                .frame(alignment: .trailing)
+                .tint(colorFromHex(rgbValue: Int(device.color)))
         }
     }
     
