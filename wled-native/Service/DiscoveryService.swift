@@ -9,7 +9,6 @@ class DiscoveryService: NSObject, Identifiable {
     var browser: NWBrowser!
     
     func scan() {
-        let viewContext = PersistenceController.shared.container.viewContext
         let bonjourTCP = NWBrowser.Descriptor.bonjour(type: "_wled._tcp" , domain: "local.")
         
         let bonjourParms = NWParameters.init()
@@ -36,7 +35,6 @@ class DiscoveryService: NSObject, Identifiable {
             for result in results {
                 print(result.endpoint.debugDescription)
             }
-            let deviceApi = DeviceApi()
             for change in changes {
                 if case .added(let added) = change {
                     print("NW Browser: Added")
@@ -50,10 +48,7 @@ class DiscoveryService: NSObject, Identifiable {
                                    case .hostPort(let host, let port) = innerEndpoint {
                                     let remoteHost = "\(host)".split(separator: "%")[0]
                                     print("Connected to", "\(remoteHost):\(port)")
-                                    let newDevice = Device(context: viewContext)
-                                    newDevice.name = name
-                                    newDevice.address = "\(remoteHost)"
-                                    deviceApi.updateDevice(device: newDevice, context: viewContext)
+                                    self.addDevice(name: name, host: "\(remoteHost)")
                                 }
                             default:
                                 break
@@ -67,4 +62,14 @@ class DiscoveryService: NSObject, Identifiable {
         self.browser.start(queue: DispatchQueue.main)
     }
     
+    func addDevice(name: String, host: String) {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let deviceApi = DeviceApi()
+        // TODO: Check if we already have this device
+        // TODO: Add mac address checkup like on Android
+        let newDevice = Device(context: viewContext)
+        newDevice.name = name
+        newDevice.address = host
+        deviceApi.updateDevice(device: newDevice, context: viewContext)
+    }
 }
