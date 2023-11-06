@@ -108,7 +108,9 @@ struct DeviceListItemView_Previews: PreviewProvider {
         device.name = Date().formatted()
         device.address = "192.168.11.101"
         device.isOnline = true
+        device.networkRssi = -80
         device.color = 6244567779
+        device.brightness = 125
         
 
         return DeviceListItemView(device: device)
