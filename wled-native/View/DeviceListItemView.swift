@@ -19,21 +19,21 @@ struct DeviceListItemView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(device.name ?? "[New Device]")
+                    Text(getDeviceDisplayName())
                         .font(.headline)
                     HStack {
                         Text(device.address!)
                             .font(.subheadline)
                         Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
                             .offset(y: -2)
-                        Text("[Offline]")
+                        Text(String(localized: "[Offline]"))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                             .opacity(device.isOnline ? 0 : 1)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                Toggle("Turn On/Off", isOn: $device.isPoweredOn)
+                Toggle(String(localized: "Turn On/Off"), isOn: $device.isPoweredOn)
                     .labelsHidden()
                     .frame(alignment: .trailing)
                     .tint(colorFromHex(rgbValue: Int(device.color)))
@@ -64,6 +64,14 @@ struct DeviceListItemView: View {
         }
         image.applyingSymbolConfiguration(UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue))
         return image
+    }
+    
+    func getDeviceDisplayName() -> String {
+        let emptyName = String(localized: "[New Device]")
+        guard let name = device.name else {
+            return emptyName
+        }
+        return name.isEmpty ? emptyName : name
     }
     
     func getSignalValue(signalStrength: Int) -> Double {
@@ -105,7 +113,7 @@ struct DeviceListItemView_Previews: PreviewProvider {
     static var previews: some View {
         
         let device = Device(context: PersistenceController.preview.container.viewContext)
-        device.name = Date().formatted()
+        device.name = ""
         device.address = "192.168.11.101"
         device.isOnline = true
         device.networkRssi = -80
