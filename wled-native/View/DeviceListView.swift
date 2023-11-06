@@ -20,20 +20,24 @@ struct DeviceListView: View {
         NavigationView {
             List {
                 ForEach(devices) { device in
-                    DeviceListItemView(device: device)
-                        .swipeActions(allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                deleteItems(device: device)
-                            } label: {
-                                Label(String(localized:"Delete"), systemImage: "trash.fill")
-                            }
-                            Button {
-                                print("TODO: Edit device")
-                            } label: {
-                                Label(String(localized: "Edit"), systemImage: "pencil")
-                            }
-                            .tint(.accentColor)
+                    NavigationLink {
+                        DeviceView(device: device)
+                    } label: {
+                        DeviceListItemView(device: device)
+                    }
+                    .swipeActions(allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            deleteItems(device: device)
+                        } label: {
+                            Label(String(localized:"Delete"), systemImage: "trash.fill")
                         }
+                        Button {
+                            print("TODO: Edit device")
+                        } label: {
+                            Label(String(localized: "Edit"), systemImage: "pencil")
+                        }
+                        .tint(.accentColor)
+                    }
                 }
             }
             .listStyle(PlainListStyle())

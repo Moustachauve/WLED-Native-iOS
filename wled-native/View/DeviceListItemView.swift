@@ -26,7 +26,7 @@ struct DeviceListItemView: View {
                             Text(device.address ?? "")
                                 .font(.subheadline)
                             Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
-                                .offset(y: -2)
+                                .offset(y: -1)
                             Text(String(localized: "[Offline]"))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
