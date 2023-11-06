@@ -21,8 +21,20 @@ struct DeviceListView: View {
             List {
                 ForEach(devices) { device in
                     DeviceListItemView(device: device)
+                        .swipeActions(allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                deleteItems(device: device)
+                            } label: {
+                                Label(String(localized:"Delete"), systemImage: "trash.fill")
+                            }
+                            Button {
+                                print("TODO: Edit device")
+                            } label: {
+                                Label(String(localized: "Edit"), systemImage: "pencil")
+                            }
+                            .tint(.accentColor)
+                        }
                 }
-                .onDelete(perform: deleteItems)
             }
             .listStyle(PlainListStyle())
             .refreshable(action: refreshDevices)
@@ -66,9 +78,9 @@ struct DeviceListView: View {
         }
     }
     
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteItems(device: Device) {
         withAnimation {
-            offsets.map { devices[$0] }.forEach(viewContext.delete)
+            viewContext.delete(device)
 
             do {
                 try viewContext.save()

@@ -23,7 +23,7 @@ struct DeviceListItemView: View {
                         Text(getDeviceDisplayName())
                             .font(.headline)
                         HStack {
-                            Text(device.address!)
+                            Text(device.address ?? "")
                                 .font(.subheadline)
                             Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
                                 .offset(y: -2)
