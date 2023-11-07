@@ -12,6 +12,7 @@ struct DeviceView: View {
     var body: some View {
         WebView(url: getDeviceAddress())
             .navigationTitle(device.name ?? "")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 NavigationLink {
                     DeviceEditView(device: device)
