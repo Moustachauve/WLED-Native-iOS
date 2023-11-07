@@ -30,7 +30,7 @@ struct DeviceListView: View {
                         Button(role: .destructive) {
                             deleteItems(device: device)
                         } label: {
-                            Label(String(localized:"Delete"), systemImage: "trash.fill")
+                            Label("Delete", systemImage: "trash.fill")
                         }
                     }
                 }

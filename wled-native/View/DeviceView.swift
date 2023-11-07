@@ -16,7 +16,7 @@ struct DeviceView: View {
                 NavigationLink {
                     DeviceEditView(device: device)
                 } label: {
-                    Text(String(localized: "Edit"))
+                    Text("Edit")
                 }
             }
     }

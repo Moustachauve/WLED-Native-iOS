@@ -33,7 +33,7 @@ struct DeviceListItemView: View {
                                 .foregroundColor(.primary)
                                 .aspectRatio(contentMode: .fit)
                                 .frame(maxHeight: 12)
-                            Text(String(localized: "[Offline]"))
+                            Text("(Offline)")
                                 .font(.subheadline.leading(.tight))
                                 .foregroundStyle(.secondary)
                                 .opacity(device.isOnline ? 0 : 1)
@@ -57,7 +57,7 @@ struct DeviceListItemView: View {
                 )
                 .tint(colorFromHex(rgbValue: Int(device.color)))
             }
-            Toggle(String(localized: "Turn On/Off"), isOn: $device.isPoweredOn)
+            Toggle("Turn On/Off", isOn: $device.isPoweredOn)
                 .onChange(of: device.isPoweredOn) { value in
                     let postParam = JsonPost(isOn: value)
                     print("device \(device.address ?? "?") toggled \(postParam)")
@@ -88,7 +88,7 @@ struct DeviceListItemView: View {
     }
     
     func getDeviceDisplayName() -> String {
-        let emptyName = String(localized: "[New Device]")
+        let emptyName = String(localized: "(New Device)")
         guard let name = device.name else {
             return emptyName
         }

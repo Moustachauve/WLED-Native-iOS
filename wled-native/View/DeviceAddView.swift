@@ -18,8 +18,8 @@ struct DeviceAddView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                Text(String(localized: "IP Address or URL"))
-                TextField(String(localized: "IP Address or URL"), text: $address)
+                Text("IP Address or URL")
+                TextField("IP Address or URL", text: $address)
                     .focused($focusedField, equals: .address)
                     .submitLabel(.next)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -33,8 +33,8 @@ struct DeviceAddView: View {
             }
             
             VStack(alignment: .leading) {
-                Text(String(localized: "Custom Name"))
-                TextField(String(localized: "Custom Name"), text: $customName)
+                Text("Custom Name")
+                TextField("Custom Name", text: $customName)
                     .focused($focusedField, equals: .name)
                     .submitLabel(.send)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -46,7 +46,7 @@ struct DeviceAddView: View {
                         addItem()
                     }
             }
-            Toggle(String(localized: "Hide this Device"), isOn: $hideDevice)
+            Toggle("Hide this Device", isOn: $hideDevice)
             
             
             Spacer()
@@ -55,12 +55,12 @@ struct DeviceAddView: View {
         .toolbar {
             ToolbarItem {
                 Button(action: addItem) {
-                    Text(String(localized: "Save"))
+                    Text("Save")
                 }
                 .disabled(!isFormValid)
             }
         }
-        .navigationTitle(String(localized: "New Device"))
+        .navigationTitle("New Device")
     }
     
     private func validateForm() {
