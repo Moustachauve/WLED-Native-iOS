@@ -2,6 +2,7 @@
 import SwiftUI
 
 struct DeviceListItemView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var device: Device
     var brightness: Binding<Double>
@@ -39,12 +40,23 @@ struct DeviceListItemView: View {
                     value: brightness,
                     in: 0...255,
                     onEditingChanged: { editing in
-                        
+                        print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness.wrappedValue)")
+                        if (!editing) {
+                            let postParam = JsonPost(brightness: Int64(brightness.wrappedValue))
+                            let deviceApi = DeviceApi()
+                            deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                        }
                     }
                 )
                 .tint(colorFromHex(rgbValue: Int(device.color)))
             }
             Toggle(String(localized: "Turn On/Off"), isOn: $device.isPoweredOn)
+                .onChange(of: device.isPoweredOn) { value in
+                    let postParam = JsonPost(isOn: value)
+                    print("device \(device.address ?? "?") toggled \(postParam)")
+                    let deviceApi = DeviceApi()
+                    deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                }
                 .labelsHidden()
                 .frame(alignment: .trailing)
                 .tint(colorFromHex(rgbValue: Int(device.color)))
