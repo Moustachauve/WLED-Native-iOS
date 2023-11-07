@@ -6,10 +6,15 @@ import CoreData
 struct DeviceListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Device.name, ascending: true)],
-        animation: .default)
-    private var devices: FetchedResults<Device>
+    @State private var showHiddenDevices: Bool = false
+    @State private var addDeviceButtonActive: Bool = false
+    
+    // TODO: Create a filter object that generates a predicate
+    @State private var filter = NSPredicate(format: "isHidden == %@ || isHidden == nil", NSNumber(value: false))
+    @State private var sort = [
+        NSSortDescriptor(keyPath: \Device.isOnline, ascending: false),
+        NSSortDescriptor(keyPath: \Device.name, ascending: true),
+    ]
     
     private let discoveryService = DiscoveryService()
     
@@ -19,24 +24,33 @@ struct DeviceListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(devices) { device in
-                    NavigationLink {
-                        DeviceView(device: device)
-                    } label: {
-                        DeviceListItemView(device: device)
-                    }
-                    .swipeActions(allowsFullSwipe: true) {
-                        Button(role: .destructive) {
-                            deleteItems(device: device)
+            FetchedObjects(predicate: filter, sortDescriptors: sort) { (devices: [Device]) in
+                List {
+                    ForEach(devices) { device in
+                        NavigationLink {
+                            DeviceView(device: device)
                         } label: {
-                            Label("Delete", systemImage: "trash.fill")
+                            DeviceListItemView(device: device)
+                        }
+                        .swipeActions(allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                deleteItems(device: device)
+                            } label: {
+                                Label("Delete", systemImage: "trash.fill")
+                            }
                         }
                     }
                 }
+                .listStyle(PlainListStyle())
+                .refreshable {
+                    await refreshDevices(devices: devices)
+                }
+                .onAppear(perform: {
+                    Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+                        refreshDevicesSync(devices: devices)
+                    }
+                })
             }
-            .listStyle(PlainListStyle())
-            .refreshable(action: refreshAndScanDevices)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
@@ -48,22 +62,40 @@ struct DeviceListView: View {
                     .frame(maxWidth: 200)
                 }
                 ToolbarItem {
-                    NavigationLink {
-                        DeviceAddView()
+                    Menu {
+                        Button {
+                            addDeviceButtonActive = true
+                        } label: {
+                            Label("Add New Device", systemImage: "plus")
+                        }
+                        Button {
+                            showHiddenDevices = !showHiddenDevices
+                            updateFilter()
+                        } label: {
+                            if (showHiddenDevices) {
+                                Label("Hide Hidden Devices", systemImage: "eye.slash")
+                            } else {
+                                Label("Show Hidden Devices", systemImage: "eye")
+                            }
+                        }
                     } label: {
-                        Label("Add Item", systemImage: "plus")
+                        Label("Add Item", systemImage: "ellipsis.circle")
                     }
+                    .background(
+                        NavigationLink(destination: DeviceAddView(), isActive: $addDeviceButtonActive) {
+                            EmptyView()
+                        }
+                    )
+                    
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             Text("Select an item")
         }
-        .onAppear(perform: {
-            Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
-                refreshDevicesSync()
-            }
-            
-        })
+    }
+    
+    private func updateFilter() {
+        filter = NSPredicate(format: "isHidden == %@ || isHidden == nil", NSNumber(value: showHiddenDevices))
     }
     
     private func deleteItems(device: Device) {
@@ -82,7 +114,7 @@ struct DeviceListView: View {
     }
     
     @Sendable
-    private func refreshDevices() async {
+    private func refreshDevices(devices: [Device]) async {
         let deviceApi = DeviceApi()
         for device in devices {
             deviceApi.updateDevice(device: device, context: viewContext)
@@ -91,15 +123,16 @@ struct DeviceListView: View {
         discoveryService.scan()
     }
     
-    private func refreshDevicesSync() {
+    private func refreshDevicesSync(devices: [Device]) {
         Task {
-            await refreshDevices()
+            print("auto-refreshing")
+            await refreshDevices(devices: devices)
         }
     }
     
     @Sendable
-    private func refreshAndScanDevices() async {
-        await refreshDevices()
+    private func refreshAndScanDevices(devices: [Device]) async {
+        await refreshDevices(devices: devices)
         discoveryService.scan()
     }
 }
