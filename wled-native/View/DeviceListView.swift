@@ -119,8 +119,6 @@ struct DeviceListView: View {
         for device in devices {
             deviceApi.updateDevice(device: device, context: viewContext)
         }
-        
-        discoveryService.scan()
     }
     
     private func refreshDevicesSync(devices: [Device]) {
