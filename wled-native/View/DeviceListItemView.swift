@@ -20,19 +20,26 @@ struct DeviceListItemView: View {
         HStack {
             VStack {
                 HStack {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 0) {
                         Text(getDeviceDisplayName())
-                            .font(.headline)
+                            .font(.headline.leading(.tight))
                         HStack {
                             Text(device.address ?? "")
-                                .font(.subheadline)
+                                .font(.subheadline.leading(.tight))
+                                .lineSpacing(0)
                             Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
-                                .offset(y: -1)
+                                .resizable()
+                                .renderingMode(.template)
+                                .foregroundColor(.primary)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(maxHeight: 12)
                             Text(String(localized: "[Offline]"))
-                                .font(.subheadline)
+                                .font(.subheadline.leading(.tight))
                                 .foregroundStyle(.secondary)
                                 .opacity(device.isOnline ? 0 : 1)
+                                .lineSpacing(0)
                         }
+                        
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
