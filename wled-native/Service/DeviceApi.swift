@@ -112,6 +112,15 @@ class DeviceApi {
                 let green = Int64(Double(colorInfo![1]) + 0.5)
                 let blue = Int64(Double(colorInfo![2]) + 0.5)
                 device.color = (red << 16) | (green << 8) | blue
+                
+                do {
+                    try context.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nsError = error as NSError
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
             } catch {
                 print(error)
                 updateDeviceOnError(device: device, context: context)

@@ -42,7 +42,7 @@ struct DeviceListView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            .refreshable(action: refreshDevices)
+            .refreshable(action: refreshAndScanDevices)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
@@ -64,6 +64,12 @@ struct DeviceListView: View {
             .navigationBarTitleDisplayMode(.inline)
             Text("Select an item")
         }
+        .onAppear(perform: {
+            Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+                refreshDevicesSync()
+            }
+
+        })
     }
     
     private func deleteItems(device: Device) {
@@ -88,6 +94,18 @@ struct DeviceListView: View {
             deviceApi.updateDevice(device: device, context: viewContext)
         }
         
+        discoveryService.scan()
+    }
+    
+    private func refreshDevicesSync() {
+        Task {
+            await refreshDevices()
+        }
+    }
+    
+    @Sendable
+    private func refreshAndScanDevices() async {
+        await refreshDevices()
         discoveryService.scan()
     }
 }
