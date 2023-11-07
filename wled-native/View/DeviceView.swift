@@ -14,9 +14,9 @@ struct DeviceView: View {
             .navigationTitle(device.name ?? "")
     }
     
-    func getDeviceAddress() -> URL {
+    func getDeviceAddress() -> URL? {
         guard let deviceAddress = device.address else {
-            return URL(string: "")!
+            return nil
         }
         return URL(string: "http://\(deviceAddress)")!
     }

@@ -11,8 +11,9 @@ struct DeviceListView: View {
         animation: .default)
     private var devices: FetchedResults<Device>
     
+    private let discoveryService = DiscoveryService()
+    
     init() {
-        let discoveryService = DiscoveryService()
         discoveryService.scan()
     }
     
@@ -103,6 +104,8 @@ struct DeviceListView: View {
         for device in devices {
             deviceApi.updateDevice(device: device, context: viewContext)
         }
+        
+        discoveryService.scan()
     }
 }
 
