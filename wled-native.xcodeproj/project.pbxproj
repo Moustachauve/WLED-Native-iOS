@@ -13,6 +13,7 @@
 		C96440E82AF095B500C51204 /* DeviceListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E72AF095B500C51204 /* DeviceListItemView.swift */; };
 		C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */; };
 		C9767DDE2AF9F435002F3EA9 /* DeviceAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */; };
+		C9767DE02AFA04E0002F3EA9 /* DeviceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */; };
 		C9865AF62AEF1902000B2714 /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9865AF52AEF1902000B2714 /* DeviceListView.swift */; };
 		C99BEF552AF49513001AD80A /* DiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF542AF49513001AD80A /* DiscoveryService.swift */; };
 		C99BEF572AF8B926001AD80A /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF562AF8B926001AD80A /* DeviceView.swift */; };
@@ -41,6 +42,7 @@
 		C96440E72AF095B500C51204 /* DeviceListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItemView.swift; sourceTree = "<group>"; };
 		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAddView.swift; sourceTree = "<group>"; };
+		C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditView.swift; sourceTree = "<group>"; };
 		C9865AF52AEF1902000B2714 /* DeviceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListView.swift; sourceTree = "<group>"; };
 		C99BEF542AF49513001AD80A /* DiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryService.swift; sourceTree = "<group>"; };
 		C99BEF562AF8B926001AD80A /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				C99BEF562AF8B926001AD80A /* DeviceView.swift */,
 				C99BEF582AF8BA79001AD80A /* WebView.swift */,
 				C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */,
+				C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */,
 				C9FCC391293DB95500DEDDEA /* Wifi.swift in Sources */,
 				C9FCC385293DB69F00DEDDEA /* WledState.swift in Sources */,
+				C9767DE02AFA04E0002F3EA9 /* DeviceEditView.swift in Sources */,
 				C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */,
 				C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */,
 				C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */,

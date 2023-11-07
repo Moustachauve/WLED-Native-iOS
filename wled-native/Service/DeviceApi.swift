@@ -87,7 +87,7 @@ class DeviceApi {
     }
     
     private func getJsonApiUrl(device: Device, path: String) -> URL? {
-        let urlString = "http://\(device.address!)/\(path)"
+        let urlString = "http://\(device.address ?? "127.0.0.1")/\(path)"
         print(urlString)
         return URL(string: urlString)
     }

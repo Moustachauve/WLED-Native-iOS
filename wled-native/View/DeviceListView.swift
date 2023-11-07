@@ -32,12 +32,6 @@ struct DeviceListView: View {
                         } label: {
                             Label(String(localized:"Delete"), systemImage: "trash.fill")
                         }
-                        Button {
-                            print("TODO: Edit device")
-                        } label: {
-                            Label(String(localized: "Edit"), systemImage: "pencil")
-                        }
-                        .tint(.accentColor)
                     }
                 }
             }

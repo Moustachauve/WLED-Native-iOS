@@ -12,6 +12,13 @@ struct DeviceView: View {
     var body: some View {
         WebView(url: getDeviceAddress())
             .navigationTitle(device.name ?? "")
+            .toolbar {
+                NavigationLink {
+                    DeviceEditView(device: device)
+                } label: {
+                    Text(String(localized: "Edit"))
+                }
+            }
     }
     
     func getDeviceAddress() -> URL? {
