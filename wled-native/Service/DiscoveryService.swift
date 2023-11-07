@@ -1,6 +1,7 @@
 
 import Foundation
 import Combine
+import CoreData
 import Network
 import SwiftUI
 
@@ -64,12 +65,33 @@ class DiscoveryService: NSObject, Identifiable {
     
     func addDevice(name: String, host: String) {
         let viewContext = PersistenceController.shared.container.viewContext
-        let deviceApi = DeviceApi()
-        // TODO: Check if we already have this device
-        // TODO: Add mac address checkup like on Android
-        let newDevice = Device(context: viewContext)
-        newDevice.name = name
-        newDevice.address = host
-        deviceApi.updateDevice(device: newDevice, context: viewContext)
+        viewContext.performAndWait {
+            if (doesDeviceAlreadyExists(host: host, viewContext: viewContext)) {
+                return
+            }
+            let deviceApi = DeviceApi()
+            // TODO: Add mac address checkup like on Android for ip changes
+            let newDevice = Device(context: viewContext)
+            newDevice.name = name
+            newDevice.address = host
+            deviceApi.updateDevice(device: newDevice, context: viewContext)
+        }
+    }
+    
+    func doesDeviceAlreadyExists(host: String, viewContext: NSManagedObjectContext) -> Bool {
+        let fetchRequest: NSFetchRequest<Device>
+        fetchRequest = Device.fetchRequest()
+
+        fetchRequest.predicate = NSPredicate(
+            format: "address LIKE %@", host
+        )
+
+        do {
+            let device = try viewContext.fetch(fetchRequest)
+            return !device.isEmpty
+        } catch {
+            print("Unexpected error when checking for device existance in discovery: \(error)")
+            return false
+        }
     }
 }
