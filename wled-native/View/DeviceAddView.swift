@@ -5,30 +5,45 @@ struct DeviceAddView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss
     
+    enum Field {
+        case address, name
+    }
+    
     @State private var address: String = ""
     @State private var customName: String = ""
     @State private var hideDevice: Bool = false
     @State private var isFormValid: Bool = false
+    @FocusState var focusedField: Field?
     
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
                 Text(String(localized: "IP Address or URL"))
                 TextField(String(localized: "IP Address or URL"), text: $address)
+                    .focused($focusedField, equals: .address)
+                    .submitLabel(.next)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(address.isEmpty || isAddressValid() ? Color.clear : Color.red))
                     .onChange(of: address) { _ in
                         validateForm()
+                    }
+                    .onSubmit {
+                        focusedField = .name
                     }
             }
             
             VStack(alignment: .leading) {
                 Text(String(localized: "Custom Name"))
                 TextField(String(localized: "Custom Name"), text: $customName)
+                    .focused($focusedField, equals: .name)
+                    .submitLabel(.send)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(customName.isEmpty || isNameValid() ? Color.clear : Color.red))
                     .onChange(of: customName) { _ in
                         validateForm()
+                    }
+                    .onSubmit {
+                        addItem()
                     }
             }
             Toggle(String(localized: "Hide this Device"), isOn: $hideDevice)
@@ -85,6 +100,9 @@ struct DeviceAddView: View {
     }
     
     private func addItem() {
+        guard isFormValid else {
+            return
+        }
         withAnimation {
             let newItem = Device(context: viewContext)
             newItem.address = address
