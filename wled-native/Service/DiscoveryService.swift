@@ -81,11 +81,11 @@ class DiscoveryService: NSObject, Identifiable {
     func doesDeviceAlreadyExists(host: String, viewContext: NSManagedObjectContext) -> Bool {
         let fetchRequest: NSFetchRequest<Device>
         fetchRequest = Device.fetchRequest()
-
+        
         fetchRequest.predicate = NSPredicate(
             format: "address LIKE %@", host
         )
-
+        
         do {
             let device = try viewContext.fetch(fetchRequest)
             return !device.isEmpty

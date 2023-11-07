@@ -113,7 +113,7 @@ struct DeviceEditView_Previews: PreviewProvider {
         device.address = "192.168.11.101"
         device.isHidden = true
         
-
+        
         return DeviceEditView(device: device)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }

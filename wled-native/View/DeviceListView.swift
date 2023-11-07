@@ -62,14 +62,14 @@ struct DeviceListView: View {
             Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
                 refreshDevicesSync()
             }
-
+            
         })
     }
     
     private func deleteItems(device: Device) {
         withAnimation {
             viewContext.delete(device)
-
+            
             do {
                 try viewContext.save()
             } catch {

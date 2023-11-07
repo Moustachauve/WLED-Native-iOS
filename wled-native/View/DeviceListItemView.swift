@@ -14,7 +14,7 @@ struct DeviceListItemView: View {
             set: { device.brightness = Int64($0) } // Or other custom logic
         )
     }
-
+    
     
     var body: some View {
         HStack {
@@ -141,7 +141,7 @@ struct DeviceListItemView_Previews: PreviewProvider {
         device.color = 6244567779
         device.brightness = 125
         
-
+        
         return DeviceListItemView(device: device)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }

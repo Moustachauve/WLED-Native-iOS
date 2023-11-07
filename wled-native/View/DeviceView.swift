@@ -40,7 +40,7 @@ struct DeviceView_Previews: PreviewProvider {
         device.color = 6244567779
         device.brightness = 125
         
-
+        
         return DeviceView(device: device)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
