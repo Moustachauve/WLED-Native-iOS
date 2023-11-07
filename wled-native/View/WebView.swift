@@ -7,22 +7,20 @@ struct WebView: UIViewRepresentable {
     var webView: WKWebView = WKWebView()
     var url: URL?
     
-    init(url: URL? = nil) {
-        self.url = url
-    }
-    
     func makeUIView(context: Context) -> WKWebView {
-        return webView
-    }
-    
-    func updateUIView(_ webView: WKWebView, context: Context) {
+        print("WebView makeUIView")
         guard let url = url else {
-            return
+            return webView
         }
         let request = URLRequest(url: url)
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
         webView.load(request)
+        return webView
+    }
+    
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        print("WebView updateUIView")
     }
     
     class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
