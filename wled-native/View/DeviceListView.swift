@@ -54,32 +54,15 @@ struct DeviceListView: View {
                     .frame(maxWidth: 200)
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    NavigationLink {
+                        DeviceAddView()
+                    } label: {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             Text("Select an item")
-        }
-    }
-    
-    private func addItem() {
-        withAnimation {
-            let newItem = Device(context: viewContext)
-            // TODO: Show new device form
-            newItem.name = Date().formatted()
-            newItem.address = "192.168.11.101"
-            newItem.color = 2552555;
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
         }
     }
     

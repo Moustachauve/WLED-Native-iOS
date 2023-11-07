@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct State: Decodable {
+struct WledState: Decodable {
     var isOn: Bool
     var brightness: Int64
     var transition: Int64?

@@ -8,6 +8,6 @@
 import Foundation
 
 struct DeviceStateInfo: Decodable {
-    var state: State
+    var state: WledState
     var info: Info
 }
