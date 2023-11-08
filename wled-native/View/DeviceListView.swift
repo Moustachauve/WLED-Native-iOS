@@ -6,23 +6,9 @@ import CoreData
 struct DeviceListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State private var showHiddenDevices: Bool = false
     @State private var addDeviceButtonActive: Bool = false
     
-    // TODO: Create a filter object that generates a predicate
-    @State private var filterOnline = NSPredicate(
-        format: "isOnline == %@ && isHidden == %@",
-        argumentArray: [NSNumber(value: true), NSNumber(value: false)]
-    )
-    @State private var filterOffline = NSPredicate(
-        format: "isOnline == %@ && isHidden == %@ ",
-        argumentArray: [NSNumber(value: false), NSNumber(value: false)]
-    )
-    @State private var sort = [
-        NSSortDescriptor(keyPath: \Device.isOnline, ascending: false),
-        NSSortDescriptor(keyPath: \Device.name, ascending: true),
-    ]
-    
+    @StateObject private var filter = DeviceListFilterAndSort(showHiddenDevices: false)
     private let discoveryService = DiscoveryService()
     
     init() {
@@ -31,8 +17,8 @@ struct DeviceListView: View {
     
     var body: some View {
         NavigationView {
-            FetchedObjects(predicate: filterOnline, sortDescriptors: sort) { (devices: [Device]) in
-                FetchedObjects(predicate: filterOffline, sortDescriptors: sort) { (devicesOffline: [Device]) in
+            FetchedObjects(predicate: filter.getOnlineFilter(), sortDescriptors: filter.getSortDescriptors()) { (devices: [Device]) in
+                FetchedObjects(predicate: filter.getOfflineFilter(), sortDescriptors: filter.getSortDescriptors()) { (devicesOffline: [Device]) in
                     List {
                         ForEach(devices) { device in
                             NavigationLink {
@@ -95,10 +81,11 @@ struct DeviceListView: View {
                             Label("Add New Device", systemImage: "plus")
                         }
                         Button {
-                            showHiddenDevices = !showHiddenDevices
-                            updateFilter()
+                            withAnimation {
+                                filter.showHiddenDevices = !filter.showHiddenDevices
+                            }
                         } label: {
-                            if (showHiddenDevices) {
+                            if (filter.showHiddenDevices) {
                                 Label("Hide Hidden Devices", systemImage: "eye.slash")
                             } else {
                                 Label("Show Hidden Devices", systemImage: "eye")
@@ -118,15 +105,6 @@ struct DeviceListView: View {
             .navigationBarTitleDisplayMode(.inline)
             Text("Select an item")
         }
-    }
-    
-    private func updateFilter() {
-        filterOnline = NSPredicate(
-            format: "isOnline == %@ && isHidden == %@",
-            argumentArray: [NSNumber(value: true), NSNumber(value: showHiddenDevices)])
-        filterOffline = NSPredicate(
-            format: "isOnline == %@ && isHidden == %@",
-            argumentArray: [NSNumber(value: false), NSNumber(value: showHiddenDevices)])
     }
     
     private func deleteItems(device: Device) {

@@ -21,6 +21,7 @@
 		C99BEF592AF8BA79001AD80A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF582AF8BA79001AD80A /* WebView.swift */; };
 		C9A9E5C12918D1C3005B5C22 /* WLEDNativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */; };
 		C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */; };
+		C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */; };
 		C9C4B47F2AC0050500791D20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C9C4B47E2AC0050500791D20 /* README.md */; };
 		C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */; };
 		C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */; };
@@ -53,6 +54,7 @@
 		C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDNativeApp.swift; sourceTree = "<group>"; };
 		C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9A9E5CE2918D1C4005B5C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListFilterAndSort.swift; sourceTree = "<group>"; };
 		C9C4B47E2AC0050500791D20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C9D43A7C29BAE3BA005A71C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9D43A8029BAE3F8005A71C2 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */,
+				C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */,
+				C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */,
 				C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */,
 				C9FCC391293DB95500DEDDEA /* Wifi.swift in Sources */,
 				C9FCC385293DB69F00DEDDEA /* WledState.swift in Sources */,
