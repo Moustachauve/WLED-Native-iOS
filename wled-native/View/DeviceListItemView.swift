@@ -21,10 +21,14 @@ struct DeviceListItemView: View {
             VStack {
                 HStack {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(getDeviceDisplayName())
-                            .font(.headline.leading(.tight))
+                        HStack {
+                            Text(getDeviceDisplayName())
+                                .font(.headline.leading(.tight))
+                        }
                         HStack {
                             Text(device.address ?? "")
+                                .lineLimit(1)
+                                .fixedSize()
                                 .font(.subheadline.leading(.tight))
                                 .lineSpacing(0)
                             Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
@@ -33,11 +37,27 @@ struct DeviceListItemView: View {
                                 .foregroundColor(.primary)
                                 .aspectRatio(contentMode: .fit)
                                 .frame(maxHeight: 12)
-                            Text("(Offline)")
-                                .font(.subheadline.leading(.tight))
-                                .foregroundStyle(.secondary)
-                                .opacity(device.isOnline ? 0 : 1)
-                                .lineSpacing(0)
+                            if (!device.isOnline) {
+                                Text("(Offline)")
+                                    .lineLimit(1)
+                                    .font(.subheadline.leading(.tight))
+                                    .foregroundStyle(.secondary)
+                                    .lineSpacing(0)
+                            }
+                            if (device.isHidden) {
+                                Image(systemName: "eye.slash")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(.secondary)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxHeight: 12)
+                                Text("(Hidden)")
+                                    .lineLimit(1)
+                                    .font(.subheadline.leading(.tight))
+                                    .foregroundStyle(.secondary)
+                                    .lineSpacing(0)
+                                    .truncationMode(.tail)
+                            }
                         }
                         
                     }
