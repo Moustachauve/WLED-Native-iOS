@@ -61,6 +61,7 @@ struct DeviceAddView: View {
             }
         }
         .navigationTitle("New Device")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private func validateForm() {

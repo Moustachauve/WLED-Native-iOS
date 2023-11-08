@@ -61,6 +61,7 @@ struct DeviceEditView: View {
             }
         }
         .navigationTitle("Edit Device")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private func validateForm() {
