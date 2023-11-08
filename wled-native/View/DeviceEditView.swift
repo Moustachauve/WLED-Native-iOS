@@ -36,6 +36,7 @@ struct DeviceEditView: View {
                 Text("Custom Name")
                 TextField("Custom Name", text: $customName)
                     .focused($focusedField, equals: .name)
+                    .keyboardType(.URL)
                     .submitLabel(.send)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(customName.isEmpty || isNameValid() ? Color.clear : Color.red))

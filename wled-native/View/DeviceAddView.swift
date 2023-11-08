@@ -21,6 +21,7 @@ struct DeviceAddView: View {
                 Text("IP Address or URL")
                 TextField("IP Address or URL", text: $address)
                     .focused($focusedField, equals: .address)
+                    .keyboardType(.URL)
                     .submitLabel(.next)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(address.isEmpty || isAddressValid() ? Color.clear : Color.red))
