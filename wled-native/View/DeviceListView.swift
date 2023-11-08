@@ -10,7 +10,14 @@ struct DeviceListView: View {
     @State private var addDeviceButtonActive: Bool = false
     
     // TODO: Create a filter object that generates a predicate
-    @State private var filter = NSPredicate(format: "isHidden == %@ || isHidden == nil", NSNumber(value: false))
+    @State private var filterOnline = NSPredicate(
+        format: "isOnline == %@ && isHidden == %@",
+        argumentArray: [NSNumber(value: true), NSNumber(value: false)]
+    )
+    @State private var filterOffline = NSPredicate(
+        format: "isOnline == %@ && isHidden == %@ ",
+        argumentArray: [NSNumber(value: false), NSNumber(value: false)]
+    )
     @State private var sort = [
         NSSortDescriptor(keyPath: \Device.isOnline, ascending: false),
         NSSortDescriptor(keyPath: \Device.name, ascending: true),
@@ -24,32 +31,51 @@ struct DeviceListView: View {
     
     var body: some View {
         NavigationView {
-            FetchedObjects(predicate: filter, sortDescriptors: sort) { (devices: [Device]) in
-                List {
-                    ForEach(devices) { device in
-                        NavigationLink {
-                            DeviceView(device: device)
-                        } label: {
-                            DeviceListItemView(device: device)
-                        }
-                        .swipeActions(allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                deleteItems(device: device)
+            FetchedObjects(predicate: filterOnline, sortDescriptors: sort) { (devices: [Device]) in
+                FetchedObjects(predicate: filterOffline, sortDescriptors: sort) { (devicesOffline: [Device]) in
+                    List {
+                        ForEach(devices) { device in
+                            NavigationLink {
+                                DeviceView(device: device)
                             } label: {
-                                Label("Delete", systemImage: "trash.fill")
+                                DeviceListItemView(device: device)
+                            }
+                            .swipeActions(allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    deleteItems(device: device)
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
+                                }
                             }
                         }
+                        Section(header: Text("Offline Devices")) {
+                            ForEach(devicesOffline) { device in
+                                NavigationLink {
+                                    DeviceView(device: device)
+                                } label: {
+                                    DeviceListItemView(device: device)
+                                }
+                                .swipeActions(allowsFullSwipe: true) {
+                                    Button(role: .destructive) {
+                                        deleteItems(device: device)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash.fill")
+                                    }
+                                }
+                            }
+                        }
+                        .opacity(devicesOffline.count > 0 ? 1 : 0)
                     }
-                }
-                .listStyle(PlainListStyle())
-                .refreshable {
-                    await refreshDevices(devices: devices)
-                }
-                .onAppear(perform: {
-                    Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
-                        refreshDevicesSync(devices: devices)
+                    .listStyle(PlainListStyle())
+                    .refreshable {
+                        await refreshDevices(devices: devices)
                     }
-                })
+                    .onAppear(perform: {
+                        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+                            refreshDevicesSync(devices: devices)
+                        }
+                    })
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -95,7 +121,12 @@ struct DeviceListView: View {
     }
     
     private func updateFilter() {
-        filter = NSPredicate(format: "isHidden == %@ || isHidden == nil", NSNumber(value: showHiddenDevices))
+        filterOnline = NSPredicate(
+            format: "isOnline == %@ && isHidden == %@",
+            argumentArray: [NSNumber(value: true), NSNumber(value: showHiddenDevices)])
+        filterOffline = NSPredicate(
+            format: "isOnline == %@ && isHidden == %@",
+            argumentArray: [NSNumber(value: false), NSNumber(value: showHiddenDevices)])
     }
     
     private func deleteItems(device: Device) {
