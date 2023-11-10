@@ -54,7 +54,7 @@ struct DeviceListView: View {
                     }
                     .listStyle(PlainListStyle())
                     .refreshable {
-                        await refreshDevices(devices: devices)
+                        await refreshAndScanDevices(devices: devices)
                     }
                     .onAppear(perform: {
                         Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
