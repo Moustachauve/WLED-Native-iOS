@@ -11,10 +11,6 @@ struct DeviceListView: View {
     @StateObject private var filter = DeviceListFilterAndSort(showHiddenDevices: false)
     private let discoveryService = DiscoveryService()
     
-    init() {
-        discoveryService.scan()
-    }
-    
     var body: some View {
         NavigationView {
             FetchedObjects(predicate: filter.getOnlineFilter(), sortDescriptors: filter.getSortDescriptors()) { (devices: [Device]) in
@@ -54,11 +50,17 @@ struct DeviceListView: View {
                     }
                     .listStyle(PlainListStyle())
                     .refreshable {
-                        await refreshAndScanDevices(devices: devices)
+                        await refreshDevices(devices: devices + devicesOffline)
+                        discoveryService.scan()
                     }
                     .onAppear(perform: {
                         Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
-                            refreshDevicesSync(devices: devices)
+                            refreshDevicesSync(devices: devices + devicesOffline)
+                        }
+                        Task {
+                            print("Initial refresh and scan")
+                            await refreshDevices(devices: devices + devicesOffline)
+                            discoveryService.scan()
                         }
                     })
                 }
@@ -135,12 +137,6 @@ struct DeviceListView: View {
             print("auto-refreshing")
             await refreshDevices(devices: devices)
         }
-    }
-    
-    @Sendable
-    private func refreshAndScanDevices(devices: [Device]) async {
-        await refreshDevices(devices: devices)
-        discoveryService.scan()
     }
 }
 
