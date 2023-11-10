@@ -75,7 +75,9 @@ class DiscoveryService: NSObject, Identifiable {
             newDevice.tag = UUID()
             newDevice.name = name
             newDevice.address = host
-            deviceApi.updateDevice(device: newDevice, context: viewContext)
+            Task {
+                await deviceApi.updateDevice(device: newDevice, context: viewContext)
+            }
         }
     }
     

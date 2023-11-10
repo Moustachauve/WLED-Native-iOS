@@ -127,8 +127,12 @@ struct DeviceListView: View {
     @Sendable
     private func refreshDevices(devices: [Device]) async {
         let deviceApi = DeviceApi()
-        for device in devices {
-            deviceApi.updateDevice(device: device, context: viewContext)
+        await withTaskGroup(of: Void.self) { [self] group in
+            for device in devices {
+                group.addTask {
+                    await deviceApi.updateDevice(device: device, context: viewContext)
+                }
+            }
         }
     }
     

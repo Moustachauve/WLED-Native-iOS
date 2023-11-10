@@ -71,7 +71,9 @@ struct DeviceListItemView: View {
                         if (!editing) {
                             let postParam = JsonPost(brightness: Int64(brightness.wrappedValue))
                             let deviceApi = DeviceApi()
-                            deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                            Task {
+                                await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                            }
                         }
                     }
                 )
@@ -82,7 +84,9 @@ struct DeviceListItemView: View {
                     let postParam = JsonPost(isOn: value)
                     print("device \(device.address ?? "?") toggled \(postParam)")
                     let deviceApi = DeviceApi()
-                    deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                    Task {
+                        await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                    }
                 }
                 .labelsHidden()
                 .frame(alignment: .trailing)

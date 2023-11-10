@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 class DeviceApi {
-    func updateDevice(device: Device, context: NSManagedObjectContext) {
+    func updateDevice(device: Device, context: NSManagedObjectContext) async {
         let url = getJsonApiUrl(device: device, path: "json/si")
         guard let url else {
             print("Can't update device, url nil")
@@ -10,12 +10,8 @@ class DeviceApi {
         }
         print("Reading api at: \(url)")
         
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-            if let error = error {
-                print("Error with fetching device: \(error)")
-                self.updateDeviceOnError(device: device, context: context)
-                return
-            }
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Invalid httpResponse in update")
@@ -29,11 +25,14 @@ class DeviceApi {
             }
             
             self.onResultFetchDataSuccess(device: device, context: context, data: data)
-        })
-        task.resume()
+        } catch {
+            print("Error with fetching device: \(error)")
+            self.updateDeviceOnError(device: device, context: context)
+            return
+        }
     }
     
-    func postJson(device: Device, context: NSManagedObjectContext, jsonData: JsonPost) {
+    func postJson(device: Device, context: NSManagedObjectContext, jsonData: JsonPost) async {
         let url = getJsonApiUrl(device: device, path: "json")
         guard let url else {
             print("Can't post to device, url nil")
@@ -49,12 +48,8 @@ class DeviceApi {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
             
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let error = error {
-                    print("Error with fetching device after post: \(error)")
-                    self.updateDeviceOnError(device: device, context: context)
-                    return
-                }
+            do {
+                let (data, response) = try await URLSession.shared.data(for: request)
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     print("Invalid httpResponse in post")
@@ -68,8 +63,11 @@ class DeviceApi {
                 }
                 
                 self.onResultFetchDataSuccess(device: device, context: context, data: data)
+            } catch {
+                print("Error with fetching device after post: \(error)")
+                self.updateDeviceOnError(device: device, context: context)
+                return
             }
-            task.resume()
         } catch {
             print(error)
             self.updateDeviceOnError(device: device, context: context)
