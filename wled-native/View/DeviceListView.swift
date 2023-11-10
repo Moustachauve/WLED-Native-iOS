@@ -78,7 +78,7 @@ struct DeviceListView: View {
                 ToolbarItem {
                     Menu {
                         Button {
-                            addDeviceButtonActive = true
+                            addDeviceButtonActive.toggle()
                         } label: {
                             Label("Add New Device", systemImage: "plus")
                         }
@@ -96,15 +96,10 @@ struct DeviceListView: View {
                     } label: {
                         Label("Add Item", systemImage: "ellipsis.circle")
                     }
-                    .background(
-                        NavigationLink(destination: DeviceAddView(), isActive: $addDeviceButtonActive) {
-                            EmptyView()
-                        }
-                    )
-                    
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $addDeviceButtonActive, content: DeviceAddView.init)
             Text("Select an item")
         }
     }

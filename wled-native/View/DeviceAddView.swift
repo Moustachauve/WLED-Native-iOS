@@ -16,53 +16,62 @@ struct DeviceAddView: View {
     @FocusState var focusedField: Field?
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                Text("IP Address or URL")
-                TextField("IP Address or URL", text: $address)
-                    .focused($focusedField, equals: .address)
-                    .keyboardType(.URL)
-                    .submitLabel(.next)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .overlay(RoundedRectangle(cornerRadius: 4).stroke(address.isEmpty || isAddressValid() ? Color.clear : Color.red))
-                    .onChange(of: address) { _ in
-                        validateForm()
-                    }
-                    .onSubmit {
-                        focusedField = .name
-                    }
-            }
-            
-            VStack(alignment: .leading) {
-                Text("Custom Name")
-                TextField("Custom Name", text: $customName)
-                    .focused($focusedField, equals: .name)
-                    .submitLabel(.send)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .overlay(RoundedRectangle(cornerRadius: 4).stroke(customName.isEmpty || isNameValid() ? Color.clear : Color.red))
-                    .onChange(of: customName) { _ in
-                        validateForm()
-                    }
-                    .onSubmit {
-                        addItem()
-                    }
-            }
-            Toggle("Hide this Device", isOn: $hideDevice)
-            
-            
-            Spacer()
-        }
-        .padding()
-        .toolbar {
-            ToolbarItem {
-                Button(action: addItem) {
-                    Text("Save")
+        NavigationView {
+            VStack {
+                VStack(alignment: .leading) {
+                    Text("IP Address or URL")
+                    TextField("IP Address or URL", text: $address)
+                        .focused($focusedField, equals: .address)
+                        .keyboardType(.URL)
+                        .submitLabel(.next)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(address.isEmpty || isAddressValid() ? Color.clear : Color.red))
+                        .onChange(of: address) { _ in
+                            validateForm()
+                        }
+                        .onSubmit {
+                            focusedField = .name
+                        }
                 }
-                .disabled(!isFormValid)
+                
+                VStack(alignment: .leading) {
+                    Text("Custom Name")
+                    TextField("Custom Name", text: $customName)
+                        .focused($focusedField, equals: .name)
+                        .submitLabel(.send)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(customName.isEmpty || isNameValid() ? Color.clear : Color.red))
+                        .onChange(of: customName) { _ in
+                            validateForm()
+                        }
+                        .onSubmit {
+                            addItem()
+                        }
+                }
+                Toggle("Hide this Device", isOn: $hideDevice)
+                
+                
+                Spacer()
             }
+            .padding()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(role: .cancel) {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+                ToolbarItem {
+                    Button(action: addItem) {
+                        Text("Save")
+                    }
+                    .disabled(!isFormValid)
+                }
+            }
+            .navigationTitle("New Device")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("New Device")
-        .navigationBarTitleDisplayMode(.inline)
     }
     
     private func validateForm() {
