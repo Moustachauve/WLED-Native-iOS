@@ -9,6 +9,7 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         for i in 0..<10 {
             let newDevice = Device(context: viewContext)
+            newDevice.tag = UUID()
             newDevice.name = i % 9 != 0 ? "Device \(i)" : ""
             newDevice.address = "192.168.1.\(i + 10)"
             newDevice.brightness = Int64(i * 26)

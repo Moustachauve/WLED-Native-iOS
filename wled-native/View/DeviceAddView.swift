@@ -107,6 +107,7 @@ struct DeviceAddView: View {
         }
         withAnimation {
             let newItem = Device(context: viewContext)
+            newItem.tag = UUID()
             newItem.address = address
             newItem.name = customName
             newItem.isCustomName = !customName.isEmpty

@@ -23,6 +23,8 @@
 		C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */; };
 		C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */; };
 		C9AF215B2AFDCF7500E03749 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */; };
+		C9AF21662AFDE94300E03749 /* Model1to2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21652AFDE94300E03749 /* Model1to2.xcmappingmodel */; };
+		C9AF21682AFDEB6900E03749 /* Migration1to2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21672AFDEB6900E03749 /* Migration1to2.swift */; };
 		C9C4B47F2AC0050500791D20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C9C4B47E2AC0050500791D20 /* README.md */; };
 		C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */; };
 		C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */; };
@@ -57,6 +59,9 @@
 		C9A9E5CE2918D1C4005B5C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListFilterAndSort.swift; sourceTree = "<group>"; };
 		C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		C9AF21632AFDE8A200E03749 /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
+		C9AF21652AFDE94300E03749 /* Model1to2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model1to2.xcmappingmodel; sourceTree = "<group>"; };
+		C9AF21672AFDEB6900E03749 /* Migration1to2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1to2.swift; sourceTree = "<group>"; };
 		C9C4B47E2AC0050500791D20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C9D43A7C29BAE3BA005A71C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9D43A8029BAE3F8005A71C2 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -138,8 +143,9 @@
 				C9865AF42AEF18E7000B2714 /* View */,
 				C9FCC37E293DAF8300DEDDEA /* Service */,
 				C96BF3F7291FFDC90011BC3B /* Model */,
-				C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */,
+				C9AF21642AFDE91D00E03749 /* Migration */,
 				C96440E12AEF6B6000C51204 /* Persistence.swift */,
+				C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */,
 				C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */,
 				C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */,
 				C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */,
@@ -151,6 +157,15 @@
 				C9C4B47E2AC0050500791D20 /* README.md */,
 			);
 			path = "wled-native";
+			sourceTree = "<group>";
+		};
+		C9AF21642AFDE91D00E03749 /* Migration */ = {
+			isa = PBXGroup;
+			children = (
+				C9AF21652AFDE94300E03749 /* Model1to2.xcmappingmodel */,
+				C9AF21672AFDEB6900E03749 /* Migration1to2.swift */,
+			);
+			path = Migration;
 			sourceTree = "<group>";
 		};
 		C9FCC37E293DAF8300DEDDEA /* Service */ = {
@@ -263,10 +278,12 @@
 				C9767DE32AFAE65C002F3EA9 /* FetchedObjects.swift in Sources */,
 				C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */,
 				C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */,
+				C9AF21662AFDE94300E03749 /* Model1to2.xcmappingmodel in Sources */,
 				C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */,
 				C9865AF62AEF1902000B2714 /* DeviceListView.swift in Sources */,
 				C9FCC393293DB9A500DEDDEA /* Nightlight.swift in Sources */,
 				C9FCC380293DAF9500DEDDEA /* DeviceApi.swift in Sources */,
+				C9AF21682AFDEB6900E03749 /* Migration1to2.swift in Sources */,
 				C99BEF552AF49513001AD80A /* DiscoveryService.swift in Sources */,
 				C9FCC397293DBD1800DEDDEA /* DeviceStateInfo.swift in Sources */,
 				C96440E82AF095B500C51204 /* DeviceListItemView.swift in Sources */,
@@ -510,9 +527,10 @@
 		C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C9AF21632AFDE8A200E03749 /* CoreData 2.xcdatamodel */,
 				C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */;
+			currentVersion = C9AF21632AFDE8A200E03749 /* CoreData 2.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

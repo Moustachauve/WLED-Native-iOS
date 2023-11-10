@@ -110,6 +110,7 @@ struct DeviceEditView_Previews: PreviewProvider {
     static var previews: some View {
         
         let device = Device(context: PersistenceController.preview.container.viewContext)
+        device.tag = UUID()
         device.name = "A custom name"
         device.isCustomName = true
         device.address = "192.168.11.101"

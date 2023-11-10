@@ -72,6 +72,7 @@ class DiscoveryService: NSObject, Identifiable {
             let deviceApi = DeviceApi()
             // TODO: Add mac address checkup like on Android for ip changes
             let newDevice = Device(context: viewContext)
+            newDevice.tag = UUID()
             newDevice.name = name
             newDevice.address = host
             deviceApi.updateDevice(device: newDevice, context: viewContext)

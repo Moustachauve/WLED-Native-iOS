@@ -34,6 +34,7 @@ struct DeviceView_Previews: PreviewProvider {
     static var previews: some View {
         
         let device = Device(context: PersistenceController.preview.container.viewContext)
+        device.tag = UUID()
         device.name = ""
         device.address = "google.com"
         device.isOnline = true

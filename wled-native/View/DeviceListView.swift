@@ -20,7 +20,7 @@ struct DeviceListView: View {
             FetchedObjects(predicate: filter.getOnlineFilter(), sortDescriptors: filter.getSortDescriptors()) { (devices: [Device]) in
                 FetchedObjects(predicate: filter.getOfflineFilter(), sortDescriptors: filter.getSortDescriptors()) { (devicesOffline: [Device]) in
                     List {
-                        ForEach(devices) { device in
+                        ForEach(devices, id: \.tag) { device in
                             NavigationLink {
                                 DeviceView(device: device)
                             } label: {
@@ -35,7 +35,7 @@ struct DeviceListView: View {
                             }
                         }
                         Section(header: Text("Offline Devices")) {
-                            ForEach(devicesOffline) { device in
+                            ForEach(devicesOffline, id: \.tag) { device in
                                 NavigationLink {
                                     DeviceView(device: device)
                                 } label: {
