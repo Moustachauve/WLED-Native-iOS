@@ -124,7 +124,14 @@ struct DeviceListView: View {
         let deviceApi = DeviceApi()
         await withTaskGroup(of: Void.self) { [self] group in
             for device in devices {
+                // Don't start a refresh request when the device is not done refreshing.
+                if (device.isRefreshing) {
+                    continue
+                }
                 group.addTask {
+                    await viewContext.performAndWait {
+                        device.isRefreshing = true
+                    }
                     await deviceApi.updateDevice(device: device, context: viewContext)
                 }
             }

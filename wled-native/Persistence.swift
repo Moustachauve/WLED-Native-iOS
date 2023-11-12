@@ -15,6 +15,7 @@ struct PersistenceController {
             newDevice.brightness = Int64(i * 26)
             newDevice.isOnline = i % 4 != 0
             newDevice.isPoweredOn = i % 2 != 0
+            newDevice.isRefreshing = i % 8 == 0
             switch i % 3 {
             case 0:
                 newDevice.networkRssi = -101

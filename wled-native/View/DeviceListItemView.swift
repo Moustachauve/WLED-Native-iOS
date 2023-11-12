@@ -79,18 +79,24 @@ struct DeviceListItemView: View {
                 )
                 .tint(colorFromHex(rgbValue: Int(device.color)))
             }
-            Toggle("Turn On/Off", isOn: $device.isPoweredOn)
-                .onChange(of: device.isPoweredOn) { value in
-                    let postParam = JsonPost(isOn: value)
-                    print("device \(device.address ?? "?") toggled \(postParam)")
-                    let deviceApi = DeviceApi()
-                    Task {
-                        await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+            if (device.isRefreshing) {
+                ProgressView()
+                    .padding()
+                    .frame(alignment: .trailing)
+            } else {
+                Toggle("Turn On/Off", isOn: $device.isPoweredOn)
+                    .onChange(of: device.isPoweredOn) { value in
+                        let postParam = JsonPost(isOn: value)
+                        print("device \(device.address ?? "?") toggled \(postParam)")
+                        let deviceApi = DeviceApi()
+                        Task {
+                            await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                        }
                     }
-                }
-                .labelsHidden()
-                .frame(alignment: .trailing)
-                .tint(colorFromHex(rgbValue: Int(device.color)))
+                    .labelsHidden()
+                    .frame(alignment: .trailing)
+                    .tint(colorFromHex(rgbValue: Int(device.color)))
+            }
         }
     }
     
