@@ -33,7 +33,16 @@ struct WebView: UIViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-            let htmlPath = Bundle.main.path(forResource: "errorPage", ofType: "html")
+            let langStr = {
+                switch Locale.current.languageCode {
+                case "fr":
+                    return "fr"
+                default:
+                    return "en"
+                }
+            }()
+
+            let htmlPath = Bundle.main.path(forResource: "errorPage.\(langStr)", ofType: "html")
             let htmlUrl = URL(fileURLWithPath: htmlPath!, isDirectory: false)
             webView.loadFileURL(htmlUrl, allowingReadAccessTo: htmlUrl)
         }

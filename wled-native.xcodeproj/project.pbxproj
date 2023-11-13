@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C93470AC29D904C20085D9D5 /* errorPage.html in Resources */ = {isa = PBXBuildFile; fileRef = C93470AB29D904C20085D9D5 /* errorPage.html */; };
+		C93470AC29D904C20085D9D5 /* errorPage.en.html in Resources */ = {isa = PBXBuildFile; fileRef = C93470AB29D904C20085D9D5 /* errorPage.en.html */; };
 		C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */ = {isa = PBXBuildFile; fileRef = C93470AD29D905BD0085D9D5 /* 012_rip.png */; };
 		C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E12AEF6B6000C51204 /* Persistence.swift */; };
 		C96440E82AF095B500C51204 /* DeviceListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E72AF095B500C51204 /* DeviceListItemView.swift */; };
+		C96827212B01AF5900A5DDEC /* errorPage.css in Resources */ = {isa = PBXBuildFile; fileRef = C96827202B01AF5900A5DDEC /* errorPage.css */; };
+		C96827232B01AFB900A5DDEC /* errorPage.fr.html in Resources */ = {isa = PBXBuildFile; fileRef = C96827222B01AFB900A5DDEC /* errorPage.fr.html */; };
 		C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */; };
 		C9767DDE2AF9F435002F3EA9 /* DeviceAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */; };
 		C9767DE02AFA04E0002F3EA9 /* DeviceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */; };
@@ -41,10 +43,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C93470AB29D904C20085D9D5 /* errorPage.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.html; sourceTree = "<group>"; };
+		C93470AB29D904C20085D9D5 /* errorPage.en.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.en.html; sourceTree = "<group>"; };
 		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
 		C96440E12AEF6B6000C51204 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		C96440E72AF095B500C51204 /* DeviceListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItemView.swift; sourceTree = "<group>"; };
+		C96827202B01AF5900A5DDEC /* errorPage.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = errorPage.css; sourceTree = "<group>"; };
+		C96827222B01AFB900A5DDEC /* errorPage.fr.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = errorPage.fr.html; sourceTree = "<group>"; };
 		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAddView.swift; sourceTree = "<group>"; };
 		C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditView.swift; sourceTree = "<group>"; };
@@ -151,7 +155,9 @@
 				C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */,
 				C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */,
 				C93470AD29D905BD0085D9D5 /* 012_rip.png */,
-				C93470AB29D904C20085D9D5 /* errorPage.html */,
+				C93470AB29D904C20085D9D5 /* errorPage.en.html */,
+				C96827222B01AFB900A5DDEC /* errorPage.fr.html */,
+				C96827202B01AF5900A5DDEC /* errorPage.css */,
 				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
 				C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */,
 				C9C4B47E2AC0050500791D20 /* README.md */,
@@ -252,9 +258,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C93470AC29D904C20085D9D5 /* errorPage.html in Resources */,
+				C96827232B01AFB900A5DDEC /* errorPage.fr.html in Resources */,
+				C93470AC29D904C20085D9D5 /* errorPage.en.html in Resources */,
 				C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */,
 				C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */,
+				C96827212B01AF5900A5DDEC /* errorPage.css in Resources */,
 				C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */,
 				C9C4B47F2AC0050500791D20 /* README.md in Resources */,
 				C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */,
