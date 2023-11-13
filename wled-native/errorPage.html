@@ -11,6 +11,9 @@
                             --background-color: #fff;
                             --surface-color: #EEE;
                         }
+                        .only-dark {
+                            display: none;
+                        }
                     }
                     
                     @media (prefers-color-scheme: dark) {
@@ -18,6 +21,9 @@
                             --text-color: #DADADA;
                             --background-color: #000;
                             --surface-color: #181818;
+                        }
+                        .only-light {
+                            display: none;
                         }
                     }
                     
@@ -51,7 +57,8 @@
     </head>
     <body>
         <div>
-            <img src="012_rip.png" alt="Dead LED character" />
+            <img class="only-light" src="illumidel_logo.png" alt="Illumidel Logo" />
+            <img class="only-dark" src="illumidel_logo_dark.png" alt="Illumidel Logo" />
             <h1>The device could not be reached</h1>
             <p>Make sure it is plugged in and connected to the network</p>
         </div>
