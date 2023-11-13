@@ -11,6 +11,11 @@ This aims to replace the previous WLED app [found here](https://github.com/Airco
 - Hide or delete devices
 - Light and dark mode
 
+## About WLED
+
+This application is made to connect and control devices using [WLED](https://github.com/Aircoookie/WLED).  
+Read the full documentation of [WLED here!](https://kno.wled.ge/)
+
 ## Disclaimer
 
 This project is not an official Google project. It is not supported by

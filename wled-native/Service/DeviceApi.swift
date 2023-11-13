@@ -1,76 +1,110 @@
 import Foundation
+import CoreData
 
 class DeviceApi {
-    func updateDevice(device: Device, completionHandler: @escaping (Device) -> Void) {
+    func updateDevice(device: Device, context: NSManagedObjectContext) async {
         let url = getJsonApiUrl(device: device, path: "json/si")
-        print(url)
-        if (url == nil) {
+        guard let url else {
             print("Can't update device, url nil")
             return
         }
+        print("Reading api at: \(url)")
         
-        let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-            if let error = error {
-                print("Error with fetching device: \(error)")
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid httpResponse in update")
+                self.updateDeviceOnError(device: device, context: context)
+                return
+            }
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("Error with the response in update, unexpected status code: \(httpResponse)")
+                self.updateDeviceOnError(device: device, context: context)
                 return
             }
             
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                print("Error with the response, unexpected status code: \(response)")
-                return
-            }
-            
-            self.onResultFetchDataSuccess(device: device, completionHandler: completionHandler, data: data)
-        })
-        task.resume()
-    }
-    
-    func postJson(device: Device, jsonData: JsonPost, completionHandler: @escaping (Device) -> Void) {
-        let url = getJsonApiUrl(device: device, path: "json")
-        print(url)
-        if (url == nil) {
-            print("Can't post to device, url nil")
+            self.onResultFetchDataSuccess(device: device, context: context, data: data)
+        } catch {
+            print("Error with fetching device: \(error)")
+            self.updateDeviceOnError(device: device, context: context)
             return
         }
+    }
+    
+    func postJson(device: Device, context: NSManagedObjectContext, jsonData: JsonPost) async {
+        let url = getJsonApiUrl(device: device, path: "json")
+        guard let url else {
+            print("Can't post to device, url nil")
+            self.updateDeviceOnError(device: device, context: context)
+            return
+        }
+        print("Posting api at: \(url)")
         do {
             let jsonData = try JSONEncoder().encode(jsonData)
             
-            var request = URLRequest(url: url!)
+            var request = URLRequest(url: url)
             request.httpMethod = "post"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
             
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let error = error {
-                    print("Error with fetching device after post: \(error)")
+            do {
+                let (data, response) = try await URLSession.shared.data(for: request)
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    print("Invalid httpResponse in post")
+                    self.updateDeviceOnError(device: device, context: context)
                     return
                 }
-                guard let httpResponse = response as? HTTPURLResponse,
-                      (200...299).contains(httpResponse.statusCode) else {
-                    print("Error with the response, unexpected status code: \(response)")
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    print("Error with the response in post, unexpected status code: \(httpResponse)")
+                    self.updateDeviceOnError(device: device, context: context)
                     return
                 }
                 
-                self.onResultFetchDataSuccess(device: device, completionHandler: completionHandler, data: data)
+                self.onResultFetchDataSuccess(device: device, context: context, data: data)
+            } catch {
+                print("Error with fetching device after post: \(error)")
+                self.updateDeviceOnError(device: device, context: context)
+                return
             }
-            task.resume()
         } catch {
             print(error)
+            self.updateDeviceOnError(device: device, context: context)
+        }
+    }
+    
+    private func updateDeviceOnError(device: Device, context: NSManagedObjectContext) {
+        print("Device \(device.address ?? "unknown") could not be updated. Marking as offline.")
+        
+        context.performAndWait {
+            device.isOnline = false
+            device.networkRssi = 0
+            device.isRefreshing = false
+            
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
     
     private func getJsonApiUrl(device: Device, path: String) -> URL? {
-        let urlString = "http://\(device.address!)/\(path)"
+        let urlString = "http://\(device.address ?? "127.0.0.1")/\(path)"
         print(urlString)
         return URL(string: urlString)
     }
     
-    private func onResultFetchDataSuccess(device: Device, completionHandler: @escaping (Device) -> Void, data: Data?) {
-            guard var data = data else { return }            
+    private func onResultFetchDataSuccess(device: Device, context: NSManagedObjectContext, data: Data?) {
+        guard let data else { return }
+        context.performAndWait {
             do {
                 let deviceStateInfo = try JSONDecoder().decode(DeviceStateInfo.self, from: data)
-                print(deviceStateInfo.info.name)
+                print("Updating \(deviceStateInfo.info.name)")
                 device.macAddress = deviceStateInfo.info.mac
                 device.isOnline = true
                 device.name = device.isCustomName ? device.name : deviceStateInfo.info.name
@@ -86,10 +120,18 @@ class DeviceApi {
                 let blue = Int64(Double(colorInfo![2]) + 0.5)
                 device.color = (red << 16) | (green << 8) | blue
                 
-                completionHandler(device)
-                
+                do {
+                    try context.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nsError = error as NSError
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
             } catch {
                 print(error)
+                updateDeviceOnError(device: device, context: context)
             }
+        }
     }
 }

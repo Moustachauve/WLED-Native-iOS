@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		C93470AC29D904C20085D9D5 /* errorPage.html in Resources */ = {isa = PBXBuildFile; fileRef = C93470AB29D904C20085D9D5 /* errorPage.html */; };
 		C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */ = {isa = PBXBuildFile; fileRef = C93470AD29D905BD0085D9D5 /* 012_rip.png */; };
-		C96BF3FD292007F30011BC3B /* DeviceControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */; };
+		C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E12AEF6B6000C51204 /* Persistence.swift */; };
+		C96440E82AF095B500C51204 /* DeviceListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E72AF095B500C51204 /* DeviceListItemView.swift */; };
 		C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */; };
-		C96BF4072930495D0011BC3B /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */; };
-		C9A9E5C12918D1C3005B5C22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C02918D1C3005B5C22 /* AppDelegate.swift */; };
-		C9A9E5C32918D1C3005B5C22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C22918D1C3005B5C22 /* SceneDelegate.swift */; };
-		C9A9E5C52918D1C3005B5C22 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C42918D1C3005B5C22 /* ViewController.swift */; };
-		C9A9E5C82918D1C3005B5C22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5C62918D1C3005B5C22 /* Main.storyboard */; };
+		C9767DDE2AF9F435002F3EA9 /* DeviceAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */; };
+		C9767DE02AFA04E0002F3EA9 /* DeviceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */; };
+		C9767DE32AFAE65C002F3EA9 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */; };
+		C9865AF62AEF1902000B2714 /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9865AF52AEF1902000B2714 /* DeviceListView.swift */; };
+		C99BEF552AF49513001AD80A /* DiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF542AF49513001AD80A /* DiscoveryService.swift */; };
+		C99BEF572AF8B926001AD80A /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF562AF8B926001AD80A /* DeviceView.swift */; };
+		C99BEF592AF8BA79001AD80A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF582AF8BA79001AD80A /* WebView.swift */; };
+		C9A9E5C12918D1C3005B5C22 /* WLEDNativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */; };
 		C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */; };
-		C9A9E5CD2918D1C4005B5C22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5CB2918D1C4005B5C22 /* LaunchScreen.storyboard */; };
-		C9A9E5D52918D5DB005B5C22 /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */; };
-		C9A9E5D72918D5FC005B5C22 /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */; };
+		C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */; };
+		C9AF215B2AFDCF7500E03749 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */; };
+		C9AF21662AFDE94300E03749 /* Model1to2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21652AFDE94300E03749 /* Model1to2.xcmappingmodel */; };
+		C9AF21682AFDEB6900E03749 /* Migration1to2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21672AFDEB6900E03749 /* Migration1to2.swift */; };
+		C9C4B47F2AC0050500791D20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C9C4B47E2AC0050500791D20 /* README.md */; };
 		C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */; };
 		C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */; };
 		C9FCC380293DAF9500DEDDEA /* DeviceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */; };
-		C9FCC385293DB69F00DEDDEA /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC384293DB69F00DEDDEA /* State.swift */; };
+		C9FCC385293DB69F00DEDDEA /* WledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC384293DB69F00DEDDEA /* WledState.swift */; };
 		C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC388293DB86900DEDDEA /* FileSystem.swift */; };
 		C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC38A293DB8A000DEDDEA /* JsonPost.swift */; };
 		C9FCC391293DB95500DEDDEA /* Wifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC390293DB95500DEDDEA /* Wifi.swift */; };
@@ -37,27 +43,32 @@
 /* Begin PBXFileReference section */
 		C93470AB29D904C20085D9D5 /* errorPage.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.html; sourceTree = "<group>"; };
 		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
-		C93470AF29D905CA0085D9D5 /* wled-native */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "wled-native"; sourceTree = "<group>"; };
-		C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceControlCell.swift; sourceTree = "<group>"; };
+		C96440E12AEF6B6000C51204 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		C96440E72AF095B500C51204 /* DeviceListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItemView.swift; sourceTree = "<group>"; };
 		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
-		C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAddView.swift; sourceTree = "<group>"; };
+		C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditView.swift; sourceTree = "<group>"; };
+		C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
+		C9865AF52AEF1902000B2714 /* DeviceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListView.swift; sourceTree = "<group>"; };
+		C99BEF542AF49513001AD80A /* DiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryService.swift; sourceTree = "<group>"; };
+		C99BEF562AF8B926001AD80A /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
+		C99BEF582AF8BA79001AD80A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		C9A9E5BD2918D1C3005B5C22 /* Illumidel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Illumidel.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9A9E5C02918D1C3005B5C22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C9A9E5C22918D1C3005B5C22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C9A9E5C42918D1C3005B5C22 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C9A9E5C72918D1C3005B5C22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDNativeApp.swift; sourceTree = "<group>"; };
 		C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C9A9E5CC2918D1C4005B5C22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9A9E5CE2918D1C4005B5C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
-		C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
+		C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListFilterAndSort.swift; sourceTree = "<group>"; };
+		C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		C9AF21632AFDE8A200E03749 /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
+		C9AF21652AFDE94300E03749 /* Model1to2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model1to2.xcmappingmodel; sourceTree = "<group>"; };
+		C9AF21672AFDEB6900E03749 /* Migration1to2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1to2.swift; sourceTree = "<group>"; };
+		C9C4B47E2AC0050500791D20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C9D43A7C29BAE3BA005A71C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C9D43A7E29BAE3F8005A71C2 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Main.strings"; sourceTree = "<group>"; };
 		C9D43A8029BAE3F8005A71C2 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C9F82F2329BBD0E100B8A5EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9F82F2529BBD0E300B8A5EE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceApi.swift; sourceTree = "<group>"; };
-		C9FCC384293DB69F00DEDDEA /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = "wled-native/Model/wledapi/State.swift"; sourceTree = SOURCE_ROOT; };
+		C9FCC384293DB69F00DEDDEA /* WledState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WledState.swift; path = "wled-native/Model/wledapi/WledState.swift"; sourceTree = SOURCE_ROOT; };
 		C9FCC388293DB86900DEDDEA /* FileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileSystem.swift; path = "wled-native/Model/wledapi/FileSystem.swift"; sourceTree = SOURCE_ROOT; };
 		C9FCC38A293DB8A000DEDDEA /* JsonPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonPost.swift; path = "wled-native/Model/wledapi/JsonPost.swift"; sourceTree = SOURCE_ROOT; };
 		C9FCC390293DB95500DEDDEA /* Wifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wifi.swift; path = "wled-native/Model/wledapi/Wifi.swift"; sourceTree = SOURCE_ROOT; };
@@ -83,9 +94,31 @@
 			isa = PBXGroup;
 			children = (
 				C9FCC381293DB18100DEDDEA /* wledapi */,
-				C96BF4052930495D0011BC3B /* Device+CoreDataClass.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C9767DE12AFAE64A002F3EA9 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */,
+				C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		C9865AF42AEF18E7000B2714 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C9767DE12AFAE64A002F3EA9 /* Tool */,
+				C9865AF52AEF1902000B2714 /* DeviceListView.swift */,
+				C96440E72AF095B500C51204 /* DeviceListItemView.swift */,
+				C99BEF562AF8B926001AD80A /* DeviceView.swift */,
+				C99BEF582AF8BA79001AD80A /* WebView.swift */,
+				C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */,
+				C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C9A9E5B42918D1C3005B5C22 = {
@@ -107,34 +140,39 @@
 		C9A9E5BF2918D1C3005B5C22 /* wled-native */ = {
 			isa = PBXGroup;
 			children = (
+				C9865AF42AEF18E7000B2714 /* View */,
 				C9FCC37E293DAF8300DEDDEA /* Service */,
 				C96BF3F7291FFDC90011BC3B /* Model */,
-				C9A9E5C02918D1C3005B5C22 /* AppDelegate.swift */,
-				C9A9E5C22918D1C3005B5C22 /* SceneDelegate.swift */,
-				C9A9E5C42918D1C3005B5C22 /* ViewController.swift */,
-				C9A9E5C62918D1C3005B5C22 /* Main.storyboard */,
+				C9AF21642AFDE91D00E03749 /* Migration */,
+				C96440E12AEF6B6000C51204 /* Persistence.swift */,
+				C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */,
 				C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */,
-				C9A9E5CB2918D1C4005B5C22 /* LaunchScreen.storyboard */,
-				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
-				C9A9E5D42918D5DB005B5C22 /* EntryViewController.swift */,
-				C9A9E5D62918D5FC005B5C22 /* DeviceViewController.swift */,
-				C96BF3FC292007F30011BC3B /* DeviceControlCell.swift */,
 				C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */,
 				C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */,
 				C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */,
 				C93470AD29D905BD0085D9D5 /* 012_rip.png */,
 				C93470AB29D904C20085D9D5 /* errorPage.html */,
-				C93470AF29D905CA0085D9D5 /* wled-native */,
-				C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */,
-				C9F82F2429BBD0E100B8A5EE /* InfoPlist.strings */,
+				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
+				C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */,
+				C9C4B47E2AC0050500791D20 /* README.md */,
 			);
 			path = "wled-native";
+			sourceTree = "<group>";
+		};
+		C9AF21642AFDE91D00E03749 /* Migration */ = {
+			isa = PBXGroup;
+			children = (
+				C9AF21652AFDE94300E03749 /* Model1to2.xcmappingmodel */,
+				C9AF21672AFDEB6900E03749 /* Migration1to2.swift */,
+			);
+			path = Migration;
 			sourceTree = "<group>";
 		};
 		C9FCC37E293DAF8300DEDDEA /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				C9FCC37F293DAF9500DEDDEA /* DeviceApi.swift */,
+				C99BEF542AF49513001AD80A /* DiscoveryService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -149,7 +187,7 @@
 				C9FCC39C293DBD2200DEDDEA /* Leds.swift */,
 				C9FCC392293DB9A500DEDDEA /* Nightlight.swift */,
 				C9FCC398293DBD2200DEDDEA /* Segment.swift */,
-				C9FCC384293DB69F00DEDDEA /* State.swift */,
+				C9FCC384293DB69F00DEDDEA /* WledState.swift */,
 				C9FCC390293DB95500DEDDEA /* Wifi.swift */,
 			);
 			path = wledapi;
@@ -183,7 +221,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					C9A9E5BC2918D1C3005B5C22 = {
 						CreatedOnToolsVersion = 14.1;
@@ -215,13 +253,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C93470AC29D904C20085D9D5 /* errorPage.html in Resources */,
-				C9A9E5CD2918D1C4005B5C22 /* LaunchScreen.storyboard in Resources */,
 				C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */,
 				C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */,
 				C9D43A7B29BAE3BA005A71C2 /* Localizable.strings in Resources */,
 				C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */,
-				C9A9E5C82918D1C3005B5C22 /* Main.storyboard in Resources */,
+				C9C4B47F2AC0050500791D20 /* README.md in Resources */,
 				C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */,
+				C9AF215B2AFDCF7500E03749 /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,47 +271,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				C96BF40029302EE50011BC3B /* CoreData.xcdatamodeld in Sources */,
+				C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */,
 				C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */,
 				C9FCC391293DB95500DEDDEA /* Wifi.swift in Sources */,
-				C96BF4072930495D0011BC3B /* Device+CoreDataClass.swift in Sources */,
-				C9FCC385293DB69F00DEDDEA /* State.swift in Sources */,
+				C9FCC385293DB69F00DEDDEA /* WledState.swift in Sources */,
+				C9767DE02AFA04E0002F3EA9 /* DeviceEditView.swift in Sources */,
+				C9767DE32AFAE65C002F3EA9 /* FetchedObjects.swift in Sources */,
 				C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */,
 				C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */,
-				C9A9E5C52918D1C3005B5C22 /* ViewController.swift in Sources */,
-				C96BF3FD292007F30011BC3B /* DeviceControlCell.swift in Sources */,
-				C9A9E5D52918D5DB005B5C22 /* EntryViewController.swift in Sources */,
+				C9AF21662AFDE94300E03749 /* Model1to2.xcmappingmodel in Sources */,
+				C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */,
+				C9865AF62AEF1902000B2714 /* DeviceListView.swift in Sources */,
 				C9FCC393293DB9A500DEDDEA /* Nightlight.swift in Sources */,
 				C9FCC380293DAF9500DEDDEA /* DeviceApi.swift in Sources */,
-				C9A9E5D72918D5FC005B5C22 /* DeviceViewController.swift in Sources */,
+				C9AF21682AFDEB6900E03749 /* Migration1to2.swift in Sources */,
+				C99BEF552AF49513001AD80A /* DiscoveryService.swift in Sources */,
 				C9FCC397293DBD1800DEDDEA /* DeviceStateInfo.swift in Sources */,
+				C96440E82AF095B500C51204 /* DeviceListItemView.swift in Sources */,
 				C9FCC3A5293DBD2200DEDDEA /* Segment.swift in Sources */,
-				C9A9E5C12918D1C3005B5C22 /* AppDelegate.swift in Sources */,
-				C9A9E5C32918D1C3005B5C22 /* SceneDelegate.swift in Sources */,
+				C9767DDE2AF9F435002F3EA9 /* DeviceAddView.swift in Sources */,
+				C9A9E5C12918D1C3005B5C22 /* WLEDNativeApp.swift in Sources */,
+				C99BEF592AF8BA79001AD80A /* WebView.swift in Sources */,
 				C9FCC3A3293DBD2200DEDDEA /* Info.swift in Sources */,
+				C99BEF572AF8B926001AD80A /* DeviceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C9A9E5C62918D1C3005B5C22 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9A9E5C72918D1C3005B5C22 /* Base */,
-				C9D43A7E29BAE3F8005A71C2 /* fr-CA */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C9A9E5CB2918D1C4005B5C22 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9A9E5CC2918D1C4005B5C22 /* Base */,
-				C9D43A7F29BAE3F8005A71C2 /* fr-CA */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		C9D43A7D29BAE3BA005A71C2 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -332,6 +358,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -346,7 +373,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -393,6 +420,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -401,7 +429,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -418,23 +446,22 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 49VYFAQHCG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Illumidel uses the local network to connect to devices around you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 4;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.illumidel;
 				PRODUCT_NAME = Illumidel;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -451,23 +478,22 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 49VYFAQHCG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Illumidel uses the local network to connect to devices around you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 4;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.illumidel;
 				PRODUCT_NAME = Illumidel;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -504,9 +530,10 @@
 		C96BF3FE29302EE50011BC3B /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C9AF21632AFDE8A200E03749 /* CoreData 2.xcdatamodel */,
 				C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */;
+			currentVersion = C9AF21632AFDE8A200E03749 /* CoreData 2.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
