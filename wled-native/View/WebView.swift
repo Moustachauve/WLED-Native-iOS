@@ -12,6 +12,8 @@ struct WebView: UIViewRepresentable {
         guard let url = url else {
             return webView
         }
+        webView.underPageBackgroundColor = .systemBackground
+        
         let request = URLRequest(url: url)
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
