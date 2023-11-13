@@ -12,7 +12,6 @@ struct WebView: UIViewRepresentable {
         guard let url = url else {
             return webView
         }
-        webView.underPageBackgroundColor = .systemBackground
         
         let request = URLRequest(url: url)
         webView.uiDelegate = context.coordinator
@@ -23,6 +22,7 @@ struct WebView: UIViewRepresentable {
     
     func updateUIView(_ webView: WKWebView, context: Context) {
         print("WebView updateUIView")
+        webView.underPageBackgroundColor = .systemBackground
     }
     
     class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
