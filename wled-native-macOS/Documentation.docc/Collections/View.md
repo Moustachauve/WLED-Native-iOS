@@ -1,6 +1,6 @@
 # View
 
-The Views of the 
+The Views of the macOS application.
 
 ## Overview
 

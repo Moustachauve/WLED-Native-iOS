@@ -1,4 +1,4 @@
-# ``WLED_OSX``
+# ``wled native macOS``
 
 Menu bar for macOS to interact with WLED strips.
 

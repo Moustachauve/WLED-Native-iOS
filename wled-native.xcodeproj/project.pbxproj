@@ -49,9 +49,10 @@
 		E1067B7A2B19104900FF7D33 /* DeviceListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1067B712B19104900FF7D33 /* DeviceListItemView.swift */; };
 		E1067B7B2B19104900FF7D33 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1067B732B19104900FF7D33 /* FetchedObjects.swift */; };
 		E1067B7C2B19104900FF7D33 /* DeviceListFilterAndSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1067B742B19104900FF7D33 /* DeviceListFilterAndSort.swift */; };
-		E1283D8D2B198D0C00FC68EF /* WledLib in Frameworks */ = {isa = PBXBuildFile; productRef = E1283D8C2B198D0C00FC68EF /* WledLib */; };
 		E1283D902B198E1D00FC68EF /* WledLib in Frameworks */ = {isa = PBXBuildFile; productRef = E1283D8F2B198E1D00FC68EF /* WledLib */; };
 		E1283D932B198F8800FC68EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1283D922B198F7D00FC68EF /* Assets.xcassets */; };
+		E1283D962B1995B500FC68EF /* DeviceIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1283D952B1995B500FC68EF /* DeviceIdentifier.swift */; };
+		E1283D992B1995FD00FC68EF /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1283D982B1995FD00FC68EF /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +63,7 @@
 		C96827222B01AFB900A5DDEC /* errorPage.fr.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = errorPage.fr.html; sourceTree = "<group>"; };
 		C96BF3FF29302EE50011BC3B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		C99BEF542AF49513001AD80A /* DiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryService.swift; sourceTree = "<group>"; };
-		C9A9E5BD2918D1C3005B5C22 /* wled-native-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wled-native-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9A9E5BD2918D1C3005B5C22 /* wled-native-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wled-native-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDNativeApp.swift; sourceTree = "<group>"; };
 		C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9A9E5CE2918D1C4005B5C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,8 +86,8 @@
 		C9FCC398293DBD2200DEDDEA /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 		C9FCC39C293DBD2200DEDDEA /* Leds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leds.swift; sourceTree = "<group>"; };
 		C9FCC3A0293DBD2200DEDDEA /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
-		E1067B3F2B190E6F00FF7D33 /* wled-native-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wled-native-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1067B4A2B190E7000FF7D33 /* wled-osx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "wled-osx.entitlements"; sourceTree = "<group>"; };
+		E1067B3F2B190E6F00FF7D33 /* wled-native-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wled-native-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1067B4A2B190E7000FF7D33 /* wled-macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "wled-macOS.entitlements"; sourceTree = "<group>"; };
 		E1067B4F2B190F0E00FF7D33 /* CollectionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionProvider.swift; sourceTree = "<group>"; };
 		E1067B502B190F0E00FF7D33 /* DeviceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceProvider.swift; sourceTree = "<group>"; };
 		E1067B532B190F0E00FF7D33 /* DeviceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
@@ -106,10 +107,12 @@
 		E1067B732B19104900FF7D33 /* FetchedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
 		E1067B742B19104900FF7D33 /* DeviceListFilterAndSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListFilterAndSort.swift; sourceTree = "<group>"; };
 		E1067B802B1910F100FF7D33 /* Example-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Example-01.png"; sourceTree = "<group>"; };
-		E1067B872B19396700FF7D33 /* wled-native-osx.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "wled-native-osx.md"; sourceTree = "<group>"; };
+		E1067B872B19396700FF7D33 /* wled-native-macOS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "wled-native-macOS.md"; sourceTree = "<group>"; };
 		E1067B882B1939D900FF7D33 /* wled-native.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "wled-native.md"; sourceTree = "<group>"; };
 		E1067B892B193AD500FF7D33 /* wled-native-ios.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "wled-native-ios.md"; sourceTree = "<group>"; };
 		E1283D922B198F7D00FC68EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1283D952B1995B500FC68EF /* DeviceIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdentifier.swift; sourceTree = "<group>"; };
+		E1283D982B1995FD00FC68EF /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +120,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1283D8D2B198D0C00FC68EF /* WledLib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +149,7 @@
 				E1067B7F2B1910F100FF7D33 /* ExampleImages */,
 				E1067B852B19129800FF7D33 /* wled-native-ios */,
 				C9A9E5BF2918D1C3005B5C22 /* wled-native */,
-				E1067B402B190E6F00FF7D33 /* wled-native-osx */,
+				E1067B402B190E6F00FF7D33 /* wled-native-macOS */,
 				C9A9E5BE2918D1C3005B5C22 /* Products */,
 				E1283D8E2B198E1D00FC68EF /* Frameworks */,
 			);
@@ -156,8 +158,8 @@
 		C9A9E5BE2918D1C3005B5C22 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C9A9E5BD2918D1C3005B5C22 /* wled-native-ios.app */,
-				E1067B3F2B190E6F00FF7D33 /* wled-native-osx.app */,
+				C9A9E5BD2918D1C3005B5C22 /* wled-native-iOS.app */,
+				E1067B3F2B190E6F00FF7D33 /* wled-native-macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,19 +217,20 @@
 			path = wledapi;
 			sourceTree = "<group>";
 		};
-		E1067B402B190E6F00FF7D33 /* wled-native-osx */ = {
+		E1067B402B190E6F00FF7D33 /* wled-native-macOS */ = {
 			isa = PBXGroup;
 			children = (
-				E1067B872B19396700FF7D33 /* wled-native-osx.md */,
+				E1283D972B1995E200FC68EF /* API-Extensions */,
+				E1067B872B19396700FF7D33 /* wled-native-macOS.md */,
 				E1067B5E2B190F0F00FF7D33 /* Documentation.docc */,
 				E1067B592B190F0F00FF7D33 /* Model */,
 				E1067B522B190F0E00FF7D33 /* View */,
 				E1067B562B190F0F00FF7D33 /* ViewProtocolExtensions */,
 				E1067B4E2B190F0E00FF7D33 /* ViewProtocolls */,
-				E1067B4A2B190E7000FF7D33 /* wled-osx.entitlements */,
+				E1067B4A2B190E7000FF7D33 /* wled-macOS.entitlements */,
 				E1283D922B198F7D00FC68EF /* Assets.xcassets */,
 			);
-			path = "wled-native-osx";
+			path = "wled-native-macOS";
 			sourceTree = "<group>";
 		};
 		E1067B4E2B190F0E00FF7D33 /* ViewProtocolls */ = {
@@ -263,6 +266,7 @@
 			children = (
 				E1067B5A2B190F0F00FF7D33 /* DeviceCollection.swift */,
 				E1067B5B2B190F0F00FF7D33 /* DeviceActor.swift */,
+				E1283D952B1995B500FC68EF /* DeviceIdentifier.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,12 +322,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E1283D972B1995E200FC68EF /* API-Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E1283D982B1995FD00FC68EF /* String.swift */,
+			);
+			path = "API-Extensions";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C9A9E5BC2918D1C3005B5C22 /* wled-native-ios */ = {
+		C9A9E5BC2918D1C3005B5C22 /* wled-native-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C9A9E5D12918D1C4005B5C22 /* Build configuration list for PBXNativeTarget "wled-native-ios" */;
+			buildConfigurationList = C9A9E5D12918D1C4005B5C22 /* Build configuration list for PBXNativeTarget "wled-native-iOS" */;
 			buildPhases = (
 				C9A9E5B92918D1C3005B5C22 /* Sources */,
 				C9A9E5BA2918D1C3005B5C22 /* Frameworks */,
@@ -333,17 +345,16 @@
 			);
 			dependencies = (
 			);
-			name = "wled-native-ios";
+			name = "wled-native-iOS";
 			packageProductDependencies = (
-				E1283D8C2B198D0C00FC68EF /* WledLib */,
 			);
 			productName = "wled-native";
-			productReference = C9A9E5BD2918D1C3005B5C22 /* wled-native-ios.app */;
+			productReference = C9A9E5BD2918D1C3005B5C22 /* wled-native-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E1067B3E2B190E6F00FF7D33 /* wled-native-osx */ = {
+		E1067B3E2B190E6F00FF7D33 /* wled-native-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E1067B4B2B190E7000FF7D33 /* Build configuration list for PBXNativeTarget "wled-native-osx" */;
+			buildConfigurationList = E1067B4B2B190E7000FF7D33 /* Build configuration list for PBXNativeTarget "wled-native-macOS" */;
 			buildPhases = (
 				E1067B3B2B190E6F00FF7D33 /* Sources */,
 				E1067B3C2B190E6F00FF7D33 /* Frameworks */,
@@ -353,12 +364,12 @@
 			);
 			dependencies = (
 			);
-			name = "wled-native-osx";
+			name = "wled-native-macOS";
 			packageProductDependencies = (
 				E1283D8F2B198E1D00FC68EF /* WledLib */,
 			);
 			productName = "WLED-OSX";
-			productReference = E1067B3F2B190E6F00FF7D33 /* wled-native-osx.app */;
+			productReference = E1067B3F2B190E6F00FF7D33 /* wled-native-macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -396,8 +407,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C9A9E5BC2918D1C3005B5C22 /* wled-native-ios */,
-				E1067B3E2B190E6F00FF7D33 /* wled-native-osx */,
+				C9A9E5BC2918D1C3005B5C22 /* wled-native-iOS */,
+				E1067B3E2B190E6F00FF7D33 /* wled-native-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -466,7 +477,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1067B642B190F0F00FF7D33 /* DeviceProviderExtension.swift in Sources */,
+				E1283D992B1995FD00FC68EF /* String.swift in Sources */,
 				E1067B672B190F0F00FF7D33 /* DeviceActor.swift in Sources */,
+				E1283D962B1995B500FC68EF /* DeviceIdentifier.swift in Sources */,
 				E1067B662B190F0F00FF7D33 /* DeviceCollection.swift in Sources */,
 				E1067B622B190F0F00FF7D33 /* Main.swift in Sources */,
 				E1067B632B190F0F00FF7D33 /* ContentView.swift in Sources */,
@@ -631,6 +644,7 @@
 				DEVELOPMENT_TEAM = 9R6M6A9AUJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = WLED;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "WLED uses the local network to connect to WLED devices around you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -662,6 +676,7 @@
 				DEVELOPMENT_TEAM = 9R6M6A9AUJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "wled-native-iOS/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = WLED;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "WLED uses the local network to connect to WLED devices around you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -691,7 +706,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "wled-native-osx/wled-osx.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "wled-native-macOS/wled-macOS.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -702,6 +717,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WLED;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -727,7 +743,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "wled-native-osx/wled-osx.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "wled-native-macOS/wled-macOS.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -738,6 +754,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WLED;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -766,7 +783,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C9A9E5D12918D1C4005B5C22 /* Build configuration list for PBXNativeTarget "wled-native-ios" */ = {
+		C9A9E5D12918D1C4005B5C22 /* Build configuration list for PBXNativeTarget "wled-native-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9A9E5D22918D1C4005B5C22 /* Debug */,
@@ -775,7 +792,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E1067B4B2B190E7000FF7D33 /* Build configuration list for PBXNativeTarget "wled-native-osx" */ = {
+		E1067B4B2B190E7000FF7D33 /* Build configuration list for PBXNativeTarget "wled-native-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1067B4C2B190E7000FF7D33 /* Debug */,
@@ -798,11 +815,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E1283D8C2B198D0C00FC68EF /* WledLib */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E1283D8B2B198D0C00FC68EF /* XCRemoteSwiftPackageReference "WledLib" */;
-			productName = WledLib;
-		};
 		E1283D8F2B198E1D00FC68EF /* WledLib */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E1283D8B2B198D0C00FC68EF /* XCRemoteSwiftPackageReference "WledLib" */;

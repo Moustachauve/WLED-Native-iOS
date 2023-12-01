@@ -1,6 +1,6 @@
 //
 //  Device-Actor.swift
-//  wled-osx
+//  wled-native-macOS
 //
 //  Created by Robert Brune on 21.11.23.
 //
@@ -10,25 +10,6 @@ import CoreData
 import OSLog
 import Combine
 import WledLib
-
-struct DeviceIdentifier: Codable, Hashable {
-    let domain: String
-    let name: String
-    
-    var address: String {
-        var d = domain
-        d.removeLast()
-        return name + "." + d
-    }
-}
-
-extension String: WledHost {
-    public var hostname: String {
-        return self
-    }
-}
-
-
 
 actor DeviceActor:Identifiable, ObservableObject {
     

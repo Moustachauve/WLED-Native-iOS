@@ -1,6 +1,6 @@
 # Model WLED strips
 
-The data model representing the WLED strips
+The data model representing the WLED strips.
 
 ## Topics
 

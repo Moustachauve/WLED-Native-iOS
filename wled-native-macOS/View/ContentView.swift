@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  wled-osx
+//  wled-native-macOS
 //
 //  Created by Robert Brune on 15.11.23.
 //

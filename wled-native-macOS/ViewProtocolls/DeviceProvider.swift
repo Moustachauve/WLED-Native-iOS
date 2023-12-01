@@ -1,6 +1,6 @@
 //
 //  DeviceProvider.swift
-//  wled-osx
+//  wled-native-macOS
 //
 //  Created by Robert Brune on 26.11.23.
 //
