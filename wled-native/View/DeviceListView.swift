@@ -102,6 +102,7 @@ struct DeviceListView: View {
             .sheet(isPresented: $addDeviceButtonActive, content: DeviceAddView.init)
             Text("Select an item")
         }
+        .navigationViewStyle(.stack)
     }
     
     private func deleteItems(device: Device) {

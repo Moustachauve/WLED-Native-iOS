@@ -121,6 +121,7 @@ struct DeviceAddView: View {
             newItem.name = customName
             newItem.isCustomName = !customName.isEmpty
             newItem.isHidden = hideDevice
+            newItem.isRefreshing = false
             
             do {
                 try viewContext.save()

@@ -167,6 +167,7 @@ struct DeviceListItemView_Previews: PreviewProvider {
         device.tag = UUID()
         device.name = ""
         device.address = "192.168.11.101"
+        device.isHidden = false
         device.isOnline = true
         device.networkRssi = -80
         device.color = 6244567779

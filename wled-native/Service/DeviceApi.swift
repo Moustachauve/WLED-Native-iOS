@@ -105,6 +105,12 @@ class DeviceApi {
             do {
                 let deviceStateInfo = try JSONDecoder().decode(DeviceStateInfo.self, from: data)
                 print("Updating \(deviceStateInfo.info.name)")
+                
+                var branch = device.branchValue
+                if (branch == Branch.unknown) {
+                    branch = (device.version ?? "").contains("-b") ? Branch.beta : Branch.stable
+                }
+                
                 device.macAddress = deviceStateInfo.info.mac
                 device.isOnline = true
                 device.name = device.isCustomName ? device.name : deviceStateInfo.info.name
@@ -112,6 +118,15 @@ class DeviceApi {
                 device.isPoweredOn = deviceStateInfo.state.isOn
                 device.isRefreshing = false
                 device.networkRssi = deviceStateInfo.info.wifi.rssi ?? 0
+                // TODO: Check for isEthernet
+                device.isEthernet = false
+                device.platformName = deviceStateInfo.info.platformName ?? ""
+                device.version = deviceStateInfo.info.version ?? ""
+                // TODO: Check for new versions
+                device.newUpdateVersionTagAvailable = ""
+                device.branchValue = branch
+                device.brand = deviceStateInfo.info.brand ?? ""
+                device.productName = deviceStateInfo.info.product ?? ""
                 
                 
                 let colorInfo = deviceStateInfo.state.segment?[0].colors?[0]
