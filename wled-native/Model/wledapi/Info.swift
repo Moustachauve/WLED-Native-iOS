@@ -17,7 +17,7 @@ struct Info: Decodable {
     var paletteCount : Int64?
     var fileSystem : FileSystem?
     var ndc : Int64?
-    var platformName : String?
+    var platformName : String?	
     var arduinoCoreVersion : String?
     var lwip : Int64?
     var freeHeap : Int64?
