@@ -8,6 +8,8 @@ struct DeviceListView: View {
     
     @State private var addDeviceButtonActive: Bool = false
     
+    @State private var firstLoad = true
+    
     @StateObject private var filter = DeviceListFilterAndSort(showHiddenDevices: false)
     private let discoveryService = DiscoveryService()
     
@@ -126,7 +128,7 @@ struct DeviceListView: View {
         await withTaskGroup(of: Void.self) { [self] group in
             for device in devices {
                 // Don't start a refresh request when the device is not done refreshing.
-                if (device.isRefreshing) {
+                if (!self.firstLoad && device.isRefreshing) {
                     continue
                 }
                 group.addTask {
@@ -136,6 +138,7 @@ struct DeviceListView: View {
                     await deviceApi.updateDevice(device: device, context: viewContext)
                 }
             }
+            self.firstLoad = false
         }
     }
     
