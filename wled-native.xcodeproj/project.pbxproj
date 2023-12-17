@@ -18,7 +18,7 @@
 		C9767DE32AFAE65C002F3EA9 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */; };
 		C97CD4982B25000300420E93 /* wled_native_data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4962B25000300420E93 /* wled_native_data.xcdatamodeld */; };
 		C97CD49A2B2519BC00420E93 /* Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4992B2519BC00420E93 /* Branch.swift */; };
-		C97CD49D2B269F3000420E93 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD49C2B269F3000420E93 /* Asset.swift */; };
+		C97CD49D2B269F3000420E93 /* GithubAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD49C2B269F3000420E93 /* GithubAsset.swift */; };
 		C97CD49F2B269F6800420E93 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD49E2B269F6800420E93 /* Author.swift */; };
 		C97CD4A12B269F8B00420E93 /* Reactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4A02B269F8B00420E93 /* Reactions.swift */; };
 		C97CD4A32B269F9400420E93 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4A22B269F9400420E93 /* Release.swift */; };
@@ -58,7 +58,7 @@
 		C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
 		C97CD4972B25000300420E93 /* wled_native_data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = wled_native_data.xcdatamodel; sourceTree = "<group>"; };
 		C97CD4992B2519BC00420E93 /* Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
-		C97CD49C2B269F3000420E93 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		C97CD49C2B269F3000420E93 /* GithubAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAsset.swift; sourceTree = "<group>"; };
 		C97CD49E2B269F6800420E93 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		C97CD4A02B269F8B00420E93 /* Reactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactions.swift; sourceTree = "<group>"; };
 		C97CD4A22B269F9400420E93 /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		C97CD49B2B269D5D00420E93 /* Github */ = {
 			isa = PBXGroup;
 			children = (
-				C97CD49C2B269F3000420E93 /* Asset.swift */,
+				C97CD49C2B269F3000420E93 /* GithubAsset.swift */,
 				C97CD49E2B269F6800420E93 /* Author.swift */,
 				C97CD4A02B269F8B00420E93 /* Reactions.swift */,
 				C97CD4A22B269F9400420E93 /* Release.swift */,
@@ -296,7 +296,7 @@
 				C9FCC385293DB69F00DEDDEA /* WledState.swift in Sources */,
 				C9767DE02AFA04E0002F3EA9 /* DeviceEditView.swift in Sources */,
 				C9767DE32AFAE65C002F3EA9 /* FetchedObjects.swift in Sources */,
-				C97CD49D2B269F3000420E93 /* Asset.swift in Sources */,
+				C97CD49D2B269F3000420E93 /* GithubAsset.swift in Sources */,
 				C97CD4982B25000300420E93 /* wled_native_data.xcdatamodeld in Sources */,
 				C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */,
 				C97CD49F2B269F6800420E93 /* Author.swift in Sources */,

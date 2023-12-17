@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct Asset: Decodable {
+struct GithubAsset: Decodable {
 
     var url: String
     var id: Int

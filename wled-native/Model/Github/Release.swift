@@ -17,7 +17,7 @@ struct Release: Decodable {
     var prerelease: Bool
     var createdAt: String
     var publishedAt: String
-    var assets: [Asset]
+    var assets: [GithubAsset]
     var tarballUrl: String
     var zipballUrl: String
     var body: String
