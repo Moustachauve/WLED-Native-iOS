@@ -48,7 +48,7 @@ class DeviceApi {
     }
     
     func postJson(device: Device, context: NSManagedObjectContext, jsonData: JsonPost) async {
-        let url = getJsonApiUrl(device: device, path: "json")
+        let url = getJsonApiUrl(device: device, path: "json/state")
         guard let url else {
             print("Can't post to device, url nil")
             self.updateDeviceOnError(device: device, context: context)
@@ -77,7 +77,7 @@ class DeviceApi {
                     return
                 }
                 
-                self.onResultFetchDataSuccess(device: device, context: context, data: data)
+                self.onSuccessPostJson(device: device, context: context, data: data)
             } catch {
                 print("Error with fetching device after post: \(error)")
                 self.updateDeviceOnError(device: device, context: context)
@@ -125,15 +125,13 @@ class DeviceApi {
                 
                 var branch = device.branchValue
                 if (branch == Branch.unknown) {
-                    branch = (device.version ?? "").contains("-b") ? Branch.beta : Branch.stable
+                    branch = (deviceStateInfo.info.version ?? "").contains("-b") ? Branch.beta : Branch.stable
                 }
                 
+                setStateValues(device: device, state: deviceStateInfo.state)
                 device.macAddress = deviceStateInfo.info.mac
-                device.isOnline = true
                 device.name = device.isCustomName ? device.name : deviceStateInfo.info.name
-                device.brightness = deviceStateInfo.state.brightness
                 device.isPoweredOn = deviceStateInfo.state.isOn
-                device.isRefreshing = false
                 device.networkRssi = deviceStateInfo.info.wifi.rssi ?? 0
                 // TODO: Check for isEthernet
                 device.isEthernet = false
@@ -144,13 +142,6 @@ class DeviceApi {
                 device.branchValue = branch
                 device.brand = deviceStateInfo.info.brand ?? ""
                 device.productName = deviceStateInfo.info.product ?? ""
-                
-                
-                let colorInfo = deviceStateInfo.state.segment?[0].colors?[0]
-                let red = Int64(Double(colorInfo![0]) + 0.5)
-                let green = Int64(Double(colorInfo![1]) + 0.5)
-                let blue = Int64(Double(colorInfo![2]) + 0.5)
-                device.color = (red << 16) | (green << 8) | blue
                 
                 do {
                     try context.save()
@@ -165,5 +156,45 @@ class DeviceApi {
                 updateDeviceOnError(device: device, context: context)
             }
         }
+    }
+    
+    private func onSuccessPostJson(device: Device, context: NSManagedObjectContext, data: Data?) {
+        guard let data else { return }
+        context.performAndWait {
+            do {
+                let state = try JSONDecoder().decode(WledState.self, from: data)
+                print("Updating \(device.name ?? "[unknown]") from post result")
+                
+                setStateValues(device: device, state: state)
+                
+                do {
+                    try context.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nsError = error as NSError
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
+            } catch {
+                print(error)
+                updateDeviceOnError(device: device, context: context)
+            }
+        }
+    }
+    
+    private func setStateValues(device: Device, state: WledState) {
+        device.isOnline = true
+        device.brightness = state.brightness
+        device.isPoweredOn = state.isOn
+        device.isRefreshing = false
+        device.color = getColor(state: state)
+    }
+    
+    private func getColor(state: WledState) -> Int64 {
+        let colorInfo = state.segment?[0].colors?[0]
+        let red = Int64(Double(colorInfo![0]) + 0.5)
+        let green = Int64(Double(colorInfo![1]) + 0.5)
+        let blue = Int64(Double(colorInfo![2]) + 0.5)
+        return (red << 16) | (green << 8) | blue
     }
 }
