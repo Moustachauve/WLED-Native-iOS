@@ -2,6 +2,21 @@ import Foundation
 import CoreData
 
 class DeviceApi {
+    static var urlSession: URLSession?
+    
+    static func getUrlSession() -> URLSession {
+        if (urlSession != nil) {
+            return urlSession!
+        }
+        
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 8
+        sessionConfig.timeoutIntervalForResource = 18
+        sessionConfig.waitsForConnectivity = false
+        urlSession = URLSession(configuration: sessionConfig)
+        return urlSession!
+    }
+    
     func updateDevice(device: Device, context: NSManagedObjectContext) async {
         let url = getJsonApiUrl(device: device, path: "json/si")
         guard let url else {
@@ -11,7 +26,7 @@ class DeviceApi {
         print("Reading api at: \(url)")
         
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await DeviceApi.getUrlSession().data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Invalid httpResponse in update")
@@ -49,7 +64,7 @@ class DeviceApi {
             request.httpBody = jsonData
             
             do {
-                let (data, response) = try await URLSession.shared.data(for: request)
+                let (data, response) = try await DeviceApi.getUrlSession().data(for: request)
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     print("Invalid httpResponse in post")
@@ -79,8 +94,10 @@ class DeviceApi {
         
         context.performAndWait {
             device.isOnline = false
-            device.networkRssi = 0
+            device.isPoweredOn = false
             device.isRefreshing = false
+            device.brightness = 0
+            device.networkRssi = 0
             
             do {
                 try context.save()
