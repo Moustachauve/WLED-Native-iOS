@@ -4,7 +4,7 @@ import SwiftUI
 struct DeviceEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var device: Device
+    @EnvironmentObject var device: Device
     
     enum Field {
         case name
@@ -16,12 +16,8 @@ struct DeviceEditView: View {
     @State private var isFormValid: Bool = true
     @FocusState var isNameFieldFocused: Bool
     
-    init(device: Device) {
-        self.device = device
-        _address = State<String>(initialValue: device.address ?? "")
-        _customName = State<String>(initialValue: device.isCustomName ? (device.name ?? "") : "")
-        _hideDevice = State<Bool>(initialValue: device.isHidden)
-    }
+    /*init() {
+    }*/
     
     var body: some View {
         VStack {
@@ -40,8 +36,13 @@ struct DeviceEditView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .onChange(of: isNameFieldFocused) { isFocused in
                         if (!isFocused) {
+                            let wasCustomName = device.isCustomName
                             if (!customName.isEmpty) {
                                 device.name = customName
+                            } else if (wasCustomName) {
+                                // If we used to have a custom name and we no longer have one,
+                                // clear the custom name so the normal name can be picked up later
+                                device.name = ""
                             }
                             device.isCustomName = !customName.isEmpty
                             saveDevice()
@@ -60,6 +61,11 @@ struct DeviceEditView: View {
         .padding()
         .navigationTitle("Edit Device")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear() {
+            address = device.address ?? ""
+            customName = device.isCustomName ? (self.device.name ?? "") : ""
+            hideDevice = device.isHidden
+        }
     }
     
     private func saveDevice() {
@@ -76,9 +82,9 @@ struct DeviceEditView: View {
 }
 
 struct DeviceEditView_Previews: PreviewProvider {
+    static let device = Device(context: PersistenceController.preview.container.viewContext)
+    
     static var previews: some View {
-        
-        let device = Device(context: PersistenceController.preview.container.viewContext)
         device.tag = UUID()
         device.name = "A custom name"
         device.isCustomName = true
@@ -86,7 +92,8 @@ struct DeviceEditView_Previews: PreviewProvider {
         device.isHidden = true
         
         
-        return DeviceEditView(device: device)
+        return DeviceEditView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(device)
     }
 }

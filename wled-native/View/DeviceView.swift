@@ -3,11 +3,7 @@ import SwiftUI
 
 struct DeviceView: View {
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var device: Device
-    
-    init(device: Device) {
-        self.device = device
-    }
+    @EnvironmentObject var device: Device
     
     var body: some View {
         TabView {
@@ -16,13 +12,13 @@ struct DeviceView: View {
                     Image(systemName: "slider.horizontal.3")
                     Text("Controls")
                 }
-            DeviceEditView(device: device)
+            DeviceEditView()
                 .tabItem {
                     Image(systemName: "gear")
                     Text("Settings")
                 }
         }
-        .navigationTitle(device.name ?? "")
+        .navigationTitle(getDeviceName())
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -32,12 +28,19 @@ struct DeviceView: View {
         }
         return URL(string: "http://\(deviceAddress)")!
     }
+    
+    private func getDeviceName() -> String {
+        guard let name = device.name, !name.isEmpty else {
+            return String(localized: "(New Device)")
+        }
+        return name
+    }
 }
 
 struct DeviceView_Previews: PreviewProvider {
+    static let device = Device(context: PersistenceController.preview.container.viewContext)
+    
     static var previews: some View {
-        
-        let device = Device(context: PersistenceController.preview.container.viewContext)
         device.tag = UUID()
         device.name = ""
         device.address = "google.com"
@@ -46,8 +49,8 @@ struct DeviceView_Previews: PreviewProvider {
         device.color = 6244567779
         device.brightness = 125
         
-        
-        return DeviceView(device: device)
+        return DeviceView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(device)
     }
 }

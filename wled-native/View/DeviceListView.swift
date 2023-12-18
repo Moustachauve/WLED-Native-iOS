@@ -20,7 +20,8 @@ struct DeviceListView: View {
                     List {
                         ForEach(devices, id: \.tag) { device in
                             NavigationLink {
-                                DeviceView(device: device)
+                                DeviceView()
+                                    .environmentObject(device)
                             } label: {
                                 DeviceListItemView(device: device)
                             }
@@ -35,7 +36,8 @@ struct DeviceListView: View {
                         Section(header: Text("Offline Devices")) {
                             ForEach(devicesOffline, id: \.tag) { device in
                                 NavigationLink {
-                                    DeviceView(device: device)
+                                    DeviceView()
+                                        .environmentObject(device)
                                 } label: {
                                     DeviceListItemView(device: device)
                                 }
@@ -104,7 +106,6 @@ struct DeviceListView: View {
             .sheet(isPresented: $addDeviceButtonActive, content: DeviceAddView.init)
             Text("Select an item")
         }
-        .navigationViewStyle(.stack)
     }
     
     private func deleteItems(device: Device) {
