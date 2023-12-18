@@ -81,20 +81,27 @@ struct DeviceListView: View {
                 }
                 ToolbarItem {
                     Menu {
-                        Button {
-                            addDeviceButtonActive.toggle()
-                        } label: {
-                            Label("Add New Device", systemImage: "plus")
-                        }
-                        Button {
-                            withAnimation {
-                                filter.showHiddenDevices = !filter.showHiddenDevices
+                        Section {
+                            Button {
+                                addDeviceButtonActive.toggle()
+                            } label: {
+                                Label("Add New Device", systemImage: "plus")
                             }
-                        } label: {
-                            if (filter.showHiddenDevices) {
-                                Label("Hide Hidden Devices", systemImage: "eye.slash")
-                            } else {
-                                Label("Show Hidden Devices", systemImage: "eye")
+                            Button {
+                                withAnimation {
+                                    filter.showHiddenDevices = !filter.showHiddenDevices
+                                }
+                            } label: {
+                                if (filter.showHiddenDevices) {
+                                    Label("Hide Hidden Devices", systemImage: "eye.slash")
+                                } else {
+                                    Label("Show Hidden Devices", systemImage: "eye")
+                                }
+                            }
+                        }
+                        Section {
+                            Link(destination: URL(string: "https://kno.wled.ge/")!) {
+                                Label("WLED Documentation", systemImage: "questionmark.circle")
                             }
                         }
                     } label: {
