@@ -14,7 +14,7 @@ struct DeviceEditView: View {
     @State private var customName: String = ""
     @State private var hideDevice: Bool = false
     @State private var isFormValid: Bool = true
-    @FocusState var focusedField: Field?
+    @FocusState var isNameFieldFocused: Bool
     
     init(device: Device) {
         self.device = device
@@ -35,70 +35,37 @@ struct DeviceEditView: View {
             VStack(alignment: .leading) {
                 Text("Custom Name")
                 TextField("Custom Name", text: $customName)
-                    .focused($focusedField, equals: .name)
-                    .keyboardType(.URL)
-                    .submitLabel(.send)
+                    .focused($isNameFieldFocused)
+                    .submitLabel(.done)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .overlay(RoundedRectangle(cornerRadius: 4).stroke(customName.isEmpty || isNameValid() ? Color.clear : Color.red))
-                    .onChange(of: customName) { _ in
-                        validateForm()
-                    }
-                    .onSubmit {
-                        addItem()
+                    .onChange(of: isNameFieldFocused) { isFocused in
+                        if (!isFocused) {
+                            if (!customName.isEmpty) {
+                                device.name = customName
+                            }
+                            device.isCustomName = !customName.isEmpty
+                            saveDevice()
+                        }
                     }
             }
             Toggle("Hide this Device", isOn: $hideDevice)
+                .onChange(of: hideDevice) { newValue in
+                    device.isHidden = newValue
+                    saveDevice()
+                }
             
             
             Spacer()
         }
         .padding()
-        .toolbar {
-            ToolbarItem {
-                Button(action: addItem) {
-                    Text("Save")
-                }
-                .disabled(!isFormValid)
-            }
-        }
         .navigationTitle("Edit Device")
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    private func validateForm() {
-        let nameIsValid = isNameValid()
-        // TODO: Make form invalid if nothing changed
-        isFormValid = nameIsValid
-    }
-    
-    func isNameValid() -> Bool {
-        return true
-    }
-    
-    private func removeProtocol(address: String?) -> String? {
-        guard let address else {
-            return address
-        }
-        return address
-            .replacingOccurrences(of: "https://", with: "", options: .anchored)
-            .replacingOccurrences(of: "http://", with: "", options: .anchored)
-    }
-    
-    private func addItem() {
-        guard isFormValid else {
-            return
-        }
-        
-        if (!customName.isEmpty) {
-            device.name = customName
-        }
-        device.isCustomName = !customName.isEmpty
-        device.isHidden = hideDevice
+    private func saveDevice() {
         device.isRefreshing = false
-        
         do {
             try viewContext.save()
-            dismiss()
         } catch {
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

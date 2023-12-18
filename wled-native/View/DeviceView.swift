@@ -10,16 +10,20 @@ struct DeviceView: View {
     }
     
     var body: some View {
-        WebView(url: getDeviceAddress())
-            .navigationTitle(device.name ?? "")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                NavigationLink {
-                    DeviceEditView(device: device)
-                } label: {
-                    Text("Edit")
+        TabView {
+            WebView(url: getDeviceAddress())
+                .tabItem {
+                    Image(systemName: "slider.horizontal.3")
+                    Text("Controls")
                 }
-            }
+            DeviceEditView(device: device)
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Settings")
+                }
+        }
+        .navigationTitle(device.name ?? "")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     func getDeviceAddress() -> URL? {
