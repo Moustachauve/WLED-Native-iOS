@@ -4,14 +4,14 @@ import Foundation
 struct GithubAsset: Decodable {
 
     var url: String
-    var id: Int
+    var id: Int64
     var nodeId: String
     var name: String
     var label: String?
     var uploader: Uploader
     var contentType: String
     var state: String
-    var size: UInt64
+    var size: Int64
     var downloadCount: Int
     var createdAt: String
     var updatedAt: String

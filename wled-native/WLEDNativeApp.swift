@@ -9,6 +9,17 @@ struct WLEDNativeApp: App {
         WindowGroup {
             DeviceListView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear() {
+                    refreshVersionsSync()
+                }
+        }
+    }
+    
+    
+    private func refreshVersionsSync() {
+        Task {
+            print("Refreshing available Releases")
+            await ReleaseService().refreshVersions(context: persistenceController.container.viewContext)
         }
     }
 }
