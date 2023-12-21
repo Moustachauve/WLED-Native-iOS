@@ -33,7 +33,7 @@ struct WLEDNativeApp: App {
                 return
             }
             print("Refreshing available Releases")
-            await ReleaseService().refreshVersions(context: persistenceController.container.viewContext)
+            await ReleaseService(context: persistenceController.container.viewContext).refreshVersions()
             UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: dateLastUpdateKey)
         }
     }

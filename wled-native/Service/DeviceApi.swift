@@ -123,10 +123,17 @@ class DeviceApi {
                 let deviceStateInfo = try JSONDecoder().decode(DeviceStateInfo.self, from: data)
                 print("Updating \(deviceStateInfo.info.name)")
                 
-                var branch = device.branchValue
-                if (branch == Branch.unknown) {
-                    branch = (deviceStateInfo.info.version ?? "").contains("-b") ? Branch.beta : Branch.stable
+                if (device.branchValue == Branch.unknown) {
+                    device.branchValue = (deviceStateInfo.info.version ?? "").contains("-b") ? Branch.beta : Branch.stable
                 }
+                
+                let deviceVersion = deviceStateInfo.info.version ?? ""
+                let releaseService = ReleaseService(context: context)
+                device.newUpdateVersionTagAvailable = releaseService.getNewerReleaseTag(
+                    versionName: deviceVersion,
+                    branch: device.branchValue,
+                    ignoreVersion: device.skipUpdateTag ?? ""
+                )
                 
                 setStateValues(device: device, state: deviceStateInfo.state)
                 device.macAddress = deviceStateInfo.info.mac
@@ -137,9 +144,6 @@ class DeviceApi {
                 device.isEthernet = false
                 device.platformName = deviceStateInfo.info.platformName ?? ""
                 device.version = deviceStateInfo.info.version ?? ""
-                // TODO: Check for new versions
-                device.newUpdateVersionTagAvailable = ""
-                device.branchValue = branch
                 device.brand = deviceStateInfo.info.brand ?? ""
                 device.productName = deviceStateInfo.info.product ?? ""
                 

@@ -24,6 +24,9 @@ struct DeviceListItemView: View {
                         HStack {
                             Text(getDeviceDisplayName())
                                 .font(.headline.leading(.tight))
+                            if (!(device.newUpdateVersionTagAvailable ?? "").isEmpty) {
+                                Image(systemName: "arrow.down.circle.dotted")
+                            }
                         }
                         HStack {
                             Text(device.address ?? "")

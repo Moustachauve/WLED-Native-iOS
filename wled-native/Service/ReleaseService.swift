@@ -2,8 +2,59 @@ import Foundation
 import CoreData
 
 class ReleaseService {
+
+    let context: NSManagedObjectContext
     
-    func refreshVersions(context: NSManagedObjectContext) async {
+    init(context: NSManagedObjectContext) {
+        self.context = context
+    }
+    
+    /**
+     * If a new version is available, returns the version tag of it.
+     *
+     * @param versionName Current version to check if a newer one exists
+     * @param branch Which branch to check for the update
+     * @param ignoreVersion You can specify a version tag to be ignored as a new version. If this is
+     *      set and match with the newest version, no version will be returned
+     * @return The newest version if it is newer than versionName and different than ignoreVersion,
+     *      otherwise an empty string.
+     */
+    func getNewerReleaseTag(versionName: String, branch: Branch, ignoreVersion: String) -> String {
+        if (versionName.isEmpty) {
+            return ""
+        }
+        let latestVersion = getLatestVersion(branch: branch)
+        guard let latestTagName = latestVersion?.tagName, latestTagName != ignoreVersion else {
+            return ""
+        }
+
+        let versionCompare = latestTagName.dropFirst().compare(versionName, options: .numeric)
+        return versionCompare == .orderedDescending ? latestTagName : ""
+    }
+        
+        
+    func getLatestVersion(branch: Branch) -> Version? {
+        let fetchRequest = Version.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "publishedDate", ascending: false)]
+        
+        if (branch == Branch.stable) {
+            fetchRequest.predicate = NSPredicate(format: "isPrerelease == %@", "0")
+        }
+        
+        do {
+            let versions = try context.fetch(fetchRequest)
+            return versions.first
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+
+    
+    func refreshVersions() async {
         let allReleases = await WLEDRepoApi().getAllReleases()
         
         guard !allReleases.isEmpty else {
@@ -22,8 +73,8 @@ class ReleaseService {
             
             // Create new versions
             for release in allReleases {
-                let version = createVersion(release: release, context: context)
-                let assets = createAssetsForVersion(version: version, release: release, context: context)
+                let version = createVersion(release: release)
+                let assets = createAssetsForVersion(version: version, release: release)
                 print("Added version \(version.tagName ?? "[unknown]") with \(assets.count) assets")
                 do {
                     try context.save()
@@ -37,7 +88,7 @@ class ReleaseService {
     
    
     
-    private func createVersion(release: Release, context: NSManagedObjectContext) -> Version {
+    private func createVersion(release: Release) -> Version {
         let version = Version(context: context)
         version.tagName = release.tagName
         version.name = release.name
@@ -51,7 +102,7 @@ class ReleaseService {
         return version
     }
     
-    private func createAssetsForVersion(version: Version, release: Release, context: NSManagedObjectContext) -> [Asset] {
+    private func createAssetsForVersion(version: Version, release: Release) -> [Asset] {
         var assets = [Asset]()
         for releaseAsset in release.assets {
             let asset = Asset(context: context)
