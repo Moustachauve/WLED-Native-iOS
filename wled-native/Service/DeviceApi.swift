@@ -129,12 +129,12 @@ class DeviceApi {
                 
                 let deviceVersion = deviceStateInfo.info.version ?? ""
                 let releaseService = ReleaseService(context: context)
-                device.newUpdateVersionTagAvailable = releaseService.getNewerReleaseTag(
+                let newUpdateVersionTag = releaseService.getNewerReleaseTag(
                     versionName: deviceVersion,
                     branch: device.branchValue,
                     ignoreVersion: device.skipUpdateTag ?? ""
                 )
-                
+
                 setStateValues(device: device, state: deviceStateInfo.state)
                 device.macAddress = deviceStateInfo.info.mac
                 device.name = device.isCustomName ? device.name : deviceStateInfo.info.name
@@ -144,6 +144,7 @@ class DeviceApi {
                 device.isEthernet = false
                 device.platformName = deviceStateInfo.info.platformName ?? ""
                 device.version = deviceStateInfo.info.version ?? ""
+                device.newUpdateVersionTagAvailable = newUpdateVersionTag
                 device.brand = deviceStateInfo.info.brand ?? ""
                 device.productName = deviceStateInfo.info.product ?? ""
                 

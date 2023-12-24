@@ -23,8 +23,10 @@ struct DeviceListView: View {
                                 DeviceView()
                                     .environmentObject(device)
                             } label: {
-                                DeviceListItemView(device: device)
+                                DeviceListItemView()
+                                    .environmentObject(device)
                             }
+                            .environmentObject(device)
                             .swipeActions(allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     deleteItems(device: device)
@@ -39,7 +41,8 @@ struct DeviceListView: View {
                                     DeviceView()
                                         .environmentObject(device)
                                 } label: {
-                                    DeviceListItemView(device: device)
+                                    DeviceListItemView()
+                                        .environmentObject(device)
                                 }
                                 .swipeActions(allowsFullSwipe: true) {
                                     Button(role: .destructive) {

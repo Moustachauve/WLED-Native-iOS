@@ -4,17 +4,9 @@ import SwiftUI
 struct DeviceListItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var device: Device
-    var brightness: Binding<Double>
+    @EnvironmentObject var device: Device
     
-    init(device: Device) {
-        self.device = device
-        self.brightness = Binding(
-            get: { Double(device.brightness) },
-            set: { device.brightness = Int64($0) } // Or other custom logic
-        )
-    }
-    
+    @State private var brightness: Double = 0.0
     
     var body: some View {
         HStack {
@@ -24,7 +16,7 @@ struct DeviceListItemView: View {
                         HStack {
                             Text(getDeviceDisplayName())
                                 .font(.headline.leading(.tight))
-                            if (!(device.newUpdateVersionTagAvailable ?? "").isEmpty) {
+                            if (hasUpdateAvailable()) {
                                 Image(systemName: "arrow.down.circle.dotted")
                             }
                         }
@@ -67,12 +59,12 @@ struct DeviceListItemView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 Slider(
-                    value: brightness,
+                    value: $brightness,
                     in: 0...255,
                     onEditingChanged: { editing in
-                        print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness.wrappedValue)")
+                        print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness)")
                         if (!editing) {
-                            let postParam = JsonPost(brightness: Int64(brightness.wrappedValue))
+                            let postParam = JsonPost(brightness: Int64(brightness))
                             let deviceApi = DeviceApi()
                             Task {
                                 await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
@@ -101,6 +93,9 @@ struct DeviceListItemView: View {
                     .tint(colorFromHex(rgbValue: Int(device.color)))
             }
         }
+        .onAppear() {
+            brightness = Double(device.brightness)
+        }
     }
     
     func getSignalImage(isOnline: Bool, signalStrength: Int) -> UIImage {
@@ -126,6 +121,13 @@ struct DeviceListItemView: View {
             return emptyName
         }
         return name.isEmpty ? emptyName : name
+    }
+    
+    func hasUpdateAvailable() -> Bool {
+        viewContext.performAndWait {
+            print(NSStringFromClass(device.classForCoder))
+            return !(device.newUpdateVersionTagAvailable ?? "").isEmpty
+        }
     }
     
     func getSignalValue(signalStrength: Int) -> Double {
@@ -164,9 +166,9 @@ struct DeviceListItemView: View {
 }
 
 struct DeviceListItemView_Previews: PreviewProvider {
+    static let device = Device(context: PersistenceController.preview.container.viewContext)
+    
     static var previews: some View {
-        
-        let device = Device(context: PersistenceController.preview.container.viewContext)
         device.tag = UUID()
         device.name = ""
         device.address = "192.168.11.101"
@@ -177,7 +179,7 @@ struct DeviceListItemView_Previews: PreviewProvider {
         device.brightness = 125
         
         
-        return DeviceListItemView(device: device)
+        return DeviceListItemView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
