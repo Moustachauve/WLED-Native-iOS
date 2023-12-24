@@ -6,6 +6,8 @@ struct DeviceEditView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var device: Device
     
+    @State var showUpdateDialog: Bool = false
+    
     enum Field {
         case name
     }
@@ -20,7 +22,7 @@ struct DeviceEditView: View {
     }*/
     
     var body: some View {
-        VStack {
+        ScrollView {
             VStack(alignment: .leading) {
                 Text("IP Address or URL")
                 TextField("IP Address or URL", text: $address)
@@ -54,7 +56,38 @@ struct DeviceEditView: View {
                     device.isHidden = newValue
                     saveDevice()
                 }
+                .padding(.bottom)
             
+            VStack(alignment: .leading) {
+                if ((device.newUpdateVersionTagAvailable ?? "").isEmpty) {
+                    Text("Your device is up to date")
+                    Text("Version \(device.version ?? "[unknown]")")
+                    Button(action: checkForUpdate) {
+                        Text("Check for Update")
+                    }
+                    .buttonStyle(.bordered)
+                } else {
+                    HStack {
+                        Image(systemName: "arrow.down.circle.dotted")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 30.0, height: 30.0)
+                            .padding(.trailing)
+                        VStack(alignment: .leading) {
+                            Text("Update Available")
+                            Text("From \(device.version ?? "[unknown]") to \(device.newUpdateVersionTagAvailable ?? "[unknown]")")
+                            Button(action: toggleUpdateDialog) {
+                                Text("See Update")
+                            }
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            .background(Color(UIColor.secondarySystemBackground))
+            .cornerRadius(8)
             
             Spacer()
         }
@@ -79,6 +112,14 @@ struct DeviceEditView: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
+    
+    private func checkForUpdate() {
+        
+    }
+    
+    private func toggleUpdateDialog() {
+        showUpdateDialog = !showUpdateDialog
+    }
 }
 
 struct DeviceEditView_Previews: PreviewProvider {
@@ -90,6 +131,8 @@ struct DeviceEditView_Previews: PreviewProvider {
         device.isCustomName = true
         device.address = "192.168.11.101"
         device.isHidden = true
+        device.version = "1.2.3"
+        device.newUpdateVersionTagAvailable = "v1.2.4"
         
         
         return DeviceEditView()
