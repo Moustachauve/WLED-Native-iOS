@@ -129,7 +129,7 @@ class DeviceApi {
                 
                 let deviceVersion = deviceStateInfo.info.version ?? ""
                 let releaseService = ReleaseService(context: context)
-                let newUpdateVersionTag = releaseService.getNewerReleaseTag(
+                let latestUpdateVersionTagAvailable = releaseService.getNewerReleaseTag(
                     versionName: deviceVersion,
                     branch: device.branchValue,
                     ignoreVersion: device.skipUpdateTag ?? ""
@@ -144,7 +144,7 @@ class DeviceApi {
                 device.isEthernet = false
                 device.platformName = deviceStateInfo.info.platformName ?? ""
                 device.version = deviceStateInfo.info.version ?? ""
-                device.newUpdateVersionTagAvailable = newUpdateVersionTag
+                device.latestUpdateVersionTagAvailable = latestUpdateVersionTagAvailable
                 device.brand = deviceStateInfo.info.brand ?? ""
                 device.productName = deviceStateInfo.info.product ?? ""
                 

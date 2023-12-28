@@ -125,8 +125,7 @@ struct DeviceListItemView: View {
     
     func hasUpdateAvailable() -> Bool {
         viewContext.performAndWait {
-            print(NSStringFromClass(device.classForCoder))
-            return !(device.newUpdateVersionTagAvailable ?? "").isEmpty
+            return !(device.latestUpdateVersionTagAvailable ?? "").isEmpty
         }
     }
     

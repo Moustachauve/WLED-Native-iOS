@@ -17,7 +17,7 @@ struct DeviceView: View {
                     Image(systemName: "gear")
                     Text("Settings")
                 }
-                .badge((device.newUpdateVersionTagAvailable ?? "").isEmpty ? 0 : 1)
+                .badge((device.latestUpdateVersionTagAvailable ?? "").isEmpty ? 0 : 1)
         }
         .navigationTitle(getDeviceName())
         .navigationBarTitleDisplayMode(.inline)

@@ -59,7 +59,7 @@ struct DeviceEditView: View {
                 .padding(.bottom)
             
             VStack(alignment: .leading) {
-                if ((device.newUpdateVersionTagAvailable ?? "").isEmpty) {
+                if ((device.latestUpdateVersionTagAvailable ?? "").isEmpty) {
                     Text("Your device is up to date")
                     Text("Version \(device.version ?? "[unknown]")")
                     Button(action: checkForUpdate) {
@@ -75,7 +75,7 @@ struct DeviceEditView: View {
                             .padding(.trailing)
                         VStack(alignment: .leading) {
                             Text("Update Available")
-                            Text("From \(device.version ?? "[unknown]") to \(device.newUpdateVersionTagAvailable ?? "[unknown]")")
+                            Text("From \(device.version ?? "[unknown]") to \(device.latestUpdateVersionTagAvailable ?? "[unknown]")")
                             Button(action: toggleUpdateDialog) {
                                 Text("See Update")
                             }
@@ -132,7 +132,7 @@ struct DeviceEditView_Previews: PreviewProvider {
         device.address = "192.168.11.101"
         device.isHidden = true
         device.version = "1.2.3"
-        device.newUpdateVersionTagAvailable = "v1.2.4"
+        device.latestUpdateVersionTagAvailable = "v1.2.4"
         
         
         return DeviceEditView()
