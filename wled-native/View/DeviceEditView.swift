@@ -15,8 +15,11 @@ struct DeviceEditView: View {
     @State private var address: String = ""
     @State private var customName: String = ""
     @State private var hideDevice: Bool = false
+    @State private var branch = ""
     @State private var isFormValid: Bool = true
     @FocusState var isNameFieldFocused: Bool
+    
+    var branchOptions = ["Stable", "Beta"]
     
     var body: some View {
         ScrollView {
@@ -48,12 +51,33 @@ struct DeviceEditView: View {
                         }
                     }
             }
+            
             Toggle("Hide this Device", isOn: $hideDevice)
                 .onChange(of: hideDevice) { newValue in
                     device.isHidden = newValue
                     saveDevice()
-                }
+            }
                 .padding(.bottom)
+            
+            HStack {
+                Text("Update Channel")
+                Spacer()
+                Picker("Choose your starter", selection: $branch) {
+                    ForEach(branchOptions, id: \.self) {
+                        Text($0)
+                            .padding()
+                    }
+                }
+                .pickerStyle(.segmented)
+                .fixedSize()
+                .onChange(of: branch) { newValue in
+                    device.branchValue = newValue == "Beta" ? Branch.beta : Branch.stable
+                    device.latestUpdateVersionTagAvailable = ""
+                    saveDevice()
+                    checkForUpdate()
+                }
+            }
+            .padding(.bottom)
             
             VStack(alignment: .leading) {
                 if ((device.latestUpdateVersionTagAvailable ?? "").isEmpty) {
@@ -98,6 +122,7 @@ struct DeviceEditView: View {
             address = device.address ?? ""
             customName = device.isCustomName ? (self.device.name ?? "") : ""
             hideDevice = device.isHidden
+            branch = device.branchValue == Branch.beta ? "Beta" : "Stable"
         }
     }
     
