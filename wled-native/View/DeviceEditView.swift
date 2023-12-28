@@ -77,7 +77,9 @@ struct DeviceEditView: View {
                     device.branchValue = newBranch
                     device.latestUpdateVersionTagAvailable = ""
                     saveDevice()
-                    checkForUpdate()
+                    Task {
+                        await checkForUpdate()
+                    }
                 }
             }
             .padding(.bottom)
@@ -87,7 +89,11 @@ struct DeviceEditView: View {
                     Text("Your device is up to date")
                     Text("Version \(device.version ?? "[unknown]")")
                     HStack {
-                        Button(action: checkForUpdate) {
+                        Button(action: {
+                            Task {
+                                await checkForUpdate()
+                            }
+                        }) {
                             Text(isCheckingForUpdates ? "Checking for Updates" : "Check for Update")
                         }
                         .buttonStyle(.bordered)
@@ -147,9 +153,20 @@ struct DeviceEditView: View {
         }
     }
     
-    private func checkForUpdate() {
+    private func checkForUpdate() async {
         withAnimation {
             isCheckingForUpdates = true
+        }
+        print("Refreshing available Releases")
+        await ReleaseService(context: viewContext).refreshVersions()
+        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: WLEDNativeApp.dateLastUpdateKey)
+        
+        withAnimation {
+            Task {
+                let deviceApi = DeviceApi()
+                await deviceApi.updateDevice(device: device, context: viewContext)
+            }
+            isCheckingForUpdates = false
         }
     }
 }
