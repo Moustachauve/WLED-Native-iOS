@@ -6,8 +6,6 @@ struct DeviceEditView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var device: Device
     
-    @State var showUpdateDialog: Bool = false
-    
     enum Field {
         case name
     }
@@ -153,10 +151,6 @@ struct DeviceEditView: View {
         withAnimation {
             isCheckingForUpdates = true
         }
-    }
-    
-    private func toggleUpdateDialog() {
-        showUpdateDialog = !showUpdateDialog
     }
 }
 
