@@ -6,7 +6,7 @@ class DeviceListFilterAndSort: ObservableObject {
     @Published var showHiddenDevices: Bool
     @Published private var sort = [
         NSSortDescriptor(keyPath: \Device.isOnline, ascending: false),
-        NSSortDescriptor(keyPath: \Device.name, ascending: true),
+        NSSortDescriptor(key: "name", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:))),
     ]
 
     init(showHiddenDevices: Bool) {
