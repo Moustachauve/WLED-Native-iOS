@@ -161,6 +161,7 @@ struct DeviceEditView: View {
         await ReleaseService(context: viewContext).refreshVersions()
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: WLEDNativeApp.dateLastUpdateKey)
         
+        device.skipUpdateTag = ""
         withAnimation {
             Task {
                 let deviceApi = DeviceApi()
