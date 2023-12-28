@@ -18,9 +18,6 @@ struct DeviceEditView: View {
     @State private var isFormValid: Bool = true
     @FocusState var isNameFieldFocused: Bool
     
-    /*init() {
-    }*/
-    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -76,7 +73,10 @@ struct DeviceEditView: View {
                         VStack(alignment: .leading) {
                             Text("Update Available")
                             Text("From \(device.version ?? "[unknown]") to \(device.latestUpdateVersionTagAvailable ?? "[unknown]")")
-                            Button(action: toggleUpdateDialog) {
+                            NavigationLink {
+                                DeviceUpdateDetails()
+                                    .environmentObject(device)
+                            } label: {
                                 Text("See Update")
                             }
                         }

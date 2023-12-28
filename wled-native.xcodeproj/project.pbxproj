@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C93470AC29D904C20085D9D5 /* errorPage.en.html in Resources */ = {isa = PBXBuildFile; fileRef = C93470AB29D904C20085D9D5 /* errorPage.en.html */; };
 		C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */ = {isa = PBXBuildFile; fileRef = C93470AD29D905BD0085D9D5 /* 012_rip.png */; };
+		C948F4952B3D1C480092C4B1 /* DeviceUpdateDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */; };
+		C948F4982B3D2B330092C4B1 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = C948F4972B3D2B330092C4B1 /* MarkdownUI */; };
 		C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E12AEF6B6000C51204 /* Persistence.swift */; };
 		C96440E82AF095B500C51204 /* DeviceListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E72AF095B500C51204 /* DeviceListItemView.swift */; };
 		C96827212B01AF5900A5DDEC /* errorPage.css in Resources */ = {isa = PBXBuildFile; fileRef = C96827202B01AF5900A5DDEC /* errorPage.css */; };
@@ -52,6 +54,7 @@
 /* Begin PBXFileReference section */
 		C93470AB29D904C20085D9D5 /* errorPage.en.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.en.html; sourceTree = "<group>"; };
 		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
+		C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateDetails.swift; sourceTree = "<group>"; };
 		C96440E12AEF6B6000C51204 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		C96440E72AF095B500C51204 /* DeviceListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItemView.swift; sourceTree = "<group>"; };
 		C96827202B01AF5900A5DDEC /* errorPage.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = errorPage.css; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C948F4982B3D2B330092C4B1 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +152,7 @@
 				C99BEF582AF8BA79001AD80A /* WebView.swift */,
 				C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */,
 				C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */,
+				C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -235,6 +240,9 @@
 			dependencies = (
 			);
 			name = "wled-native";
+			packageProductDependencies = (
+				C948F4972B3D2B330092C4B1 /* MarkdownUI */,
+			);
 			productName = "wled-native";
 			productReference = C9A9E5BD2918D1C3005B5C22 /* wled-native.app */;
 			productType = "com.apple.product-type.application";
@@ -264,6 +272,9 @@
 				"fr-CA",
 			);
 			mainGroup = C9A9E5B42918D1C3005B5C22;
+			packageReferences = (
+				C948F4962B3D2B320092C4B1 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+			);
 			productRefGroup = C9A9E5BE2918D1C3005B5C22 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -310,6 +321,7 @@
 				C97CD4982B25000300420E93 /* wled_native_data.xcdatamodeld in Sources */,
 				C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */,
 				C97CD49F2B269F6800420E93 /* Author.swift in Sources */,
+				C948F4952B3D1C480092C4B1 /* DeviceUpdateDetails.swift in Sources */,
 				C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */,
 				C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */,
 				C97CD4A72B30107800420E93 /* GithubApi.swift in Sources */,
@@ -557,6 +569,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C948F4962B3D2B320092C4B1 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
+			requirement = {
+				kind = exactVersion;
+				version = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C948F4972B3D2B330092C4B1 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C948F4962B3D2B320092C4B1 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C97CD4962B25000300420E93 /* wled_native_data.xcdatamodeld */ = {
