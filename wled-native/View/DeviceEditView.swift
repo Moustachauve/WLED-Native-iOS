@@ -17,6 +17,7 @@ struct DeviceEditView: View {
     @State private var hideDevice: Bool = false
     @State private var branch = ""
     @State private var isFormValid: Bool = true
+    @State private var isCheckingForUpdates: Bool = false
     @FocusState var isNameFieldFocused: Bool
     
     var branchOptions = ["Stable", "Beta"]
@@ -71,7 +72,11 @@ struct DeviceEditView: View {
                 .pickerStyle(.segmented)
                 .fixedSize()
                 .onChange(of: branch) { newValue in
-                    device.branchValue = newValue == "Beta" ? Branch.beta : Branch.stable
+                    let newBranch = newValue == "Beta" ? Branch.beta : Branch.stable
+                    if newBranch == device.branchValue {
+                        return
+                    }
+                    device.branchValue = newBranch
                     device.latestUpdateVersionTagAvailable = ""
                     saveDevice()
                     checkForUpdate()
@@ -83,10 +88,16 @@ struct DeviceEditView: View {
                 if ((device.latestUpdateVersionTagAvailable ?? "").isEmpty) {
                     Text("Your device is up to date")
                     Text("Version \(device.version ?? "[unknown]")")
-                    Button(action: checkForUpdate) {
-                        Text("Check for Update")
+                    HStack {
+                        Button(action: checkForUpdate) {
+                            Text(isCheckingForUpdates ? "Checking for Updates" : "Check for Update")
+                        }
+                        .buttonStyle(.bordered)
+                        .padding(.trailing)
+                        .disabled(isCheckingForUpdates)
+                        ProgressView()
+                            .opacity(isCheckingForUpdates ? 1 : 0)
                     }
-                    .buttonStyle(.bordered)
                 } else {
                     HStack {
                         Image(systemName: "arrow.down.circle.dotted")
@@ -139,7 +150,9 @@ struct DeviceEditView: View {
     }
     
     private func checkForUpdate() {
-        
+        withAnimation {
+            isCheckingForUpdates = true
+        }
     }
     
     private func toggleUpdateDialog() {
