@@ -11,6 +11,8 @@
 		C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */ = {isa = PBXBuildFile; fileRef = C93470AD29D905BD0085D9D5 /* 012_rip.png */; };
 		C948F4952B3D1C480092C4B1 /* DeviceUpdateDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */; };
 		C948F4982B3D2B330092C4B1 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = C948F4972B3D2B330092C4B1 /* MarkdownUI */; };
+		C948F49A2B3E2B590092C4B1 /* DeviceUpdateInstalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948F4992B3E2B590092C4B1 /* DeviceUpdateInstalling.swift */; };
+		C95B4A832B3E3F540081F4C5 /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B4A822B3E3F540081F4C5 /* BackgroundBlurView.swift */; };
 		C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E12AEF6B6000C51204 /* Persistence.swift */; };
 		C96440E82AF095B500C51204 /* DeviceListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96440E72AF095B500C51204 /* DeviceListItemView.swift */; };
 		C96827212B01AF5900A5DDEC /* errorPage.css in Resources */ = {isa = PBXBuildFile; fileRef = C96827202B01AF5900A5DDEC /* errorPage.css */; };
@@ -55,6 +57,8 @@
 		C93470AB29D904C20085D9D5 /* errorPage.en.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.en.html; sourceTree = "<group>"; };
 		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
 		C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateDetails.swift; sourceTree = "<group>"; };
+		C948F4992B3E2B590092C4B1 /* DeviceUpdateInstalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateInstalling.swift; sourceTree = "<group>"; };
+		C95B4A822B3E3F540081F4C5 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
 		C96440E12AEF6B6000C51204 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		C96440E72AF095B500C51204 /* DeviceListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItemView.swift; sourceTree = "<group>"; };
 		C96827202B01AF5900A5DDEC /* errorPage.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = errorPage.css; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 			children = (
 				C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */,
 				C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */,
+				C95B4A822B3E3F540081F4C5 /* BackgroundBlurView.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 				C9767DDD2AF9F435002F3EA9 /* DeviceAddView.swift */,
 				C9767DDF2AFA04E0002F3EA9 /* DeviceEditView.swift */,
 				C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */,
+				C948F4992B3E2B590092C4B1 /* DeviceUpdateInstalling.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -317,11 +323,13 @@
 				C9767DE02AFA04E0002F3EA9 /* DeviceEditView.swift in Sources */,
 				C9767DE32AFAE65C002F3EA9 /* FetchedObjects.swift in Sources */,
 				C97CD4A92B30165900420E93 /* WLEDRepoApi.swift in Sources */,
+				C95B4A832B3E3F540081F4C5 /* BackgroundBlurView.swift in Sources */,
 				C97CD49D2B269F3000420E93 /* GithubAsset.swift in Sources */,
 				C97CD4982B25000300420E93 /* wled_native_data.xcdatamodeld in Sources */,
 				C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */,
 				C97CD49F2B269F6800420E93 /* Author.swift in Sources */,
 				C948F4952B3D1C480092C4B1 /* DeviceUpdateDetails.swift in Sources */,
+				C948F49A2B3E2B590092C4B1 /* DeviceUpdateInstalling.swift in Sources */,
 				C9FCC38B293DB8A000DEDDEA /* JsonPost.swift in Sources */,
 				C96440E22AEF6B6000C51204 /* Persistence.swift in Sources */,
 				C97CD4A72B30107800420E93 /* GithubApi.swift in Sources */,
