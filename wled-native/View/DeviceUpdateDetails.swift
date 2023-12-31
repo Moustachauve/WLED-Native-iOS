@@ -57,8 +57,13 @@ struct DeviceUpdateDetails: View {
             }
         }
         .fullScreenCover(isPresented: $showInstallingDialog) {
-            DeviceUpdateInstalling()
-                .background(BackgroundBlurView())
+            if let version = version {
+                DeviceUpdateInstalling(version: version)
+                    .background(BackgroundBlurView())
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .didCompleteUpdateInstall)) {_ in
+            dismiss()
         }
     }
     

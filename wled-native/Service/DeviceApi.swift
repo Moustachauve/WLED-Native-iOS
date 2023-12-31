@@ -89,6 +89,66 @@ class DeviceApi {
         }
     }
     
+    func installUpdate(
+        device: Device,
+        binaryFile: URL,
+        context: NSManagedObjectContext,
+        onCompletion: @escaping () -> (),
+        onFailure: @escaping () -> ()
+    ) async {
+        let url = getJsonApiUrl(device: device, path: "update")
+        guard let url else {
+            print("Can't upload update to device, url nil")
+            return
+        }
+        print("Uploading update to: \(url)")
+        
+        let boundary = UUID().uuidString
+        var request = URLRequest(url: url)
+        request.httpMethod = "post"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+                    
+        var body = Data()
+
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"update\"; filename=\"wled.bin\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: application/octet-stream\r\n\r\n".data(using: .utf8)!)
+        do {
+            try body.append(Data(contentsOf: binaryFile))
+        } catch {
+            print("Error with reading binary file: \(error)")
+            self.updateDeviceOnError(device: device, context: context)
+            return
+        }
+        body.append("\r\n".data(using: .utf8)!)
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        do {
+            // Uses shared session to have longer timeouts
+            let (data, response) = try await URLSession.shared.upload(for: request, from: body)
+            print("Update response: \(response)")
+            print("Update data: \(String(decoding: data, as: UTF8.self))")
+            
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid httpResponse in post for update install")
+                onFailure()
+                return
+            }
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("Error with the response in update install, unexpected status code: \(httpResponse)")
+                onFailure()
+                return
+            }
+            
+            onCompletion()
+        } catch {
+            print("Error with installing device update: \(error)")
+            onFailure()
+            return
+        }
+    }
+    
     private func updateDeviceOnError(device: Device, context: NSManagedObjectContext) {
         print("Device \(device.address ?? "unknown") could not be updated. Marking as offline.")
         
