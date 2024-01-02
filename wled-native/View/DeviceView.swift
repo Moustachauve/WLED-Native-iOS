@@ -5,13 +5,36 @@ struct DeviceView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var device: Device
     
+    @State var showDownloadFinished = false
+    
     var body: some View {
         TabView {
-            WebView(url: getDeviceAddress())
-                .tabItem {
-                    Image(systemName: "slider.horizontal.3")
-                    Text("Controls")
+            ZStack {
+                WebView(url: getDeviceAddress()) { filePathDestination in
+                    withAnimation {
+                        showDownloadFinished = true
+                        Task {
+                            try await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
+                            showDownloadFinished = false
+                        }
+                    }
                 }
+                if (showDownloadFinished) {
+                    VStack {
+                        Spacer()
+                        Text("Download Completed")
+                            .font(.title3)
+                            .padding()
+                            .background(.regularMaterial)
+                            .cornerRadius(15)
+                            .padding(.bottom)
+                    }
+                }
+            }
+            .tabItem {
+                Image(systemName: "slider.horizontal.3")
+                Text("Controls")
+            }
             DeviceEditView()
                 .tabItem {
                     Image(systemName: "gear")

@@ -1,10 +1,3 @@
-//
-//  DeviceUpdateInstalling.swift
-//  wled-native
-//
-//  Created by Christophe Perso on 2023-12-28.
-//
-
 import SwiftUI
 
 struct DeviceUpdateInstalling: View {
