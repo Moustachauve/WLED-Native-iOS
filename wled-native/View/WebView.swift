@@ -136,6 +136,100 @@ struct WebView: UIViewRepresentable {
         private func cleanUp() {
             filePathDestination = nil
         }
+        
+        func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
+                     completionHandler: @escaping () -> Void) {
+            var alertStyle = UIAlertController.Style.actionSheet
+            if (UIDevice.current.userInterfaceIdiom == .pad) {
+                alertStyle = UIAlertController.Style.alert
+            }
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: alertStyle)
+            alertController.addAction(
+                UIAlertAction(title: "OK", style: .default, handler: { (action) in completionHandler() })
+            )
+            if let controller = topMostViewController() {
+                controller.present(alertController, animated: true, completion: nil)
+            }
+        }
+        
+        func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+            var alertStyle = UIAlertController.Style.actionSheet
+            if (UIDevice.current.userInterfaceIdiom == .pad) {
+                alertStyle = UIAlertController.Style.alert
+            }
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: alertStyle)
+            alertController.addAction(
+                UIAlertAction(title: "OK", style: .default, handler: { (action) in completionHandler(true) })
+            )
+            alertController.addAction(
+                UIAlertAction(title: "Cancel", style: .default, handler: { (action) in completionHandler(false) })
+            )
+            
+            if let controller = topMostViewController() {
+                controller.present(alertController, animated: true, completion: nil)
+            }
+        }
+        
+        func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo,
+                     completionHandler: @escaping (String?) -> Void) {
+            var alertStyle = UIAlertController.Style.actionSheet
+            if (UIDevice.current.userInterfaceIdiom == .pad) {
+                alertStyle = UIAlertController.Style.alert
+            }
+            let alertController = UIAlertController(title: nil, message: prompt, preferredStyle: alertStyle)
+            
+            alertController.addTextField { (textField) in
+                textField.text = defaultText
+            }
+            
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                if let text = alertController.textFields?.first?.text {
+                    completionHandler(text)
+                } else {
+                    completionHandler(defaultText)
+                }
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+                completionHandler(nil)
+            }))
+            
+            if let controller = topMostViewController() {
+                controller.present(alertController, animated: true, completion: nil)
+            }
+        }
+        
+        private func topMostViewController() -> UIViewController? {
+            guard let rootController = keyWindow()?.rootViewController else {
+                return nil
+            }
+            return topMostViewController(for: rootController)
+        }
+        
+        private func keyWindow() -> UIWindow? {
+            return UIApplication.shared.connectedScenes
+                .filter {$0.activationState == .foregroundActive}
+                .compactMap {$0 as? UIWindowScene}
+                .first?.windows.filter {$0.isKeyWindow}.first
+        }
+        
+        private func topMostViewController(for controller: UIViewController) -> UIViewController {
+            if let presentedController = controller.presentedViewController {
+                return topMostViewController(for: presentedController)
+            } else if let navigationController = controller as? UINavigationController {
+                guard let topController = navigationController.topViewController else {
+                    return navigationController
+                }
+                return topMostViewController(for: topController)
+            } else if let tabController = controller as? UITabBarController {
+                guard let topController = tabController.selectedViewController else {
+                    return tabController
+                }
+                return topMostViewController(for: topController)
+            }
+            return controller
+        }
+
     }
     
     func makeCoordinator() -> Coordinator {
