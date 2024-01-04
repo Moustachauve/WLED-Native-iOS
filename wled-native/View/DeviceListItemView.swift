@@ -17,7 +17,7 @@ struct DeviceListItemView: View {
                             Text(getDeviceDisplayName())
                                 .font(.headline.leading(.tight))
                             if (hasUpdateAvailable()) {
-                                Image(systemName: "arrow.down.circle.dotted")
+                                Image(systemName: getUpdateIconName())
                             }
                         }
                         HStack {
@@ -161,6 +161,14 @@ struct DeviceListItemView: View {
         color.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         b = colorScheme == .dark ? fmax(b, 0.2) : fmin(b, 0.75)
         return Color(UIColor(hue: h, saturation: s, brightness: b, alpha: a))
+    }
+    
+    func getUpdateIconName() -> String {
+        if #available(iOS 17.0, *) {
+            return "arrow.down.circle.dotted"
+        } else {
+            return "arrow.down.circle"
+        }
     }
 }
 

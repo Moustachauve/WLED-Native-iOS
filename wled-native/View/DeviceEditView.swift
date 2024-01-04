@@ -104,7 +104,7 @@ struct DeviceEditView: View {
                     }
                 } else {
                     HStack {
-                        Image(systemName: "arrow.down.circle.dotted")
+                        Image(systemName: getUpdateIconName())
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 30.0, height: 30.0)
@@ -168,6 +168,14 @@ struct DeviceEditView: View {
                 await deviceApi.updateDevice(device: device, context: viewContext)
             }
             isCheckingForUpdates = false
+        }
+    }
+    
+    func getUpdateIconName() -> String {
+        if #available(iOS 17.0, *) {
+            return "arrow.down.circle.dotted"
+        } else {
+            return "arrow.down.circle"
         }
     }
 }
