@@ -27,15 +27,14 @@ struct DeviceUpdateDetails: View {
     
     
     var body: some View {
-        VStack {
+        ZStack {
             ScrollView {
                 Markdown(version?.versionDescription ?? "[Unknown Error]")
                     .padding()
             }
         }
-        .navigationTitle("Version \(version?.tagName ?? "")")
-        .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
+        .safeAreaInset(edge: .bottom) {
+            HStack {
                 Button("Skip This Version") {
                     skipVersion()
                 }
@@ -55,7 +54,10 @@ struct DeviceUpdateDetails: View {
                     Text("You are about to install a new version of WLED on your device. If you had a custom version installed previously, you might lose some functionalities (for example, if you had some usermods enabled, they might not work anymore). \n\nIf someone installed this device for you, you should maybe ask them if it is alright to update the device to a new version. \n\nWLED and WLED Native are not responsible if something goes wrong due to an update.")
                 }
             }
+            .padding()
+            .background(.bar)
         }
+        .navigationTitle("Version \(version?.tagName ?? "")")
         .fullScreenCover(isPresented: $showInstallingDialog) {
             if let version = version {
                 DeviceUpdateInstalling(version: version)
