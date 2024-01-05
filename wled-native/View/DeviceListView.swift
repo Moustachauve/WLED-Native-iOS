@@ -114,7 +114,10 @@ struct DeviceListView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $addDeviceButtonActive, content: DeviceAddView.init)
-            Text("Select an item")
+            VStack {
+                Text("Select A Device")
+                    .font(.title2)
+            }
         }
     }
     

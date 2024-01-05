@@ -51,7 +51,7 @@ struct DeviceUpdateDetails: View {
                         installVersion()
                     }
                 } message: {
-                    Text("You are about to install a new version of WLED on your device. If you had a custom version installed previously, you might lose some functionalities (for example, if you had some usermods enabled, they might not work anymore). \n\nIf someone installed this device for you, you should maybe ask them if it is alright to update the device to a new version. \n\nWLED and WLED Native are not responsible if something goes wrong due to an update.")
+                    Text("update_disclaimer")
                 }
             }
             .padding()
