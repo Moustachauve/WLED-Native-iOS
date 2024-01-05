@@ -14,8 +14,8 @@ struct DeviceUpdateInstalling: View {
     @State var offset: CGFloat = 1000
     
     @State var status = Status.indeterminate
-    @State var statusString = "Starting Up"
-    @State var statusDetailsString = "Please do not close the app or turn off the device."
+    @State var statusString = String(localized: "Starting Up")
+    @State var statusDetailsString = String(localized: "Please do not close the app or turn off the device.")
     @State var versionName = ""
     
     var body: some View {
@@ -54,9 +54,11 @@ struct DeviceUpdateInstalling: View {
                 Text(versionName)
                     .font(.callout)
                 
-                Text(statusDetailsString)
-                    .multilineTextAlignment(.center)
-                    .padding()
+                if (!statusDetailsString.isEmpty) {
+                    Text(statusDetailsString)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
                 
                 Button {
                     NotificationCenter.default.post(
@@ -94,12 +96,12 @@ struct DeviceUpdateInstalling: View {
         }
     }
     
-    private func getDismissButtonText() -> String {
+    private func getDismissButtonText() -> LocalizedStringKey {
         switch (status) {
         case .indeterminate:
-            return "Cancel"
+            return LocalizedStringKey("Cancel")
         default:
-            return "Done"
+            return LocalizedStringKey("Done")
         }
     }
     
@@ -109,8 +111,8 @@ struct DeviceUpdateInstalling: View {
         versionName = updateService.getVersionWithPlatformName()
         if (!updateService.couldDetermineAsset) {
             status = .failed
-            statusString = "No Compatible Version Found"
-            statusDetailsString = "No version that is compatible with your device could be found. You will need to manually update your device."
+            statusString = String(localized: "No Compatible Version Found")
+            statusDetailsString = String(localized: "no_compatible_version_details")
             return
         }
         if (updateService.isAssetFileCached()) {
@@ -118,20 +120,20 @@ struct DeviceUpdateInstalling: View {
             onDownloadCompleted(updateService)
             return
         }
-        statusString = "Downloading Version"
+        statusString = String(localized: "Downloading Version")
         updateService.downloadBinary(onCompletion: onDownloadCompleted)
     }
     
     private func onDownloadCompleted(_ updateService: DeviceUpdateService) {
         print("Download is done.")
-        statusString = "Installing Update"
+        statusString = String(localized: "Installing Update")
         updateService.installUpdate(onCompletion: onInstallCompleted, onFailure: onInstallFailed)
     }
     
     private func onInstallCompleted() {
         print("Install is done.")
         status = .success
-        statusString = "Update Completed!"
+        statusString = String(localized: "Update Completed!")
         statusDetailsString = ""
         
         Task {
@@ -144,8 +146,8 @@ struct DeviceUpdateInstalling: View {
     private func onInstallFailed() {
         print("Install failed.")
         status = .failed
-        statusString = "Update Failed"
-        statusDetailsString = "Your device might be PIN protected or locked with a passphrase."
+        statusString = String(localized: "Update Failed")
+        statusDetailsString = String(localized: "update_failed_details")
     }
 }
 
