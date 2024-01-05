@@ -45,6 +45,7 @@ struct DeviceUpdateDetails: View {
                     showWarningDialog = true
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(!device.isOnline)
                 .confirmationDialog("Are you sure?",
                                     isPresented: $showWarningDialog) {
                     Button("Install Now") {
@@ -97,6 +98,7 @@ struct DeviceUpdateDetails_Previews: PreviewProvider {
         device.tag = UUID()
         device.version = "0.13.0"
         device.latestUpdateVersionTagAvailable = "v0.14.0"
+        device.isOnline = true
         
         
         return NavigationView{
