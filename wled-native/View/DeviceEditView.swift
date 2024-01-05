@@ -61,9 +61,9 @@ struct DeviceEditView: View {
             HStack {
                 Text("Update Channel")
                 Spacer()
-                Picker("Choose your starter", selection: $branch) {
+                Picker("Update Channel", selection: $branch) {
                     ForEach(branchOptions, id: \.self) {
-                        Text($0)
+                        Text(LocalizedStringKey($0))
                             .padding()
                     }
                 }
