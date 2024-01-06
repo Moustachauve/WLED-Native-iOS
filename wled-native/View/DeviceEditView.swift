@@ -57,6 +57,7 @@ struct DeviceEditView: View {
                     device.isHidden = newValue
                     saveDevice()
             }
+                .padding(.trailing, 2)
                 .padding(.bottom)
             
             HStack {
