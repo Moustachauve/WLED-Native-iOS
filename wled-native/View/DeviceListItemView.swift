@@ -55,6 +55,13 @@ struct DeviceListItemView: View {
                                     .lineSpacing(0)
                                     .truncationMode(.tail)
                             }
+                            if (device.isRefreshing) {
+                                ProgressView()
+                                    .controlSize(.mini)
+                                    .frame(maxHeight: 12, alignment: .trailing)
+                                    .padding(.leading, 1)
+                                    .padding(.trailing, 1)
+                            }
                         }
                         
                     }
@@ -80,28 +87,23 @@ struct DeviceListItemView: View {
                 )
                 .tint(colorFromHex(rgbValue: Int(device.color)))
             }
-            if (device.isRefreshing) {
-                ProgressView()
-                    .padding()
-                    .frame(alignment: .trailing)
-            } else {
-                Toggle("Turn On/Off", isOn: $isOn)
-                    .onChange(of: isOn) { value in
-                        if (!isUserInput) {
-                            return
-                        }
-                        device.isPoweredOn = value
-                        let postParam = JsonPost(isOn: value)
-                        print("device \(device.address ?? "?") toggled \(postParam)")
-                        let deviceApi = DeviceApi()
-                        Task {
-                            await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
-                        }
+            
+            Toggle("Turn On/Off", isOn: $isOn)
+                .onChange(of: isOn) { value in
+                    if (!isUserInput) {
+                        return
                     }
-                    .labelsHidden()
-                    .frame(alignment: .trailing)
-                    .tint(colorFromHex(rgbValue: Int(device.color)))
-            }
+                    device.isPoweredOn = value
+                    let postParam = JsonPost(isOn: value)
+                    print("device \(device.address ?? "?") toggled \(postParam)")
+                    let deviceApi = DeviceApi()
+                    Task {
+                        await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                    }
+                }
+                .labelsHidden()
+                .frame(alignment: .trailing)
+                .tint(colorFromHex(rgbValue: Int(device.color)))
         }
         .onAppear() {
             brightness = Double(device.brightness)
@@ -209,9 +211,12 @@ struct DeviceListItemView_Previews: PreviewProvider {
         device.networkRssi = -80
         device.color = 6244567779
         device.brightness = 125
+        device.isRefreshing = true
+        device.isHidden = true
         
         
         return DeviceListItemView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(device)
     }
 }
