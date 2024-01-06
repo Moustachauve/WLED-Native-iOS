@@ -18,6 +18,7 @@ struct DeviceEditView: View {
     @State private var isCheckingForUpdates: Bool = false
     @FocusState var isNameFieldFocused: Bool
     
+    let unknownVersion = String(localized: "unknown_version")
     var branchOptions = ["Stable", "Beta"]
     
     var body: some View {
@@ -87,7 +88,7 @@ struct DeviceEditView: View {
             VStack(alignment: .leading) {
                 if ((device.latestUpdateVersionTagAvailable ?? "").isEmpty) {
                     Text("Your device is up to date")
-                    Text("Version \(device.version ?? "[unknown]")")
+                    Text("Version \(device.version ?? unknownVersion)")
                     HStack {
                         Button(action: {
                             Task {
@@ -111,7 +112,7 @@ struct DeviceEditView: View {
                             .padding(.trailing)
                         VStack(alignment: .leading) {
                             Text("Update Available")
-                            Text("From \(device.version ?? "[unknown]") to \(device.latestUpdateVersionTagAvailable ?? "[unknown]")")
+                            Text("From \(device.version ?? unknownVersion) to \(device.latestUpdateVersionTagAvailable ?? unknownVersion)")
                             NavigationLink {
                                 DeviceUpdateDetails()
                                     .environmentObject(device)
