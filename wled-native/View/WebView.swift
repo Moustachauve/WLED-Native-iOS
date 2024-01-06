@@ -20,6 +20,8 @@ struct WebView: UIViewRepresentable {
         }
         
         let request = URLRequest(url: url)
+        webView.isOpaque = false
+        webView.backgroundColor = UIColor.clear
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
         webView.load(request)
