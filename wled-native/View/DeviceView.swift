@@ -5,12 +5,15 @@ struct DeviceView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var device: Device
     
+    @State private var selectedPage = 0
+    
     @State var showDownloadFinished = false
+    @State var shouldWebViewRefresh = false
     
     var body: some View {
-        TabView {
+        TabView(selection: $selectedPage) {
             ZStack {
-                WebView(url: getDeviceAddress()) { filePathDestination in
+                WebView(url: getDeviceAddress(), reload: $shouldWebViewRefresh) { filePathDestination in
                     withAnimation {
                         showDownloadFinished = true
                         Task {
@@ -31,11 +34,13 @@ struct DeviceView: View {
                     }
                 }
             }
+            .tag(0)
             .tabItem {
                 Image(systemName: "slider.horizontal.3")
                 Text("Controls")
             }
             DeviceEditView()
+                .tag(1)
                 .tabItem {
                     Image(systemName: "gear")
                     Text("Settings")
@@ -44,6 +49,18 @@ struct DeviceView: View {
         }
         .navigationTitle(getDeviceName())
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                if selectedPage == 0 {
+                    Button {
+                        shouldWebViewRefresh = true
+                        print(selectedPage)
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                }
+            }
+        }
     }
     
     func getDeviceAddress() -> URL? {
@@ -73,8 +90,10 @@ struct DeviceView_Previews: PreviewProvider {
         device.color = 6244567779
         device.brightness = 125
         
-        return DeviceView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-            .environmentObject(device)
+        return NavigationView{
+            DeviceView()
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                .environmentObject(device)
+        }
     }
 }

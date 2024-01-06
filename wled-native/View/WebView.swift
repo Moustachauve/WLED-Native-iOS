@@ -6,10 +6,12 @@ struct WebView: UIViewRepresentable {
     
     var webView: WKWebView = WKWebView()
     var url: URL?
+    @Binding var reload: Bool
     private let downloadCompleted: (URL) -> ()
     
-    init(url: URL?, downloadCompleted: @escaping(URL) -> ()) {
+    init(url: URL?, reload: Binding<Bool>, downloadCompleted: @escaping(URL) -> ()) {
         self.url = url
+        _reload = reload
         self.downloadCompleted = downloadCompleted
     }
     
@@ -31,6 +33,10 @@ struct WebView: UIViewRepresentable {
     func updateUIView(_ webView: WKWebView, context: Context) {
         print("WebView updateUIView")
         webView.underPageBackgroundColor = .systemBackground
+        if (reload) {
+            webView.reload()
+            reload = false
+        }
     }
     
     func onDownloadCompleted(_ filePathDestination: URL) {
