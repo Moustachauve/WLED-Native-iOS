@@ -6,6 +6,8 @@ struct DeviceListItemView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var device: Device
     
+    @State private var isUserInput = true
+    @State private var isOn = false
     @State private var brightness: Double = 0.0
     
     var body: some View {
@@ -62,6 +64,10 @@ struct DeviceListItemView: View {
                     value: $brightness,
                     in: 0...255,
                     onEditingChanged: { editing in
+                        if (!isUserInput) {
+                            return
+                        }
+                        
                         print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness)")
                         if (!editing) {
                             let postParam = JsonPost(brightness: Int64(brightness))
@@ -79,8 +85,12 @@ struct DeviceListItemView: View {
                     .padding()
                     .frame(alignment: .trailing)
             } else {
-                Toggle("Turn On/Off", isOn: $device.isPoweredOn)
-                    .onChange(of: device.isPoweredOn) { value in
+                Toggle("Turn On/Off", isOn: $isOn)
+                    .onChange(of: isOn) { value in
+                        if (!isUserInput) {
+                            return
+                        }
+                        device.isPoweredOn = value
                         let postParam = JsonPost(isOn: value)
                         print("device \(device.address ?? "?") toggled \(postParam)")
                         let deviceApi = DeviceApi()
@@ -95,7 +105,22 @@ struct DeviceListItemView: View {
         }
         .onAppear() {
             brightness = Double(device.brightness)
+            isOn = device.isPoweredOn
         }
+        .onChange(of: device.brightness) { brightness in
+            updateStateFromDevice()
+        }
+        .onChange(of: device.isPoweredOn) { isPoweredOn in
+            updateStateFromDevice()
+        }
+    }
+    
+    func updateStateFromDevice() {
+        isUserInput = false
+        isOn = device.isPoweredOn
+        brightness = Double(device.brightness)
+        print("device changed programmatically")
+        isUserInput = true
     }
     
     func getSignalImage(isOnline: Bool, signalStrength: Int) -> UIImage {
