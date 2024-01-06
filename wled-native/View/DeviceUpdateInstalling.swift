@@ -71,6 +71,7 @@ struct DeviceUpdateInstalling: View {
                         .buttonStyle(.plain)
                 }
                 .disabled(!canDismiss())
+                .padding(.top)
             }
             .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
             .padding()
