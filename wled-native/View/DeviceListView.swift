@@ -108,7 +108,7 @@ struct DeviceListView: View {
                             }
                         }
                     } label: {
-                        Label("Add Item", systemImage: "ellipsis.circle")
+                        Label("Menu", systemImage: "ellipsis.circle")
                     }
                 }
             }
