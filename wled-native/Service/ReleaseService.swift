@@ -27,6 +27,12 @@ class ReleaseService {
         guard let latestTagName = latestVersion?.tagName, latestTagName != ignoreVersion else {
             return ""
         }
+        
+        // If device is currently on a beta branch but the user selected a stable branch,
+        // show the latest version as an update so that the user can get out of beta.
+        if (branch == .stable && versionName.contains("-b")) {
+            return latestTagName
+        }
 
         let versionCompare = latestTagName.dropFirst().compare(versionName, options: .numeric)
         return versionCompare == .orderedDescending ? latestTagName : ""
