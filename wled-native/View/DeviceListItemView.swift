@@ -7,7 +7,6 @@ struct DeviceListItemView: View {
     @EnvironmentObject var device: Device
     
     @State private var isUserInput = true
-    @State private var isOn = false
     @State private var brightness: Double = 0.0
     
     var body: some View {
@@ -71,10 +70,6 @@ struct DeviceListItemView: View {
                     value: $brightness,
                     in: 0...255,
                     onEditingChanged: { editing in
-                        if (!isUserInput) {
-                            return
-                        }
-                        
                         print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness)")
                         if (!editing) {
                             let postParam = JsonPost(brightness: Int64(brightness))
@@ -88,41 +83,25 @@ struct DeviceListItemView: View {
                 .tint(colorFromHex(rgbValue: Int(device.color)))
             }
             
-            Toggle("Turn On/Off", isOn: $isOn)
-                .onChange(of: isOn) { value in
-                    if (!isUserInput) {
-                        return
-                    }
-                    device.isPoweredOn = value
-                    let postParam = JsonPost(isOn: value)
-                    print("device \(device.address ?? "?") toggled \(postParam)")
-                    let deviceApi = DeviceApi()
-                    Task {
-                        await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
-                    }
+            Toggle("Turn On/Off", isOn: Binding(get: {device.isPoweredOn}, set: {
+                device.isPoweredOn = $0
+                let postParam = JsonPost(isOn: $0)
+                print("device \(device.address ?? "?") toggled \(postParam)")
+                let deviceApi = DeviceApi()
+                Task {
+                    await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
                 }
-                .labelsHidden()
-                .frame(alignment: .trailing)
-                .tint(colorFromHex(rgbValue: Int(device.color)))
+            }))
+            .labelsHidden()
+            .frame(alignment: .trailing)
+            .tint(colorFromHex(rgbValue: Int(device.color)))
         }
         .onAppear() {
             brightness = Double(device.brightness)
-            isOn = device.isPoweredOn
         }
         .onChange(of: device.brightness) { brightness in
-            updateStateFromDevice()
+            self.brightness = Double(device.brightness)
         }
-        .onChange(of: device.isPoweredOn) { isPoweredOn in
-            updateStateFromDevice()
-        }
-    }
-    
-    func updateStateFromDevice() {
-        isUserInput = false
-        isOn = device.isPoweredOn
-        brightness = Double(device.brightness)
-        print("device changed programmatically")
-        isUserInput = true
     }
     
     func getSignalImage(isOnline: Bool, signalStrength: Int) -> UIImage {
