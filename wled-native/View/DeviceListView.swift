@@ -138,7 +138,6 @@ struct DeviceListView: View {
     
     @Sendable
     private func refreshDevices(devices: [Device]) async {
-        let deviceApi = DeviceApi()
         await withTaskGroup(of: Void.self) { [self] group in
             for device in devices {
                 // Don't start a refresh request when the device is not done refreshing.
@@ -149,7 +148,6 @@ struct DeviceListView: View {
                     await viewContext.performAndWait {
                         device.isRefreshing = true
                     }
-                    //await deviceApi.updateDevice(device: device, context: viewContext)
                     await device.requestManager.addRequest(WLEDRefreshRequest(context: viewContext))
                 }
             }
