@@ -31,8 +31,7 @@ actor WLEDRequestManager {
         }
     }
     
-    // TODO: Experiment replacing ALL of this with just dispatchQueue
-    func processRequests() async -> Bool {
+    private func processRequests() async -> Bool {
         guard locked == false else {
             return false
         }

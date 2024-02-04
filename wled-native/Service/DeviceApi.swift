@@ -13,6 +13,7 @@ class DeviceApi {
         sessionConfig.timeoutIntervalForRequest = 8
         sessionConfig.timeoutIntervalForResource = 18
         sessionConfig.waitsForConnectivity = true
+        sessionConfig.httpMaximumConnectionsPerHost = 1
         urlSession = URLSession(configuration: sessionConfig)
         return urlSession!
     }
