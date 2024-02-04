@@ -103,13 +103,12 @@ class DeviceUpdateService {
             return
         }
         Task {
-            await DeviceApi().installUpdate(
-                device: device,
-                binaryFile: binaryPath,
+            await device.requestManager.addRequest(WLEDSoftwareUpdateRequest(
                 context: context,
+                binaryFile: binaryPath,
                 onCompletion: onCompletion,
                 onFailure: onFailure
-            )
+            ))
         }
     }
     
