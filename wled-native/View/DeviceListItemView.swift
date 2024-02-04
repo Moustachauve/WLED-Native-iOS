@@ -72,10 +72,9 @@ struct DeviceListItemView: View {
                     onEditingChanged: { editing in
                         print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness)")
                         if (!editing) {
-                            let postParam = JsonPost(brightness: Int64(brightness))
-                            let deviceApi = DeviceApi()
+                            let postParam = WLEDStateChange(brightness: Int64(brightness))
                             Task {
-                                await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                                await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam, context: viewContext))
                             }
                         }
                     }
@@ -85,11 +84,10 @@ struct DeviceListItemView: View {
             
             Toggle("Turn On/Off", isOn: Binding(get: {device.isPoweredOn}, set: {
                 device.isPoweredOn = $0
-                let postParam = JsonPost(isOn: $0)
+                let postParam = WLEDStateChange(isOn: $0)
                 print("device \(device.address ?? "?") toggled \(postParam)")
-                let deviceApi = DeviceApi()
                 Task {
-                    await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                    await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam, context: viewContext))
                 }
             }))
             .labelsHidden()

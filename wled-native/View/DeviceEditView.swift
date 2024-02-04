@@ -166,8 +166,7 @@ struct DeviceEditView: View {
         device.skipUpdateTag = ""
         withAnimation {
             Task {
-                let deviceApi = DeviceApi()
-                await deviceApi.updateDevice(device: device, context: viewContext)
+                await device.requestManager.addRequest(WLEDRefreshRequest(context: viewContext))
             }
             isCheckingForUpdates = false
         }

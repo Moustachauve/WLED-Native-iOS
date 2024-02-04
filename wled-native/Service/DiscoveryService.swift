@@ -69,7 +69,6 @@ class DiscoveryService: NSObject, Identifiable {
             if (doesDeviceAlreadyExists(host: host, viewContext: viewContext)) {
                 return
             }
-            let deviceApi = DeviceApi()
             // TODO: Add mac address checkup like on Android for ip changes
             let newDevice = Device(context: viewContext)
             newDevice.tag = UUID()
@@ -77,7 +76,7 @@ class DiscoveryService: NSObject, Identifiable {
             newDevice.address = host
             newDevice.isHidden = false
             Task {
-                await deviceApi.updateDevice(device: newDevice, context: viewContext)
+                await newDevice.requestManager.addRequest(WLEDRefreshRequest(context: viewContext))
             }
         }
     }
