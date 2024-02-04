@@ -149,7 +149,8 @@ struct DeviceListView: View {
                     await viewContext.performAndWait {
                         device.isRefreshing = true
                     }
-                    await deviceApi.updateDevice(device: device, context: viewContext)
+                    //await deviceApi.updateDevice(device: device, context: viewContext)
+                    await device.requestManager.addRequest(WLEDRefreshRequest(context: viewContext))
                 }
             }
             self.firstLoad = false

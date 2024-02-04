@@ -12,7 +12,7 @@ class DeviceApi {
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = 8
         sessionConfig.timeoutIntervalForResource = 18
-        sessionConfig.waitsForConnectivity = false
+        sessionConfig.waitsForConnectivity = true
         urlSession = URLSession(configuration: sessionConfig)
         return urlSession!
     }
@@ -47,7 +47,7 @@ class DeviceApi {
         }
     }
     
-    func postJson(device: Device, context: NSManagedObjectContext, jsonData: JsonPost) async {
+    func postJson(device: Device, context: NSManagedObjectContext, jsonData: WLEDStateChange) async {
         let url = getJsonApiUrl(device: device, path: "json/state")
         guard let url else {
             print("Can't post to device, url nil")
