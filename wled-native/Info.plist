@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GITHUB_ILLUMIDEL_KEY</key>
+	<string>$(GITHUB_ILLUMIDEL_KEY)</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Dark</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

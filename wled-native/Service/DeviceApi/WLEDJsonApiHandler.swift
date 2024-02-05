@@ -9,15 +9,15 @@ class WLEDJsonApiHandler : WLEDRequestHandler {
         self.device = device
     }
     
-    func getUrlSession() -> URLSession {
+    func getUrlSession(isFast: Bool = true) -> URLSession {
         if (urlSession != nil) {
             return urlSession!
         }
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 8
-        sessionConfig.timeoutIntervalForResource = 18
-        sessionConfig.waitsForConnectivity = true
+        sessionConfig.timeoutIntervalForRequest = isFast ? 8 : 30
+        sessionConfig.timeoutIntervalForResource = isFast ? 18 : 60
+        sessionConfig.waitsForConnectivity = false
         sessionConfig.httpMaximumConnectionsPerHost = 1
         urlSession = URLSession(configuration: sessionConfig)
         return urlSession!
@@ -137,8 +137,7 @@ class WLEDJsonApiHandler : WLEDRequestHandler {
         body.append("--\(boundary)--\r\n".data(using: .utf8)!)
         
         do {
-            // Uses shared session to have longer timeouts
-            let (data, response) = try await URLSession.shared.upload(for: urlRequest, from: body)
+            let (data, response) = try await getUrlSession(isFast: false).upload(for: urlRequest, from: body)
             print("Update response: \(response)")
             print("Update data: \(String(decoding: data, as: UTF8.self))")
             

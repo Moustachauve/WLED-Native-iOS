@@ -2,20 +2,23 @@ import Foundation
 import CoreData
 
 class DeviceUpdateService {
-    
-    let supportedPlatforms = [
-        "esp01",
-        "esp02",
-        "esp32",
-        "esp8266",
-    ]
-    
     let device: Device
     let version: Version
     let context: NSManagedObjectContext
     
     private(set) var couldDetermineAsset = false
     private var asset: Asset? = nil
+    
+    var supportedPlatforms: [String] {
+        get {
+            return [
+                "esp01",
+                "esp02",
+                "esp32",
+                "esp8266",
+            ]
+        }
+    }
     
     init(device: Device, version: Version, context: NSManagedObjectContext) {
         self.device = device
@@ -62,6 +65,10 @@ class DeviceUpdateService {
         return FileManager.default.fileExists(atPath: binaryPath.path)
     }
     
+    func getRequest(url: URL) -> URLRequest {
+        return URLRequest(url: url)
+    }
+    
     func downloadBinary(onCompletion: @escaping (DeviceUpdateService) -> ()) {
         guard let assetUrl = URL(string: asset?.downloadUrl ?? "") else {
             // TODO: Handle errors
@@ -74,7 +81,7 @@ class DeviceUpdateService {
 
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
-        let request = URLRequest(url: assetUrl)
+        let request = getRequest(url: assetUrl)
         
         let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
             if let tempLocalUrl = tempLocalUrl, error == nil {

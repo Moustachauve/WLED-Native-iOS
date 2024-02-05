@@ -106,3 +106,6 @@ iOSInjectionProject/
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
 
 .DS_STORE
+
+
+wled-native/Secrets.xcconfig

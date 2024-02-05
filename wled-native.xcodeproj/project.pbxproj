@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C93470AC29D904C20085D9D5 /* errorPage.en.html in Resources */ = {isa = PBXBuildFile; fileRef = C93470AB29D904C20085D9D5 /* errorPage.en.html */; };
-		C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */ = {isa = PBXBuildFile; fileRef = C93470AD29D905BD0085D9D5 /* 012_rip.png */; };
 		C946FB832B68C3B700D5B00D /* WLEDRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB822B68C3B700D5B00D /* WLEDRequestManager.swift */; };
 		C946FB862B68C53600D5B00D /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = C946FB852B68C53600D5B00D /* Collections */; };
 		C946FB882B68C53600D5B00D /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = C946FB872B68C53600D5B00D /* DequeModule */; };
@@ -23,6 +22,8 @@
 		C946FB9E2B6E0FE000D5B00D /* DeviceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB9D2B6E0FE000D5B00D /* DeviceState.swift */; };
 		C946FBA02B6E103600D5B00D /* DeviceStateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB9F2B6E103600D5B00D /* DeviceStateFactory.swift */; };
 		C946FBA22B702F8B00D5B00D /* WLEDSoftwareUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FBA12B702F8B00D5B00D /* WLEDSoftwareUpdateRequest.swift */; };
+		C946FBA42B7075CD00D5B00D /* IllumidelRepoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FBA32B7075CD00D5B00D /* IllumidelRepoApi.swift */; };
+		C946FBA72B707AF000D5B00D /* IllumidelUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FBA62B707AF000D5B00D /* IllumidelUpdateService.swift */; };
 		C948F4952B3D1C480092C4B1 /* DeviceUpdateDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */; };
 		C948F4982B3D2B330092C4B1 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = C948F4972B3D2B330092C4B1 /* MarkdownUI */; };
 		C948F49A2B3E2B590092C4B1 /* DeviceUpdateInstalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948F4992B3E2B590092C4B1 /* DeviceUpdateInstalling.swift */; };
@@ -71,7 +72,6 @@
 
 /* Begin PBXFileReference section */
 		C93470AB29D904C20085D9D5 /* errorPage.en.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.en.html; sourceTree = "<group>"; };
-		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
 		C946FB822B68C3B700D5B00D /* WLEDRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDRequestManager.swift; sourceTree = "<group>"; };
 		C946FB8D2B6C8E8800D5B00D /* WLEDRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDRequest.swift; sourceTree = "<group>"; };
 		C946FB8F2B6C92C400D5B00D /* WLEDRefreshRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDRefreshRequest.swift; sourceTree = "<group>"; };
@@ -83,6 +83,9 @@
 		C946FB9D2B6E0FE000D5B00D /* DeviceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceState.swift; sourceTree = "<group>"; };
 		C946FB9F2B6E103600D5B00D /* DeviceStateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStateFactory.swift; sourceTree = "<group>"; };
 		C946FBA12B702F8B00D5B00D /* WLEDSoftwareUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDSoftwareUpdateRequest.swift; sourceTree = "<group>"; };
+		C946FBA32B7075CD00D5B00D /* IllumidelRepoApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllumidelRepoApi.swift; sourceTree = "<group>"; };
+		C946FBA52B70778500D5B00D /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		C946FBA62B707AF000D5B00D /* IllumidelUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllumidelUpdateService.swift; sourceTree = "<group>"; };
 		C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateDetails.swift; sourceTree = "<group>"; };
 		C948F4992B3E2B590092C4B1 /* DeviceUpdateInstalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateInstalling.swift; sourceTree = "<group>"; };
 		C95B4A822B3E3F540081F4C5 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
@@ -269,6 +272,7 @@
 				C968271D2B01ABE900A5DDEC /* illumidel_logo.png */,
 				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
 				C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */,
+				C946FBA52B70778500D5B00D /* Secrets.xcconfig */,
 				C9C4B47E2AC0050500791D20 /* README.md */,
 			);
 			path = "wled-native";
@@ -281,8 +285,10 @@
 				C99BEF542AF49513001AD80A /* DiscoveryService.swift */,
 				C97CD4A62B30107800420E93 /* GithubApi.swift */,
 				C97CD4A82B30165900420E93 /* WLEDRepoApi.swift */,
+				C946FBA32B7075CD00D5B00D /* IllumidelRepoApi.swift */,
 				C97CD4AA2B30175400420E93 /* ReleaseService.swift */,
 				C9B9FB3D2B3FB7280003E6F9 /* DeviceUpdateService.swift */,
+				C946FBA62B707AF000D5B00D /* IllumidelUpdateService.swift */,
 				C946FB9D2B6E0FE000D5B00D /* DeviceState.swift */,
 				C946FB9F2B6E103600D5B00D /* DeviceStateFactory.swift */,
 			);
@@ -390,6 +396,7 @@
 			files = (
 				C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */,
 				C946FB962B6C950200D5B00D /* WLEDJsonApiHandler.swift in Sources */,
+				C946FBA72B707AF000D5B00D /* IllumidelUpdateService.swift in Sources */,
 				C97CD4A52B269FA400420E93 /* Uploader.swift in Sources */,
 				C946FB9A2B6CA10600D5B00D /* DeviceExtensions.swift in Sources */,
 				C946FB982B6C953F00D5B00D /* WLEDWebsocketHandler.swift in Sources */,
@@ -428,6 +435,7 @@
 				C946FB9E2B6E0FE000D5B00D /* DeviceState.swift in Sources */,
 				C97CD49A2B2519BC00420E93 /* Branch.swift in Sources */,
 				C99BEF592AF8BA79001AD80A /* WebView.swift in Sources */,
+				C946FBA42B7075CD00D5B00D /* IllumidelRepoApi.swift in Sources */,
 				C946FBA22B702F8B00D5B00D /* WLEDSoftwareUpdateRequest.swift in Sources */,
 				C97CD4AB2B30175400420E93 /* ReleaseService.swift in Sources */,
 				C9FCC3A3293DBD2200DEDDEA /* Info.swift in Sources */,
@@ -462,6 +470,7 @@
 /* Begin XCBuildConfiguration section */
 		C9A9E5CF2918D1C4005B5C22 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C946FBA52B70778500D5B00D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -524,6 +533,7 @@
 		};
 		C9A9E5D02918D1C4005B5C22 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C946FBA52B70778500D5B00D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -601,7 +611,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4;
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.cgagnier.illumidel";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.cgagnier.illumidel;
 				PRODUCT_NAME = Illumidel;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

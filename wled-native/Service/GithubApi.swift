@@ -32,6 +32,10 @@ class GithubApi {
         return URL(string: urlString)
     }
     
+    func getRequest(url: URL) -> URLRequest {
+        return URLRequest(url: url)
+    }
+    
     func getAllReleases() async -> [Release] {
         print("retrieving all releases")
         let url = getApiUrl(path: "repos/\(repoOwner)/\(repoName)/releases")
@@ -40,7 +44,7 @@ class GithubApi {
             return []
         }
         do {
-            let (data, response) = try await GithubApi.getUrlSession().data(from: url)
+            let (data, response) = try await GithubApi.getUrlSession().data(for: getRequest(url: url))
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Invalid httpResponse in update")
