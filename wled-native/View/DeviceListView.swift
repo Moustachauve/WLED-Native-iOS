@@ -8,6 +8,8 @@ struct DeviceListView: View {
     
     @State private var addDeviceButtonActive: Bool = false
     
+    @State private var firstLoad = true
+    
     @StateObject private var filter = DeviceListFilterAndSort(showHiddenDevices: false)
     private let discoveryService = DiscoveryService()
     
@@ -18,10 +20,13 @@ struct DeviceListView: View {
                     List {
                         ForEach(devices, id: \.tag) { device in
                             NavigationLink {
-                                DeviceView(device: device)
+                                DeviceView()
+                                    .environmentObject(device)
                             } label: {
-                                DeviceListItemView(device: device)
+                                DeviceListItemView()
+                                    .environmentObject(device)
                             }
+                            .environmentObject(device)
                             .swipeActions(allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     deleteItems(device: device)
@@ -33,9 +38,11 @@ struct DeviceListView: View {
                         Section(header: Text("Offline Devices")) {
                             ForEach(devicesOffline, id: \.tag) { device in
                                 NavigationLink {
-                                    DeviceView(device: device)
+                                    DeviceView()
+                                        .environmentObject(device)
                                 } label: {
-                                    DeviceListItemView(device: device)
+                                    DeviceListItemView()
+                                        .environmentObject(device)
                                 }
                                 .swipeActions(allowsFullSwipe: true) {
                                     Button(role: .destructive) {
@@ -77,30 +84,40 @@ struct DeviceListView: View {
                 }
                 ToolbarItem {
                     Menu {
-                        Button {
-                            addDeviceButtonActive.toggle()
-                        } label: {
-                            Label("Add New Device", systemImage: "plus")
-                        }
-                        Button {
-                            withAnimation {
-                                filter.showHiddenDevices = !filter.showHiddenDevices
+                        Section {
+                            Button {
+                                addDeviceButtonActive.toggle()
+                            } label: {
+                                Label("Add New Device", systemImage: "plus")
                             }
-                        } label: {
-                            if (filter.showHiddenDevices) {
-                                Label("Hide Hidden Devices", systemImage: "eye.slash")
-                            } else {
-                                Label("Show Hidden Devices", systemImage: "eye")
+                            Button {
+                                withAnimation {
+                                    filter.showHiddenDevices = !filter.showHiddenDevices
+                                }
+                            } label: {
+                                if (filter.showHiddenDevices) {
+                                    Label("Hide Hidden Devices", systemImage: "eye.slash")
+                                } else {
+                                    Label("Show Hidden Devices", systemImage: "eye")
+                                }
+                            }
+                        }
+                        Section {
+                            Link(destination: URL(string: "https://kno.wled.ge/")!) {
+                                Label("WLED Documentation", systemImage: "questionmark.circle")
                             }
                         }
                     } label: {
-                        Label("Add Item", systemImage: "ellipsis.circle")
+                        Label("Menu", systemImage: "ellipsis.circle")
                     }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $addDeviceButtonActive, content: DeviceAddView.init)
-            Text("Select an item")
+            VStack {
+                Text("Select A Device")
+                    .font(.title2)
+            }
         }
     }
     
@@ -121,20 +138,20 @@ struct DeviceListView: View {
     
     @Sendable
     private func refreshDevices(devices: [Device]) async {
-        let deviceApi = DeviceApi()
         await withTaskGroup(of: Void.self) { [self] group in
             for device in devices {
                 // Don't start a refresh request when the device is not done refreshing.
-                if (device.isRefreshing) {
+                if (!self.firstLoad && device.isRefreshing) {
                     continue
                 }
                 group.addTask {
                     await viewContext.performAndWait {
                         device.isRefreshing = true
                     }
-                    await deviceApi.updateDevice(device: device, context: viewContext)
+                    await device.requestManager.addRequest(WLEDRefreshRequest(context: viewContext))
                 }
             }
+            self.firstLoad = false
         }
     }
     

@@ -4,17 +4,10 @@ import SwiftUI
 struct DeviceListItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var device: Device
-    var brightness: Binding<Double>
+    @EnvironmentObject var device: Device
     
-    init(device: Device) {
-        self.device = device
-        self.brightness = Binding(
-            get: { Double(device.brightness) },
-            set: { device.brightness = Int64($0) } // Or other custom logic
-        )
-    }
-    
+    @State private var isUserInput = true
+    @State private var brightness: Double = 0.0
     
     var body: some View {
         HStack {
@@ -24,6 +17,9 @@ struct DeviceListItemView: View {
                         HStack {
                             Text(getDeviceDisplayName())
                                 .font(.headline.leading(.tight))
+                            if (hasUpdateAvailable()) {
+                                Image(systemName: getUpdateIconName())
+                            }
                         }
                         HStack {
                             Text(device.address ?? "")
@@ -58,45 +54,51 @@ struct DeviceListItemView: View {
                                     .lineSpacing(0)
                                     .truncationMode(.tail)
                             }
+                            if (device.isRefreshing) {
+                                ProgressView()
+                                    .controlSize(.mini)
+                                    .frame(maxHeight: 12, alignment: .trailing)
+                                    .padding(.leading, 1)
+                                    .padding(.trailing, 1)
+                            }
                         }
                         
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 Slider(
-                    value: brightness,
+                    value: $brightness,
                     in: 0...255,
                     onEditingChanged: { editing in
-                        print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness.wrappedValue)")
+                        print("device \(device.address ?? "?") brightness is changing: \(editing) - \(brightness)")
                         if (!editing) {
-                            let postParam = JsonPost(brightness: Int64(brightness.wrappedValue))
-                            let deviceApi = DeviceApi()
+                            let postParam = WLEDStateChange(brightness: Int64(brightness))
                             Task {
-                                await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
+                                await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam, context: viewContext))
                             }
                         }
                     }
                 )
                 .tint(colorFromHex(rgbValue: Int(device.color)))
             }
-            if (device.isRefreshing) {
-                ProgressView()
-                    .padding()
-                    .frame(alignment: .trailing)
-            } else {
-                Toggle("Turn On/Off", isOn: $device.isPoweredOn)
-                    .onChange(of: device.isPoweredOn) { value in
-                        let postParam = JsonPost(isOn: value)
-                        print("device \(device.address ?? "?") toggled \(postParam)")
-                        let deviceApi = DeviceApi()
-                        Task {
-                            await deviceApi.postJson(device: device, context: viewContext, jsonData: postParam)
-                        }
-                    }
-                    .labelsHidden()
-                    .frame(alignment: .trailing)
-                    .tint(colorFromHex(rgbValue: Int(device.color)))
-            }
+            
+            Toggle("Turn On/Off", isOn: Binding(get: {device.isPoweredOn}, set: {
+                device.isPoweredOn = $0
+                let postParam = WLEDStateChange(isOn: $0)
+                print("device \(device.address ?? "?") toggled \(postParam)")
+                Task {
+                    await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam, context: viewContext))
+                }
+            }))
+            .labelsHidden()
+            .frame(alignment: .trailing)
+            .tint(colorFromHex(rgbValue: Int(device.color)))
+        }
+        .onAppear() {
+            brightness = Double(device.brightness)
+        }
+        .onChange(of: device.brightness) { brightness in
+            self.brightness = Double(device.brightness)
         }
     }
     
@@ -123,6 +125,12 @@ struct DeviceListItemView: View {
             return emptyName
         }
         return name.isEmpty ? emptyName : name
+    }
+    
+    func hasUpdateAvailable() -> Bool {
+        viewContext.performAndWait {
+            return !(device.latestUpdateVersionTagAvailable ?? "").isEmpty
+        }
     }
     
     func getSignalValue(signalStrength: Int) -> Double {
@@ -158,22 +166,34 @@ struct DeviceListItemView: View {
         b = colorScheme == .dark ? fmax(b, 0.2) : fmin(b, 0.75)
         return Color(UIColor(hue: h, saturation: s, brightness: b, alpha: a))
     }
+    
+    func getUpdateIconName() -> String {
+        if #available(iOS 17.0, *) {
+            return "arrow.down.circle.dotted"
+        } else {
+            return "arrow.down.circle"
+        }
+    }
 }
 
 struct DeviceListItemView_Previews: PreviewProvider {
+    static let device = Device(context: PersistenceController.preview.container.viewContext)
+    
     static var previews: some View {
-        
-        let device = Device(context: PersistenceController.preview.container.viewContext)
         device.tag = UUID()
         device.name = ""
         device.address = "192.168.11.101"
+        device.isHidden = false
         device.isOnline = true
         device.networkRssi = -80
         device.color = 6244567779
         device.brightness = 125
+        device.isRefreshing = true
+        device.isHidden = true
         
         
-        return DeviceListItemView(device: device)
+        return DeviceListItemView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(device)
     }
 }
