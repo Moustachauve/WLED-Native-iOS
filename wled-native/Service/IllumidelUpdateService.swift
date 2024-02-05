@@ -15,6 +15,13 @@ class IllumidelUpdateService: DeviceUpdateService {
         super.init(device: device, version: version, context: context)
     }
     
+    override func getGithubApi() -> GithubApi {
+        if (githubApi == nil) {
+            githubApi = IllumidelRepoApi()
+        }
+        return githubApi!
+    }
+    
     override func getVersionWithPlatformName() -> String {
         let langCode = device.branchValue == Branch.beta ? "en" : "fr"
         let versionTagName = version.tagName ?? "v0"
