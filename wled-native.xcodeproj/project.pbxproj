@@ -601,8 +601,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4;
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.cgagnier.wled-native";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.cgagnier.illumidel";
+				PRODUCT_NAME = Illumidel;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
