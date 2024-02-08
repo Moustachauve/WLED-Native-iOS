@@ -103,7 +103,10 @@ struct DeviceListView: View {
                             }
                         }
                         Section {
-                            Link(destination: URL(string: "https://kno.wled.ge/")!) {
+                            Link(destination: URL(string: "https://illumidel.com/")!) {
+                                Label("Illumidel", systemImage: "link")
+                            }
+                            Link(destination: URL(string: "https://illumidel.com/videos/")!) {
                                 Label("WLED Documentation", systemImage: "questionmark.circle")
                             }
                         }
