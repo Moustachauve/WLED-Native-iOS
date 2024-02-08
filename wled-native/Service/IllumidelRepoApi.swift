@@ -9,7 +9,6 @@ class IllumidelRepoApi : GithubApi {
     override func getRequest(url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         if let key = Bundle.main.infoDictionary?["GITHUB_ILLUMIDEL_KEY"] as? String {
-            print(key)
             request.setValue("Bearer \(key)", forHTTPHeaderField: "Authorization")
         }
         return request

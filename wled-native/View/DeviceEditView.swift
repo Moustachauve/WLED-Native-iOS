@@ -17,9 +17,22 @@ struct DeviceEditView: View {
     @State private var isFormValid: Bool = true
     @State private var isCheckingForUpdates: Bool = false
     @FocusState var isNameFieldFocused: Bool
+    @State var showInstallingDialog = false
     
     let unknownVersion = String(localized: "unknown_version")
     var branchOptions = ["Stable", "Beta"]
+    
+    var version : Version? {
+        let fetchRequest = Version.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "tagName == %@", device.latestUpdateVersionTagAvailable ?? "")
+        
+        do {
+            return try viewContext.fetch(fetchRequest).first
+        } catch {
+            print("Unexpected error when loading version: \(error)")
+            return nil
+        }
+    }
     
     var body: some View {
         ScrollView {
@@ -79,9 +92,7 @@ struct DeviceEditView: View {
                     device.branchValue = newBranch
                     device.latestUpdateVersionTagAvailable = ""
                     saveDevice()
-                    Task {
-                        await checkForUpdate()
-                    }
+                    installVersion()
                 }
             }
             .padding(.bottom)
@@ -141,6 +152,27 @@ struct DeviceEditView: View {
             hideDevice = device.isHidden
             branch = device.branchValue == Branch.beta ? "Beta" : "Stable"
         }
+        .fullScreenCover(isPresented: $showInstallingDialog) {
+            if let version = version {
+                DeviceUpdateInstalling(version: version)
+                    .background(BackgroundBlurView())
+            } else {
+                ZStack {
+                    Color(.clear)
+                    VStack {
+                        ProgressView()
+                            .frame(maxHeight: 18, alignment: .trailing)
+                        Text("Loading...")
+                    }
+                    .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                    .padding()
+                    .background(Color(UIColor.secondarySystemBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .shadow(radius: 20)
+                }
+                .background(BackgroundBlurView())
+            }
+        }
     }
     
     private func saveDevice() {
@@ -178,6 +210,10 @@ struct DeviceEditView: View {
         } else {
             return "arrow.down.circle"
         }
+    }
+    
+    func installVersion() {
+        showInstallingDialog = true
     }
 }
 
