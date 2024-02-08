@@ -31,9 +31,17 @@ struct DeviceView: View {
                 }
             }
         }
-        .navigationTitle(getDeviceName())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Image(.wledLogoAkemi)
+                        .resizable()
+                        .scaledToFit()
+                        .padding(2)
+                }
+                .frame(maxWidth: 200)
+            }
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {
                     shouldWebViewRefresh = true
