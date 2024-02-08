@@ -5,60 +5,49 @@ struct DeviceView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var device: Device
     
-    @State private var selectedPage = 0
-    
     @State var showDownloadFinished = false
     @State var shouldWebViewRefresh = false
     
     var body: some View {
-        TabView(selection: $selectedPage) {
-            ZStack {
-                WebView(url: getDeviceAddress(), reload: $shouldWebViewRefresh) { filePathDestination in
-                    withAnimation {
-                        showDownloadFinished = true
-                        Task {
-                            try await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
-                            showDownloadFinished = false
-                        }
-                    }
-                }
-                if (showDownloadFinished) {
-                    VStack {
-                        Spacer()
-                        Text("Download Completed")
-                            .font(.title3)
-                            .padding()
-                            .background(.regularMaterial)
-                            .cornerRadius(15)
-                            .padding(.bottom)
+        ZStack {
+            WebView(url: getDeviceAddress(), reload: $shouldWebViewRefresh) { filePathDestination in
+                withAnimation {
+                    showDownloadFinished = true
+                    Task {
+                        try await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
+                        showDownloadFinished = false
                     }
                 }
             }
-            .tag(0)
-            .tabItem {
-                Image(systemName: "slider.horizontal.3")
-                Text("Controls")
-            }
-            DeviceEditView()
-                .tag(1)
-                .tabItem {
-                    Image(systemName: "gear")
-                    Text("Settings")
+            if (showDownloadFinished) {
+                VStack {
+                    Spacer()
+                    Text("Download Completed")
+                        .font(.title3)
+                        .padding()
+                        .background(.regularMaterial)
+                        .cornerRadius(15)
+                        .padding(.bottom)
                 }
-                .badge((device.latestUpdateVersionTagAvailable ?? "").isEmpty ? 0 : 1)
+            }
         }
         .navigationTitle(getDeviceName())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
-                if selectedPage == 0 {
-                    Button {
-                        shouldWebViewRefresh = true
-                        print(selectedPage)
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                    }
+                Button {
+                    shouldWebViewRefresh = true
+                } label: {
+                    Image(systemName: "arrow.clockwise")
                 }
+                
+                NavigationLink {
+                    DeviceEditView()
+                        .environmentObject(device)
+                } label: {
+                    Image(systemName: "gear")
+                }
+                .overlay(ToolbarBadge(value: .constant(getToolbarBadgeCount())))
             }
         }
     }
@@ -68,6 +57,10 @@ struct DeviceView: View {
             return nil
         }
         return URL(string: "http://\(deviceAddress)")!
+    }
+    
+    func getToolbarBadgeCount() -> Int {
+        return (device.latestUpdateVersionTagAvailable ?? "").isEmpty ? 0 : 1
     }
     
     private func getDeviceName() -> String {
