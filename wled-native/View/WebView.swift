@@ -34,8 +34,11 @@ struct WebView: UIViewRepresentable {
         print("WebView updateUIView")
         webView.underPageBackgroundColor = .systemBackground
         if (reload) {
+            print("reloading webview")
             webView.reload()
-            reload = false
+            DispatchQueue.main.async {
+                reload = false
+            }
         }
     }
     

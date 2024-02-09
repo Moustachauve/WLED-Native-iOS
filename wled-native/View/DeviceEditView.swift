@@ -18,9 +18,14 @@ struct DeviceEditView: View {
     @State private var isCheckingForUpdates: Bool = false
     @FocusState var isNameFieldFocused: Bool
     @State var showInstallingDialog = false
+    @Binding var reloadParent: Bool
     
     let unknownVersion = String(localized: "unknown_version")
     var branchOptions = ["Stable", "Beta"]
+    
+    init(reloadParent: Binding<Bool>) {
+        _reloadParent = reloadParent
+    }
     
     var version : Version? {
         let fetchRequest = Version.fetchRequest()
@@ -156,6 +161,9 @@ struct DeviceEditView: View {
             if let version = version {
                 DeviceUpdateInstalling(version: version)
                     .background(BackgroundBlurView())
+                    .onDisappear {
+                        reloadParent = true
+                    }
             } else {
                 ZStack {
                     Color(.clear)
@@ -230,7 +238,7 @@ struct DeviceEditView_Previews: PreviewProvider {
         device.latestUpdateVersionTagAvailable = "v1.2.4"
         
         
-        return DeviceEditView()
+        return DeviceEditView(reloadParent: .constant(false))
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             .environmentObject(device)
     }
