@@ -40,9 +40,14 @@ struct DeviceView: View {
                         .scaledToFit()
                         .padding(2)
                 }
-                .frame(maxWidth: 200)
+                .frame(maxWidth: 100)
             }
-            ToolbarItemGroup(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button {
+                    shouldWebViewRefresh = true
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                }
                 NavigationLink {
                     DeviceEditView(reloadParent: $shouldWebViewRefresh)
                         .environmentObject(device)
