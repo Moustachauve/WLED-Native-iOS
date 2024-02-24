@@ -3,6 +3,7 @@ import SwiftUI
 
 struct DeviceView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var device: Device
     
     @State var showDownloadFinished = false
@@ -57,6 +58,13 @@ struct DeviceView: View {
                 .overlay(ToolbarBadge(value: .constant(getToolbarBadgeCount())))
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button {
+            dismiss()
+        } label: {
+            Image(systemName: "chevron.left")
+            Image(systemName: "house")
+        })
     }
     
     func getDeviceAddress() -> URL? {
