@@ -20,23 +20,13 @@ struct DeviceEditView: View {
     @State var showInstallingDialog = false
     @Binding var reloadParent: Bool
     
+    @StateObject var versionViewModel = VersionViewModel()
+    
     let unknownVersion = String(localized: "unknown_version")
     var branchOptions = ["Stable", "Beta"]
     
     init(reloadParent: Binding<Bool>) {
         _reloadParent = reloadParent
-    }
-    
-    var version : Version? {
-        let fetchRequest = Version.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "tagName == %@", device.latestUpdateVersionTagAvailable ?? "")
-        
-        do {
-            return try viewContext.fetch(fetchRequest).first
-        } catch {
-            print("Unexpected error when loading version: \(error)")
-            return nil
-        }
     }
     
     var body: some View {
@@ -94,8 +84,9 @@ struct DeviceEditView: View {
                     if newBranch == device.branchValue {
                         return
                     }
+                    print("language changed! \(newBranch)")
                     device.branchValue = newBranch
-                    device.latestUpdateVersionTagAvailable = ""
+                    device.latestUpdateVersionTagAvailable = device.version
                     saveDevice()
                     installVersion()
                 }
@@ -158,7 +149,7 @@ struct DeviceEditView: View {
             branch = device.branchValue == Branch.beta ? "Beta" : "Stable"
         }
         .fullScreenCover(isPresented: $showInstallingDialog) {
-            if let version = version {
+            if let version = versionViewModel.version {
                 DeviceUpdateInstalling(version: version)
                     .background(BackgroundBlurView())
                     .onDisappear {
@@ -171,6 +162,14 @@ struct DeviceEditView: View {
                         ProgressView()
                             .frame(maxHeight: 18, alignment: .trailing)
                         Text("Loading...")
+                            .padding(.bottom, 2)
+                        
+                        Button {
+                            showInstallingDialog = false
+                        } label: {
+                            Text("Cancel")
+                                .buttonStyle(.plain)
+                        }
                     }
                     .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                     .padding()
@@ -221,7 +220,9 @@ struct DeviceEditView: View {
     }
     
     func installVersion() {
+        print("Opening install dialog")
         showInstallingDialog = true
+        versionViewModel.loadVersion(device.latestUpdateVersionTagAvailable ?? "", context: viewContext)
     }
 }
 
