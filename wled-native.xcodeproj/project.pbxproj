@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C90656202BBA5B9500D4ADAF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C906561F2BBA5B9500D4ADAF /* PrivacyInfo.xcprivacy */; };
 		C93470AC29D904C20085D9D5 /* errorPage.en.html in Resources */ = {isa = PBXBuildFile; fileRef = C93470AB29D904C20085D9D5 /* errorPage.en.html */; };
 		C93470AE29D905BD0085D9D5 /* 012_rip.png in Resources */ = {isa = PBXBuildFile; fileRef = C93470AD29D905BD0085D9D5 /* 012_rip.png */; };
 		C946FB832B68C3B700D5B00D /* WLEDRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB822B68C3B700D5B00D /* WLEDRequestManager.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C906561F2BBA5B9500D4ADAF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		C93470AB29D904C20085D9D5 /* errorPage.en.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = errorPage.en.html; sourceTree = "<group>"; };
 		C93470AD29D905BD0085D9D5 /* 012_rip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 012_rip.png; sourceTree = "<group>"; };
 		C946FB822B68C3B700D5B00D /* WLEDRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDRequestManager.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				C96827202B01AF5900A5DDEC /* errorPage.css */,
 				C9A9E5CE2918D1C4005B5C22 /* Info.plist */,
 				C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */,
+				C906561F2BBA5B9500D4ADAF /* PrivacyInfo.xcprivacy */,
 				C9C4B47E2AC0050500791D20 /* README.md */,
 			);
 			path = "wled-native";
@@ -373,6 +376,7 @@
 				C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */,
 				C9C4B47F2AC0050500791D20 /* README.md in Resources */,
 				C9F82F2229BBD0E100B8A5EE /* InfoPlist.strings in Resources */,
+				C90656202BBA5B9500D4ADAF /* PrivacyInfo.xcprivacy in Resources */,
 				C9AF215B2AFDCF7500E03749 /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
