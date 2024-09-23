@@ -128,7 +128,9 @@ struct DeviceUpdateInstalling: View {
     private func onDownloadCompleted(_ updateService: DeviceUpdateService) {
         print("Download is done.")
         statusString = String(localized: "Installing Update")
-        updateService.installUpdate(onCompletion: onInstallCompleted, onFailure: onInstallFailed)
+        Task {
+            await updateService.installUpdate(onCompletion: onInstallCompleted, onFailure: onInstallFailed)
+        }
     }
     
     private func onInstallCompleted() {
@@ -140,7 +142,7 @@ struct DeviceUpdateInstalling: View {
         Task {
             // Wait 3 seconds before sending a refresh request
             try await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
-            await device.requestManager.addRequest(WLEDRefreshRequest(context: viewContext))
+            await device.requestManager.addRequest(WLEDRefreshRequest())
         }
     }
     
