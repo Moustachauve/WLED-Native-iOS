@@ -169,7 +169,7 @@ struct DeviceEditView: View {
         device.skipUpdateTag = ""
         withAnimation {
             Task { @MainActor in
-                await device.requestManager.addRequest(WLEDRefreshRequest())
+                await device.getRequestManager().addRequest(WLEDRefreshRequest())
             }
             isCheckingForUpdates = false
         }

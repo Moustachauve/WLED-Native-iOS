@@ -21,7 +21,6 @@
 		C946FB982B6C953F00D5B00D /* WLEDWebsocketHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB972B6C953F00D5B00D /* WLEDWebsocketHandler.swift */; };
 		C946FB9A2B6CA10600D5B00D /* DeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB992B6CA10600D5B00D /* DeviceExtensions.swift */; };
 		C946FB9C2B6E032800D5B00D /* WLEDChangeStateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB9B2B6E032800D5B00D /* WLEDChangeStateRequest.swift */; };
-		C946FBA02B6E103600D5B00D /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB9F2B6E103600D5B00D /* DeviceManager.swift */; };
 		C946FBA22B702F8B00D5B00D /* WLEDSoftwareUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FBA12B702F8B00D5B00D /* WLEDSoftwareUpdateRequest.swift */; };
 		C948F4952B3D1C480092C4B1 /* DeviceUpdateDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */; };
 		C948F49A2B3E2B590092C4B1 /* DeviceUpdateInstalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948F4992B3E2B590092C4B1 /* DeviceUpdateInstalling.swift */; };
@@ -65,6 +64,8 @@
 		C9FCC3A3293DBD2200DEDDEA /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC3A0293DBD2200DEDDEA /* Info.swift */; };
 		C9FCC3A4293DBD2200DEDDEA /* Leds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC39C293DBD2200DEDDEA /* Leds.swift */; };
 		C9FCC3A5293DBD2200DEDDEA /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCC398293DBD2200DEDDEA /* Segment.swift */; };
+		E149382E2CB3C930000F0224 /* WLEDRequestManagerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149382D2CB3C930000F0224 /* WLEDRequestManagerProvider.swift */; };
+		E149382F2CB3C930000F0224 /* WLEDRequestManagerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149382D2CB3C930000F0224 /* WLEDRequestManagerProvider.swift */; };
 		E15C19DD2CA1CB4000431441 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */; };
 		E15C19DE2CA1CB7F00431441 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF562AF8B926001AD80A /* DeviceView.swift */; };
 		E15C19DF2CA1CB7F00431441 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */; };
@@ -88,7 +89,6 @@
 		E15C19F22CA1CB8600431441 /* GithubApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4A62B30107800420E93 /* GithubApi.swift */; };
 		E15C19F32CA1CB8600431441 /* WLEDRepoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4A82B30165900420E93 /* WLEDRepoApi.swift */; };
 		E15C19F42CA1CB8600431441 /* WLEDJsonApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB952B6C950200D5B00D /* WLEDJsonApiHandler.swift */; };
-		E15C19F52CA1CB8600431441 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946FB9F2B6E103600D5B00D /* DeviceManager.swift */; };
 		E15C19F62CA1CB8C00431441 /* Reactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4A02B269F8B00420E93 /* Reactions.swift */; };
 		E15C19F72CA1CB8C00431441 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD49E2B269F6800420E93 /* Author.swift */; };
 		E15C19F82CA1CB8C00431441 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD4A22B269F9400420E93 /* Release.swift */; };
@@ -138,7 +138,6 @@
 		C946FB972B6C953F00D5B00D /* WLEDWebsocketHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDWebsocketHandler.swift; sourceTree = "<group>"; };
 		C946FB992B6CA10600D5B00D /* DeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceExtensions.swift; sourceTree = "<group>"; };
 		C946FB9B2B6E032800D5B00D /* WLEDChangeStateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDChangeStateRequest.swift; sourceTree = "<group>"; };
-		C946FB9F2B6E103600D5B00D /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		C946FBA12B702F8B00D5B00D /* WLEDSoftwareUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDSoftwareUpdateRequest.swift; sourceTree = "<group>"; };
 		C948F4942B3D1C480092C4B1 /* DeviceUpdateDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateDetails.swift; sourceTree = "<group>"; };
 		C948F4992B3E2B590092C4B1 /* DeviceUpdateInstalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateInstalling.swift; sourceTree = "<group>"; };
@@ -186,6 +185,7 @@
 		C9FCC398293DBD2200DEDDEA /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 		C9FCC39C293DBD2200DEDDEA /* Leds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leds.swift; sourceTree = "<group>"; };
 		C9FCC3A0293DBD2200DEDDEA /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		E149382D2CB3C930000F0224 /* WLEDRequestManagerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDRequestManagerProvider.swift; sourceTree = "<group>"; };
 		E15C19CE2CA1CABD00431441 /* wled-native-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wled-native-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15C1A452CA1DC4B00431441 /* wled_native_osx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wled_native_osx.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,6 +250,7 @@
 		C946FB922B6C93DA00D5B00D /* DeviceApi */ = {
 			isa = PBXGroup;
 			children = (
+				E149382D2CB3C930000F0224 /* WLEDRequestManagerProvider.swift */,
 				C946FB822B68C3B700D5B00D /* WLEDRequestManager.swift */,
 				C946FB932B6C93F000D5B00D /* WLEDRequestHandler.swift */,
 				C946FB952B6C950200D5B00D /* WLEDJsonApiHandler.swift */,
@@ -361,7 +362,6 @@
 				C97CD4A82B30165900420E93 /* WLEDRepoApi.swift */,
 				C97CD4AA2B30175400420E93 /* ReleaseService.swift */,
 				C9B9FB3D2B3FB7280003E6F9 /* DeviceUpdateService.swift */,
-				C946FB9F2B6E103600D5B00D /* DeviceManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -521,6 +521,7 @@
 				C946FB962B6C950200D5B00D /* WLEDJsonApiHandler.swift in Sources */,
 				C97CD4A52B269FA400420E93 /* Uploader.swift in Sources */,
 				C946FB9A2B6CA10600D5B00D /* DeviceExtensions.swift in Sources */,
+				E149382E2CB3C930000F0224 /* WLEDRequestManagerProvider.swift in Sources */,
 				C946FB982B6C953F00D5B00D /* WLEDWebsocketHandler.swift in Sources */,
 				C9FCC389293DB86900DEDDEA /* FileSystem.swift in Sources */,
 				C97CD4A12B269F8B00420E93 /* Reactions.swift in Sources */,
@@ -553,7 +554,6 @@
 				C9FCC3A5293DBD2200DEDDEA /* Segment.swift in Sources */,
 				C9767DDE2AF9F435002F3EA9 /* DeviceAddView.swift in Sources */,
 				C9A9E5C12918D1C3005B5C22 /* WLEDNativeApp.swift in Sources */,
-				C946FBA02B6E103600D5B00D /* DeviceManager.swift in Sources */,
 				C946FB8E2B6C8E8800D5B00D /* WLEDRequest.swift in Sources */,
 				C97CD49A2B2519BC00420E93 /* Branch.swift in Sources */,
 				C99BEF592AF8BA79001AD80A /* WebView.swift in Sources */,
@@ -573,6 +573,7 @@
 				E15C19EB2CA1CB8600431441 /* ReleaseService.swift in Sources */,
 				E15C19EC2CA1CB8600431441 /* DeviceUpdateService.swift in Sources */,
 				E15C19ED2CA1CB8600431441 /* WLEDRequestHandler.swift in Sources */,
+				E149382F2CB3C930000F0224 /* WLEDRequestManagerProvider.swift in Sources */,
 				E15C19EE2CA1CB8600431441 /* DeviceExtensions.swift in Sources */,
 				E15C19EF2CA1CB8600431441 /* DiscoveryService.swift in Sources */,
 				E15C1A0A2CA1CBC900431441 /* WLEDNativeApp.swift in Sources */,
@@ -580,7 +581,6 @@
 				E15C19F22CA1CB8600431441 /* GithubApi.swift in Sources */,
 				E15C19F32CA1CB8600431441 /* WLEDRepoApi.swift in Sources */,
 				E15C19F42CA1CB8600431441 /* WLEDJsonApiHandler.swift in Sources */,
-				E15C19F52CA1CB8600431441 /* DeviceManager.swift in Sources */,
 				E15C19DE2CA1CB7F00431441 /* DeviceView.swift in Sources */,
 				E15C19DF2CA1CB7F00431441 /* FetchedObjects.swift in Sources */,
 				E15C19E02CA1CB7F00431441 /* DeviceListItemView.swift in Sources */,

@@ -146,7 +146,7 @@ struct DeviceUpdateInstalling: View {
         Task {
             // Wait 3 seconds before sending a refresh request
             try await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
-            await device.requestManager.addRequest(WLEDRefreshRequest())
+            await device.getRequestManager().addRequest(WLEDRefreshRequest())
         }
     }
     

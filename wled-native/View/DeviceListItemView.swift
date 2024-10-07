@@ -74,7 +74,7 @@ struct DeviceListItemView: View {
                         if (!editing) {
                             let postParam = WLEDStateChange(brightness: Int64(brightness))
                             Task {
-                                await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam))
+                                await device.getRequestManager().addRequest(WLEDChangeStateRequest(state: postParam))
                             }
                         }
                     }
@@ -87,7 +87,7 @@ struct DeviceListItemView: View {
                 let postParam = WLEDStateChange(isOn: $0)
                 print("device \(device.address ?? "?") toggled \(postParam)")
                 Task {
-                    await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam))
+                    await device.getRequestManager().addRequest(WLEDChangeStateRequest(state: postParam))
                 }
             }))
             .labelsHidden()
