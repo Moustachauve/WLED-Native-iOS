@@ -60,7 +60,7 @@ struct DeviceListView: View {
                         }
                     }
                 }
-                #if ios
+                #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
                 .sheet(isPresented: $addDeviceButtonActive, content: DeviceAddView.init)

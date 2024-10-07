@@ -75,7 +75,11 @@ struct DeviceUpdateInstalling: View {
             }
             .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
             .padding()
+            #if os(iOS)
             .background(Color(UIColor.secondarySystemBackground))
+            #else
+            .background(Color(NSColor.secondarySystemFill))
+            #endif
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .shadow(radius: 20)
             .offset(x: 0, y: offset)

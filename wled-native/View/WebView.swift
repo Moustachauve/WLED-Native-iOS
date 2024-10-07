@@ -2,6 +2,7 @@
 import SwiftUI
 import WebKit
 
+#if os(iOS)
 struct WebView: UIViewRepresentable {
     
     var webView: WKWebView = WKWebView()
@@ -249,3 +250,4 @@ struct WebView: UIViewRepresentable {
         Coordinator(self)
     }
 }
+#endif

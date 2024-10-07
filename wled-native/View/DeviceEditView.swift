@@ -130,7 +130,11 @@ struct DeviceEditView: View {
         }
         .padding()
         .navigationTitle("Edit Device")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #elseif os(macOS)
+        //TODO: for mac os
+        #endif
         .onAppear() {
             address = device.address ?? ""
             customName = device.isCustomName ? (self.device.name ?? "") : ""
