@@ -52,7 +52,6 @@
 		C99BEF592AF8BA79001AD80A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BEF582AF8BA79001AD80A /* WebView.swift */; };
 		C9A9E5C12918D1C3005B5C22 /* WLEDNativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */; };
 		C9A9E5CA2918D1C4005B5C22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */; };
-		C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */; };
 		C9AF215B2AFDCF7500E03749 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */; };
 		C9B9FB3E2B3FB7280003E6F9 /* DeviceUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9FB3D2B3FB7280003E6F9 /* DeviceUpdateService.swift */; };
 		C9C4B47F2AC0050500791D20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C9C4B47E2AC0050500791D20 /* README.md */; };
@@ -113,7 +112,6 @@
 		C9A9E5C02918D1C3005B5C22 /* WLEDNativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLEDNativeApp.swift; sourceTree = "<group>"; };
 		C9A9E5C92918D1C4005B5C22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9A9E5CE2918D1C4005B5C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListFilterAndSort.swift; sourceTree = "<group>"; };
 		C9AF215A2AFDCF7500E03749 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C9B9FB3D2B3FB7280003E6F9 /* DeviceUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateService.swift; sourceTree = "<group>"; };
 		C9C4B47E2AC0050500791D20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -200,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				C9767DE22AFAE65C002F3EA9 /* FetchedObjects.swift */,
-				C9AF21582AFB47BB00E03749 /* DeviceListFilterAndSort.swift */,
 				C95B4A822B3E3F540081F4C5 /* BackgroundBlurView.swift */,
 				C99BAC2D2B735875009BC476 /* ToolbarBadge.swift */,
 			);
@@ -388,7 +385,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9AF21592AFB47BB00E03749 /* DeviceListFilterAndSort.swift in Sources */,
 				C946FB962B6C950200D5B00D /* WLEDJsonApiHandler.swift in Sources */,
 				C97CD4A52B269FA400420E93 /* Uploader.swift in Sources */,
 				C946FB9A2B6CA10600D5B00D /* DeviceExtensions.swift in Sources */,

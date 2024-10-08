@@ -3,7 +3,7 @@
 import SwiftUI
 import CoreData
 
-//  This helper class creates the correct DeviceListView depending on the ios version
+//  This helper class creates the correct `DeviceListView` depending on the iOS version
 struct DeviceListViewFabric {
     @ViewBuilder
     static func make() -> some View {
@@ -19,8 +19,7 @@ struct DeviceListViewFabric {
 struct DeviceListView: View {
     
     private static let sort = [
-        SortDescriptor(\Device.isOnline, order: .reverse),
-        SortDescriptor(\Device.name, comparator: .localized, order: .forward) //Note: Uses different order
+        SortDescriptor(\Device.name, comparator: .localized, order: .forward)
     ]
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -37,7 +36,8 @@ struct DeviceListView: View {
     
     @State private var addDeviceButtonActive: Bool = false
     
-    @StateObject private var filter = DeviceListFilterAndSort(showHiddenDevices: false)
+    @SceneStorage("DeviceListView.showHiddenDevices") private var showHiddenDevices: Bool = false
+    @SceneStorage("DeviceListView.showOfflineDevices") private var showOfflineDevices: Bool = true
     
     private let discoveryService = DiscoveryService()
     
@@ -54,7 +54,8 @@ struct DeviceListView: View {
         }
             .onAppear(perform: appearAction)
             .onDisappear(perform: disappearAction)
-            .onChange(of: filter.showHiddenDevices) { _ in updateFilter() }
+            .onChange(of: showHiddenDevices) { _ in updateFilter() }
+            .onChange(of: showOfflineDevices) { _ in updateFilter() }
     }
     
     var list: some View {
@@ -62,7 +63,7 @@ struct DeviceListView: View {
             Section(header: Text("Online Devices")) {
                 sublist(devices: devices)
             }
-            if !devicesOffline.isEmpty {
+            if !devicesOffline.isEmpty && showOfflineDevices {
                 Section(header: Text("Offline Devices")) {
                     sublist(devices: devicesOffline)
                 }
@@ -114,7 +115,10 @@ struct DeviceListView: View {
             Menu {
                 Section {
                     addButton
+                }
+                Section {
                     visibilityButton
+                    hideOfflineButton
                 }
                 Section {
                     Link(destination: URL(string: "https://kno.wled.ge/")!) {
@@ -138,13 +142,27 @@ struct DeviceListView: View {
     var visibilityButton: some View {
         Button {
             withAnimation {
-                filter.showHiddenDevices.toggle()
+                showHiddenDevices.toggle()
             }
         } label: {
-            if (filter.showHiddenDevices) {
+            if (showHiddenDevices) {
                 Label("Hide Hidden Devices", systemImage: "eye.slash")
             } else {
                 Label("Show Hidden Devices", systemImage: "eye")
+            }
+        }
+    }
+    
+    var hideOfflineButton: some View {
+        Button {
+            withAnimation {
+                showOfflineDevices.toggle()
+            }
+        } label: {
+            if (showOfflineDevices) {
+                Label("Hide Offline Devices", systemImage: "wifi")
+            } else {
+                Label("Show Offline Devices", systemImage: "wifi.slash")
             }
         }
     }
@@ -161,8 +179,13 @@ struct DeviceListView: View {
     
     private func updateFilter() {
         print("Update Filter")
-        devices.nsPredicate = filter.getOnlineFilter()
-        devicesOffline.nsPredicate = filter.getOfflineFilter()
+        if showHiddenDevices {
+            devices.nsPredicate = NSPredicate(format: "isOnline == %@", NSNumber(value: true))
+            devicesOffline.nsPredicate =  NSPredicate(format: "isOnline == %@", NSNumber(value: false))
+        } else {
+            devices.nsPredicate = NSPredicate(format: "isOnline == %@ AND isHidden == %@", NSNumber(value: true), NSNumber(value: false))
+            devicesOffline.nsPredicate =  NSPredicate(format: "isOnline == %@ AND isHidden == %@", NSNumber(value: false), NSNumber(value: false))
+        }
     }
     
     //  Instead of using a timer, use the WebSocket API to get notified about changes
@@ -219,8 +242,14 @@ struct DeviceListView: View {
             }
         }
     }
-    
 }
+
+@available(iOS 16.0, macOS 13, tvOS 16.0, watchOS 9.0, *)
+#Preview("iOS 16") {
+    DeviceListView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+}
+
     
 //MARK: - OLD iOS 15
 
@@ -386,11 +415,48 @@ struct OldDeviceListView: View {
     }
 }
 
+@available(iOS, deprecated: 16, message: "This implementaion is only for iOS 15 to support the old UI.")
+class DeviceListFilterAndSort: ObservableObject {
+    
+    @Published var showHiddenDevices: Bool
+    @Published private var sort = [
+        NSSortDescriptor(keyPath: \Device.isOnline, ascending: false),
+        NSSortDescriptor(key: "name", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:))),
+    ]
 
-@available(iOS 16.0, macOS 13, tvOS 16.0, watchOS 9.0, *)
-#Preview("iOS 16") {
-    DeviceListView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    init(showHiddenDevices: Bool) {
+        self.showHiddenDevices = showHiddenDevices
+    }
+    
+    func getSortDescriptors() -> [NSSortDescriptor] {
+        return sort
+    }
+    
+    func getOnlineFilter() -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            getOnlineFilter(isOnline: true),
+            getHiddenFilterFormat()
+        ])
+    }
+    
+    func getOfflineFilter() -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            getOnlineFilter(isOnline: false),
+            getHiddenFilterFormat()
+        ])
+    }
+    
+    private func getOnlineFilter(isOnline: Bool) -> NSPredicate {
+        return NSPredicate(format: "isOnline == %@", NSNumber(value: isOnline))
+    }
+    
+    private func getHiddenFilterFormat() -> NSPredicate {
+        if (showHiddenDevices) {
+            return NSPredicate(value: true)
+        }
+        
+        return NSPredicate(format: "isHidden == %@", NSNumber(value: false))
+    }
 }
 
 @available(iOS, deprecated: 16, message: "This implementaion is only for iOS 15 to support the old UI.")
