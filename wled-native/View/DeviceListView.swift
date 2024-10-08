@@ -3,7 +3,230 @@
 import SwiftUI
 import CoreData
 
+//  This helper class creates the correct DeviceListView depending on the ios version
+struct DeviceListViewFabric {
+    @ViewBuilder
+    static func make() -> some View {
+        if #available(iOS 16.0, macOS 13, tvOS 16.0, watchOS 9.0, *) {
+            DeviceListView()
+        } else {
+            OldDeviceListView()
+        }
+    }
+}
+
+@available(iOS 16.0, macOS 13, tvOS 16.0, watchOS 9.0, *)
 struct DeviceListView: View {
+    
+    private static let sort = [
+        SortDescriptor(\Device.isOnline, order: .reverse),
+        SortDescriptor(\Device.name, comparator: .localized, order: .forward) //Note: Uses different order
+    ]
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(sortDescriptors: sort, animation: .default)
+    private var devices: FetchedResults<Device>
+    
+    @FetchRequest(sortDescriptors: sort, animation: .default)
+    private var devicesOffline: FetchedResults<Device>
+    
+    @State private var timer: Timer? = nil
+    
+    @State private var selection: Device? = nil
+    
+    @State private var addDeviceButtonActive: Bool = false
+    
+    @StateObject private var filter = DeviceListFilterAndSort(showHiddenDevices: false)
+    
+    private let discoveryService = DiscoveryService()
+    
+    //MARK: - UI
+    
+    var body: some View {
+        NavigationSplitView {
+            list
+                .toolbar{ toolbar }
+                .sheet(isPresented: $addDeviceButtonActive, content: DeviceAddView.init)
+                .navigationBarTitleDisplayMode(.inline)
+        } detail: {
+            detailView
+        }
+            .onAppear(perform: appearAction)
+            .onDisappear(perform: disappearAction)
+            .onChange(of: filter.showHiddenDevices) { _ in updateFilter() }
+    }
+    
+    var list: some View {
+        List(selection: $selection) {
+            Section(header: Text("Online Devices")) {
+                sublist(devices: devices)
+            }
+            if !devicesOffline.isEmpty {
+                Section(header: Text("Offline Devices")) {
+                    sublist(devices: devicesOffline)
+                }
+            }
+        }
+            .listStyle(PlainListStyle())
+            .refreshable(action: refreshList)
+    }
+    
+    private func sublist(devices: FetchedResults<Device>) -> some View {
+        ForEach(devices) { device in
+            NavigationLink(value: device) {
+                DeviceListItemView()
+            }
+                .environmentObject(device)
+                .swipeActions(allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        deleteItems(device: device)
+                    } label: {
+                        Label("Delete", systemImage: "trash.fill")
+                    }
+                }
+        }
+    }
+    
+    @ViewBuilder
+    private var detailView: some View {
+        if let device = selection {
+            DeviceView()
+                .environmentObject(device)
+        } else {
+            Text("Select A Device")
+                .font(.title2)
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbar: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            VStack {
+                Image(.wledLogoAkemi)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(2)
+            }
+            .frame(maxWidth: 200)
+        }
+        ToolbarItem {
+            Menu {
+                Section {
+                    addButton
+                    visibilityButton
+                }
+                Section {
+                    Link(destination: URL(string: "https://kno.wled.ge/")!) {
+                        Label("WLED Documentation", systemImage: "questionmark.circle")
+                    }
+                }
+            } label: {
+                Label("Menu", systemImage: "ellipsis.circle")
+            }
+        }
+    }
+    
+    var addButton: some View {
+        Button {
+            addDeviceButtonActive.toggle()
+        } label: {
+            Label("Add New Device", systemImage: "plus")
+        }
+    }
+    
+    var visibilityButton: some View {
+        Button {
+            withAnimation {
+                filter.showHiddenDevices.toggle()
+            }
+        } label: {
+            if (filter.showHiddenDevices) {
+                Label("Hide Hidden Devices", systemImage: "eye.slash")
+            } else {
+                Label("Show Hidden Devices", systemImage: "eye")
+            }
+        }
+    }
+    
+    //MARK: - Actions
+    
+    @Sendable
+    private func refreshList() async {
+        await withTaskGroup(of: Void.self) { group in
+            group.addTask { await discoveryService.scan() }
+            group.addTask { await refreshDevices() }
+        }
+    }
+    
+    private func updateFilter() {
+        print("Update Filter")
+        devices.nsPredicate = filter.getOnlineFilter()
+        devicesOffline.nsPredicate = filter.getOfflineFilter()
+    }
+    
+    //  Instead of using a timer, use the WebSocket API to get notified about changes
+    //  Cancel the connection if the view disappears and reconnect as soon it apears again
+    private func appearAction() {
+        updateFilter()
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            Task {
+                print("auto-refreshing")
+                await refreshList()
+                await refreshDevices()
+            }
+        }
+        discoveryService.scan()
+    }
+    
+    private func disappearAction() {
+        timer?.invalidate()
+    }
+    
+    @Sendable
+    private func refreshDevices() async {
+        await withTaskGroup(of: Void.self) { group in
+            devices.forEach { refreshDevice(device: $0, group: &group) }
+            devicesOffline.forEach { refreshDevice(device: $0, group: &group) }
+        }
+    }
+    
+    private func refreshDevice(device: Device, group: inout TaskGroup<Void>) {
+        // Don't start a refresh request when the device is not done refreshing.
+        if (!device.isRefreshing) {
+            return
+        }
+        group.addTask {
+            await self.viewContext.performAndWait {
+                device.isRefreshing = true
+            }
+            await device.requestManager.addRequest(WLEDRefreshRequest(context: viewContext))
+        }
+    }
+    
+    private func deleteItems(device: Device) {
+        withAnimation {
+            viewContext.delete(device)
+            do {
+                if viewContext.hasChanges {
+                    try viewContext.save()
+                }
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+}
+    
+//MARK: - OLD iOS 15
+
+@available(iOS, deprecated: 16, message: "This implementaion is only for iOS 15 to support the old UI.")
+struct OldDeviceListView: View {
+    
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var addDeviceButtonActive: Bool = false
@@ -163,8 +386,15 @@ struct DeviceListView: View {
     }
 }
 
-struct DeviceListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DeviceListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
+
+@available(iOS 16.0, macOS 13, tvOS 16.0, watchOS 9.0, *)
+#Preview("iOS 16") {
+    DeviceListView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+}
+
+@available(iOS, deprecated: 16, message: "This implementaion is only for iOS 15 to support the old UI.")
+#Preview("iOS 15") {
+    OldDeviceListView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

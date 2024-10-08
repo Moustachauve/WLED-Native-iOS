@@ -24,3 +24,5 @@ extension Device {
         color = getColor(state: state)
     }
 }
+
+extension Device: Observable { }
