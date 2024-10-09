@@ -27,7 +27,7 @@ struct DeviceListItemView: View {
                                 .fixedSize()
                                 .font(.subheadline.leading(.tight))
                                 .lineSpacing(0)
-                            Image(uiImage: getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi)))
+                            getSignalImage(isOnline: device.isOnline, signalStrength: Int(device.networkRssi))
                                 .resizable()
                                 .renderingMode(.template)
                                 .foregroundColor(.primary)
@@ -74,7 +74,7 @@ struct DeviceListItemView: View {
                         if (!editing) {
                             let postParam = WLEDStateChange(brightness: Int64(brightness))
                             Task {
-                                await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam, context: viewContext))
+                                await device.getRequestManager().addRequest(WLEDChangeStateRequest(state: postParam))
                             }
                         }
                     }
@@ -87,7 +87,7 @@ struct DeviceListItemView: View {
                 let postParam = WLEDStateChange(isOn: $0)
                 print("device \(device.address ?? "?") toggled \(postParam)")
                 Task {
-                    await device.requestManager.addRequest(WLEDChangeStateRequest(state: postParam, context: viewContext))
+                    await device.getRequestManager().addRequest(WLEDChangeStateRequest(state: postParam))
                 }
             }))
             .labelsHidden()
@@ -102,21 +102,17 @@ struct DeviceListItemView: View {
         }
     }
     
-    func getSignalImage(isOnline: Bool, signalStrength: Int) -> UIImage {
+    func getSignalImage(isOnline: Bool, signalStrength: Int) -> Image {
         let icon = !isOnline || signalStrength == 0 ? "wifi.slash" : "wifi"
-        var image: UIImage;
         if #available(iOS 16.0, *) {
-            image = UIImage(
-                systemName: icon,
+            return Image(systemName: icon,
                 variableValue: getSignalValue(signalStrength: Int(device.networkRssi))
-            )!
+            )
         } else {
-            image = UIImage(
+            return Image(
                 systemName: icon
-            )!
+            )
         }
-        image.applyingSymbolConfiguration(UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue))
-        return image
     }
     
     func getDeviceDisplayName() -> String {
@@ -155,10 +151,14 @@ struct DeviceListItemView: View {
         let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 0xFF
         let blue =  CGFloat(rgbValue & 0x0000FF) / 0xFF
         let alpha = CGFloat(alpha ?? 1.0)
-        
+        // TODO: Fix Colors also for XOS
+        #if os(iOS)
         return fixColor(color: UIColor(red: red, green: green, blue: blue, alpha: alpha))
+        #else
+        return Color(red: red, green: green, blue: blue, opacity: alpha)
+        #endif
     }
-    
+    #if os(iOS)
     // Fixes the color if it is too dark or too bright depending of the dark/light theme
     func fixColor(color: UIColor) -> Color {
         var h = CGFloat(0), s = CGFloat(0), b = CGFloat(0), a = CGFloat(0)
@@ -166,6 +166,7 @@ struct DeviceListItemView: View {
         b = colorScheme == .dark ? fmax(b, 0.2) : fmin(b, 0.75)
         return Color(UIColor(hue: h, saturation: s, brightness: b, alpha: a))
     }
+    #endif
     
     func getUpdateIconName() -> String {
         if #available(iOS 17.0, *) {

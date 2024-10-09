@@ -8,6 +8,7 @@ struct WLEDNativeApp: App {
     let persistenceController = PersistenceController.shared
     
     var body: some Scene {
+        #if os(iOS)
         WindowGroup {
             DeviceListViewFabric.make()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
@@ -15,6 +16,17 @@ struct WLEDNativeApp: App {
                     refreshVersionsSync()
                 }
         }
+        #elseif os(macOS)
+        //  The Menu Bar for macOS
+        MenuBarExtra("WLED", systemImage: "lamp.table.fill") {
+            DeviceListView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear() {
+                    refreshVersionsSync()
+                }
+        }
+            .menuBarExtraStyle(.window)
+        #endif
     }
     
     
