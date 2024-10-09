@@ -92,7 +92,9 @@ struct DeviceListView: View {
     @ViewBuilder
     private var detailView: some View {
         if let device = selection {
-            DeviceView()
+            NavigationStack {
+                DeviceView()
+            }
                 .environmentObject(device)
         } else {
             Text("Select A Device")
