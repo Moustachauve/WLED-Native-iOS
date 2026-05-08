@@ -2,6 +2,9 @@ import Testing
 import CoreData
 @testable import WLED
 
+// .serialized prevents the two test suite instances Xcode runs concurrently from
+// interfering with each other via the shared in-memory Core Data store.
+@Suite(.serialized)
 @MainActor
 struct ReleaseServiceTests {
 
@@ -9,30 +12,16 @@ struct ReleaseServiceTests {
     let service: ReleaseService
 
     init() throws {
-        let bundle = Bundle(for: Version.self)
-        guard let modelURL = bundle.url(forResource: "wled_native_data", withExtension: "momd"),
-              let model = NSManagedObjectModel(contentsOf: modelURL) else {
-            preconditionFailure("Failed to load Core Data model from bundle")
-        }
-
-        let container = NSPersistentContainer(name: UUID().uuidString, managedObjectModel: model)
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
-        container.persistentStoreDescriptions = [description]
-
-        var loadError: Error?
-        container.loadPersistentStores { _, error in
-            loadError = error
-        }
-        precondition(loadError == nil, "Failed to load in-memory store: \(loadError!)")
-        
-        context = container.viewContext
+        // Use the shared in-memory store. @MainActor on the struct ensures all test
+        // instances run serially on the main thread, so cleanup in init() is sufficient
+        // to guarantee full isolation between tests.
+        context = PersistenceController(inMemory: true).container.viewContext
         service = ReleaseService(context: context)
 
-        // Deletes all Version entities to ensure test isolation
+        // Clear any versions left by a previous test in this session.
         let fetchRequest = Version.fetchRequest()
-        let versions = try context.fetch(fetchRequest)
-        for version in versions {
+        let existing = try context.fetch(fetchRequest)
+        for version in existing {
             context.delete(version)
         }
         try context.save()
@@ -60,7 +49,6 @@ struct ReleaseServiceTests {
         // v0.15.5 has a MORE RECENT publishedDate, but v0.16.0 is a higher semver
         insertVersion(tagName: "0.15.5", publishedDate: Date(timeIntervalSince1970: 2_000_000))
         insertVersion(tagName: "0.16.0", publishedDate: Date(timeIntervalSince1970: 1_000_000))
-
         try context.save()
 
         let latest = service.getLatestVersion(branch: .beta)
@@ -70,7 +58,6 @@ struct ReleaseServiceTests {
     @Test func latestStableVersionExcludesPrereleases() throws {
         insertVersion(tagName: "0.15.0")
         insertVersion(tagName: "0.16.0-b1", isPrerelease: true)
-
         try context.save()
 
         let latest = service.getLatestVersion(branch: .stable)
@@ -80,7 +67,6 @@ struct ReleaseServiceTests {
     @Test func latestBetaVersionIncludesPrereleases() throws {
         insertVersion(tagName: "0.15.0")
         insertVersion(tagName: "0.16.0-b1", isPrerelease: true)
-
         try context.save()
 
         let latest = service.getLatestVersion(branch: .beta)
@@ -90,7 +76,6 @@ struct ReleaseServiceTests {
     @Test func latestVersionExcludesNightlyTag() throws {
         insertVersion(tagName: "nightly", publishedDate: Date(timeIntervalSince1970: 9_999_999))
         insertVersion(tagName: "0.15.0")
-
         try context.save()
 
         let latest = service.getLatestVersion(branch: .beta)
@@ -103,7 +88,6 @@ struct ReleaseServiceTests {
         insertVersion(tagName: "0.15.5", publishedDate: Date(timeIntervalSince1970: 4_000_000))
         insertVersion(tagName: "0.16.0", publishedDate: Date(timeIntervalSince1970: 1_000_000))
         insertVersion(tagName: "0.14.1", publishedDate: Date(timeIntervalSince1970: 5_000_000))
-
         try context.save()
 
         let latest = service.getLatestVersion(branch: .beta)
