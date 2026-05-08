@@ -34,14 +34,17 @@ class ReleaseService {
             return latestTagName
         }
 
+        if let latestSemVer = SemanticVersion(latestTagName),
+           let currentSemVer = SemanticVersion(versionName) {
+            return latestSemVer > currentSemVer ? latestTagName : ""
+        }
+
         let versionCompare = latestTagName.compare(versionName, options: .numeric)
         return versionCompare == .orderedDescending ? latestTagName : ""
     }
 
     func getLatestVersion(branch: Branch) -> Version? {
         let fetchRequest = Version.fetchRequest()
-        fetchRequest.fetchLimit = 1
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "publishedDate", ascending: false)]
         var predicates = [NSPredicate]()
 
         // For now, nightly branches are not supported.
@@ -52,10 +55,27 @@ class ReleaseService {
         }
 
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        fetchRequest.propertiesToFetch = ["tagName", "publishedDate"]
 
         do {
             let versions = try context.fetch(fetchRequest)
-            return versions.first
+            return versions
+                .map { ($0, SemanticVersion($0.tagName ?? "")) }
+                .max { lhs, rhs in
+                    switch (lhs.1, rhs.1) {
+                    case let (l?, r?):
+                        return l < r
+                    case (nil, .some):
+                        // Invalid semver tags are considered "less than" valid ones
+                        return true
+                    case (.some, nil):
+                        return false
+                    case (nil, nil):
+                        // Both invalid: fall back to publishedDate comparison
+                        return (lhs.0.publishedDate ?? .distantPast) < (rhs.0.publishedDate ?? .distantPast)
+                    }
+                }?
+                .0
         } catch {
             print("ReleaseService: Failed to fetch latest version. Error: \(error.localizedDescription)")
             return nil

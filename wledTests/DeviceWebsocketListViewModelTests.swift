@@ -17,9 +17,9 @@ struct DeviceWebsocketListViewModelTests {
 
     @Test func testInitialLoadingAndSorting() async throws {
         // 1. Setup mock data
-        let device1 = createDevice(name: "Z Device", mac: "01", isHidden: false)
-        let device2 = createDevice(name: "A Device", mac: "02", isHidden: false)
-        let device3 = createDevice(name: "Hidden Device", mac: "03", isHidden: true)
+        _ = createDevice(name: "Z Device", mac: "01", isHidden: false)
+        _ = createDevice(name: "A Device", mac: "02", isHidden: false)
+        _ = createDevice(name: "Hidden Device", mac: "03", isHidden: true)
         try context.save()
 
         let viewModel = DeviceWebsocketListViewModel(context: context)
