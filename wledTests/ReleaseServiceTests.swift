@@ -8,23 +8,75 @@ import CoreData
 @MainActor
 struct ReleaseServiceTests {
 
+    // Hold a strong reference to prevent the container (and its in-memory store) from
+    // being deallocated while a test is running.
+    let container: NSPersistentContainer
     let context: NSManagedObjectContext
     let service: ReleaseService
 
     init() throws {
-        // Use the shared in-memory store. @MainActor on the struct ensures all test
-        // instances run serially on the main thread, so cleanup in init() is sufficient
-        // to guarantee full isolation between tests.
-        context = PersistenceController(inMemory: true).container.viewContext
-        service = ReleaseService(context: context)
+        // Build a fresh in-memory store using NSInMemoryStoreType so that:
+        // 1. No on-disk store or migration is attempted (avoids CI environment issues).
+        // 2. Each test suite instance gets a completely isolated store.
+        let model = Self.makeModel()
+        let newContainer = NSPersistentContainer(name: UUID().uuidString, managedObjectModel: model)
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        newContainer.persistentStoreDescriptions = [description]
 
-        // Clear any versions left by a previous test in this session.
-        let fetchRequest = Version.fetchRequest()
-        let existing = try context.fetch(fetchRequest)
-        for version in existing {
-            context.delete(version)
+        var loadError: Error?
+        newContainer.loadPersistentStores { _, error in
+            loadError = error
         }
-        try context.save()
+        precondition(loadError == nil, "Failed to load in-memory store: \(String(describing: loadError))")
+
+        container = newContainer
+        context = newContainer.viewContext
+        service = ReleaseService(context: context)
+    }
+
+    /// Builds a minimal NSManagedObjectModel containing only the Version entity,
+    /// which is all ReleaseService needs. This avoids loading from disk entirely.
+    private static func makeModel() -> NSManagedObjectModel {
+        let model = NSManagedObjectModel()
+
+        let versionEntity = NSEntityDescription()
+        versionEntity.name = "Version"
+        versionEntity.managedObjectClassName = NSStringFromClass(Version.self)
+
+        let tagNameAttr = NSAttributeDescription()
+        tagNameAttr.name = "tagName"
+        tagNameAttr.attributeType = .stringAttributeType
+
+        let nameAttr = NSAttributeDescription()
+        nameAttr.name = "name"
+        nameAttr.attributeType = .stringAttributeType
+        nameAttr.isOptional = true
+
+        let descAttr = NSAttributeDescription()
+        descAttr.name = "versionDescription"
+        descAttr.attributeType = .stringAttributeType
+        descAttr.isOptional = true
+
+        let isPrereleaseAttr = NSAttributeDescription()
+        isPrereleaseAttr.name = "isPrerelease"
+        isPrereleaseAttr.attributeType = .booleanAttributeType
+        isPrereleaseAttr.defaultValue = false
+
+        let publishedDateAttr = NSAttributeDescription()
+        publishedDateAttr.name = "publishedDate"
+        publishedDateAttr.attributeType = .dateAttributeType
+        publishedDateAttr.isOptional = true
+
+        let htmlUrlAttr = NSAttributeDescription()
+        htmlUrlAttr.name = "htmlUrl"
+        htmlUrlAttr.attributeType = .stringAttributeType
+        htmlUrlAttr.isOptional = true
+
+        versionEntity.properties = [tagNameAttr, nameAttr, descAttr, isPrereleaseAttr, publishedDateAttr, htmlUrlAttr]
+        model.entities = [versionEntity]
+
+        return model
     }
 
     /// Inserts a Version entity into the context.
