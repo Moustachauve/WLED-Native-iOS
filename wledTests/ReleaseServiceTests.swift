@@ -124,4 +124,12 @@ struct ReleaseServiceTests {
         let result = service.getNewerReleaseTag(versionName: "0.15.0", branch: .stable, ignoreVersion: "0.16.0")
         #expect(result == "")
     }
+
+    @Test func newerReleaseTagDetectsUpdateFromBetaToStable() throws {
+        insertVersion(tagName: "0.16.0")
+        try context.save()
+
+        let result = service.getNewerReleaseTag(versionName: "0.16.0-b1", branch: .beta, ignoreVersion: "")
+        #expect(result == "0.16.0")
+    }
 }

@@ -34,6 +34,11 @@ class ReleaseService {
             return latestTagName
         }
 
+        if let latestSemVer = SemanticVersion(latestTagName),
+           let currentSemVer = SemanticVersion(versionName) {
+            return latestSemVer > currentSemVer ? latestTagName : ""
+        }
+
         let versionCompare = latestTagName.compare(versionName, options: .numeric)
         return versionCompare == .orderedDescending ? latestTagName : ""
     }
@@ -50,6 +55,7 @@ class ReleaseService {
         }
 
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        fetchRequest.propertiesToFetch = ["tagName", "publishedDate"]
 
         do {
             let versions = try context.fetch(fetchRequest)
