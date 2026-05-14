@@ -10,7 +10,7 @@ import SwiftUI
 struct DeviceInfoTwoRows: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var device: DeviceWithState
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 4) {
@@ -25,10 +25,11 @@ struct DeviceInfoTwoRows: View {
             }
             HStack(spacing: 4) {
                 WebsocketStatusIndicator(currentStatus: device.websocketStatus)
-                Text(device.device.address ?? "")
+                Text(device.device.url?.absoluteString ?? "")
                     .lineLimit(1)
-                    .fixedSize()
+                    .truncationMode(.middle)
                     .lineSpacing(0)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 let signalStrength = Int(device.stateInfo?.info.wifi.signal ?? 0)
                 Label {
                     Text(
@@ -61,13 +62,14 @@ struct DeviceInfoTwoRows: View {
                     .accessibilityElement(children: .combine)
                     .accessibilityLabel("(Hidden)")
                 }
+                Spacer(minLength: 0)
             }
             .font(.subheadline.leading(.tight))
-
+            
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-
+    
     func getUpdateIconName() -> String {
         if #available(iOS 17.0, *) {
             return "arrow.down.circle.dotted"
@@ -75,11 +77,11 @@ struct DeviceInfoTwoRows: View {
             return "arrow.down.circle"
         }
     }
-
+    
     @ViewBuilder
     func getSignalIcon(isOnline: Bool, signalStrength: Int?) -> some View {
         let icon = !isOnline || signalStrength == nil || signalStrength == 0 ? "wifi.slash" : "wifi"
-
+        
         if #available(iOS 17.0, *) {
             Image(systemName: icon, variableValue: getSignalValue(signalStrength: signalStrength))
                 .symbolRenderingMode(.hierarchical)
@@ -93,7 +95,7 @@ struct DeviceInfoTwoRows: View {
                 .font(.caption2)
         }
     }
-
+    
     func getSignalValue(signalStrength: Int?) -> Double {
         if let signalStrength {
             if signalStrength >= -67 {
@@ -115,41 +117,41 @@ struct DeviceInfoTwoRows: View {
 struct OfflineSinceText: View {
     @ObservedObject var device: DeviceWithState
     @Environment(\.locale) private var locale
-
+    
     private let formatter: RelativeDateTimeFormatter = {
         let fmt = RelativeDateTimeFormatter()
         fmt.unitsStyle = .full // Generates "10 minutes ago", "1 hour ago"
         fmt.dateTimeStyle = .named // Allows "yesterday" instead of "1 day ago" if appropriate
         return fmt
     }()
-
+    
     var body: some View {
         // Update the view every minute to keep the "ago" text fresh
         TimelineView(.periodic(from: .now, by: 60)) { context in
             getOfflineText(now: context.date)
         }
     }
-
+    
     private func getOfflineText(now: Date) -> Text {
         // lastSeen is Int64 milliseconds. 0 usually means never seen/unknown.
         let lastSeenMs = device.device.lastSeen
-
+        
         guard lastSeenMs > 0 else {
             return Text("(Offline)")
         }
-
+        
         formatter.locale = locale
         let lastSeenDate = Date(timeIntervalSince1970: TimeInterval(lastSeenMs) / 1000)
         let diff = now.timeIntervalSince(lastSeenDate)
-
+        
         // Handle the "less than a minute" case manually
         if diff < 60 {
             return Text("(Offline, less than a minute ago)")
         }
-
+        
         // For everything else (minutes, hours, days), let Apple handle the linguistics
         let timeString = formatter.localizedString(for: lastSeenDate, relativeTo: now)
-
+        
         // formatter returns "10 minutes ago", so we prepend "Offline, "
         // Using string interpolation here works because the formatter output is already localized/pluralized
         return Text("(Offline, \(timeString))")
@@ -161,14 +163,14 @@ struct OfflineSinceText: View {
 // MARK: DeviceInfoTwoRows preview
 
 struct DeviceInfoTwoRows_Previews: PreviewProvider {
-
+    
     // Let's display a device with only one bar of signal
     static var hiddenDevice: DeviceWithState = {
         let device = PreviewData.hiddenDevice
         device.stateInfo?.info.wifi.signal = -86
         return device
     }()
-
+    
     static var previews: some View {
         VStack(spacing: 20) {
             DeviceInfoTwoRows(device: PreviewData.onlineDevice)
@@ -189,7 +191,7 @@ struct OfflineSinceText_Previews: PreviewProvider {
             // English (Default)
             previewList
                 .previewDisplayName("Offline Since (English)")
-
+            
             // French (Explicit)
             previewList
                 .environment(\.locale, Locale(identifier: "fr-CA"))
@@ -197,7 +199,7 @@ struct OfflineSinceText_Previews: PreviewProvider {
         }
         .previewLayout(.sizeThatFits)
     }
-
+    
     static var previewList: some View {
         VStack(alignment: .leading, spacing: 20) {
             createPreview(offset: -30, label: "Less than a minute")
@@ -207,7 +209,7 @@ struct OfflineSinceText_Previews: PreviewProvider {
         }
         .padding()
     }
-
+    
     // Helper to create the device and view
     static func createPreview(offset: TimeInterval, label: String) -> some View {
         let context = PersistenceController.preview.container.viewContext
@@ -215,7 +217,7 @@ struct OfflineSinceText_Previews: PreviewProvider {
         // Convert Date to Int64 milliseconds
         device.lastSeen = Int64(Date().addingTimeInterval(offset).timeIntervalSince1970 * 1000)
         let deviceWithState = DeviceWithState(initialDevice: device)
-
+        
         return VStack(alignment: .leading, spacing: 4) {
             Text(label)
                 .font(.caption)
