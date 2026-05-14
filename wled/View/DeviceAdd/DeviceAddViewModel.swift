@@ -11,30 +11,46 @@ import Foundation
 final class DeviceAddViewModel: ObservableObject {
 
     @Published var address: String = ""
+    @Published var useSecure: Bool = false
+    @Published var customName: String = ""
     @Published var currentStep: Step = .form()
     private let firstContactService = DeviceFirstContactService()
 
-    var isAddressValid: Bool {
-        let cleanedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !cleanedAddress.isEmpty else { return false }
+    /// Returns the normalized full address including scheme using the current toggle selection.
+    var normalizedAddress: String? {
+        let cleaned = address.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleaned.isEmpty else { return nil }
 
-        let addressWithScheme: String
-        if cleanedAddress.lowercased().hasPrefix("http://") || cleanedAddress.lowercased().hasPrefix("https://") {
-            addressWithScheme = cleanedAddress
+        let lowercasedAddress = cleaned.lowercased()
+        let rawAddress: String
+
+        if lowercasedAddress.hasPrefix("http://") || lowercasedAddress.hasPrefix("https://") {
+            rawAddress = cleaned
+        } else if cleaned.contains("://") {
+            return nil
         } else {
-            addressWithScheme = "http://\(cleanedAddress)"
+            rawAddress = (useSecure ? "https://" : "http://") + cleaned
         }
 
-        guard let components = URLComponents(string: addressWithScheme) else {
-            return false
+        guard var components = URLComponents(string: rawAddress),
+              let scheme = components.scheme?.lowercased(),
+              scheme == "http" || scheme == "https",
+              components.host?.isEmpty == false else {
+            return nil
         }
 
-        // This prevents valid URLs that are empty or just schemes (like "http://")
-        guard let host = components.host, !host.isEmpty else {
-            return false
-        }
+        components.user = nil
+        components.password = nil
+        components.path = ""
+        components.query = nil
+        components.fragment = nil
+        components.scheme = scheme
 
-        return true
+        return components.url?.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+    }
+
+    var isAddressValid: Bool {
+        normalizedAddress != nil
     }
 
     func submitCreateDevice() {
@@ -51,11 +67,21 @@ final class DeviceAddViewModel: ObservableObject {
     private func findDevice() async {
         currentStep = .adding
         do {
+            guard let normalizedAddress else {
+                currentStep = .form(errorMessage: Error.enterValidAddress)
+                return
+            }
+
             let newDeviceId = try await firstContactService.fetchAndUpsertDevice(
-                rawAddress: address
+                rawAddress: normalizedAddress
             )
             let viewContext = PersistenceController.shared.container.viewContext
             if let newDevice = viewContext.object(with: newDeviceId) as? Device {
+                let trimmedCustomName = customName.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !trimmedCustomName.isEmpty {
+                    newDevice.customName = trimmedCustomName
+                    try viewContext.save()
+                }
                 currentStep = .success(device: newDevice)
             }
         } catch let error {

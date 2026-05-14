@@ -51,7 +51,9 @@ actor DeviceFirstContactService {
     /// - Parameter rawAddress: The network address input (e.g., "http://192.168.1.1/" or "wled.local").
     /// - Returns: The NSManagedObjectID of the device (to be retrieved safely on the main thread).
     func fetchAndUpsertDevice(rawAddress: String) async throws -> NSManagedObjectID {
-        let cleanAddress = sanitize(address: rawAddress)
+        guard let cleanAddress = normalizedAddress(from: rawAddress) else {
+            throw ServiceError.invalidURL
+        }
 
         logger.debug("Initiating contact with: \(cleanAddress)")
         let info = try await fetchDeviceInfo(address: cleanAddress)
@@ -61,7 +63,7 @@ actor DeviceFirstContactService {
             throw ServiceError.missingMacAddress
         }
 
-        return try await upsertDevice(macAddress: macAddress, hostname: cleanAddress, name: info.name)
+        return try await upsertDevice(macAddress: macAddress, address: cleanAddress, name: info.name)
     }
 
     /// Attempts to identify and update a device using only the MAC address from mDNS/Discovery.
@@ -75,7 +77,7 @@ actor DeviceFirstContactService {
         guard let macAddress, !macAddress.isEmpty else { return false }
 
         // Ensure the address provided by mDNS is clean before saving
-        let cleanAddress = sanitize(address: address)
+        guard let cleanAddress = normalizedAddress(from: address) else { return false }
         let logger = self.logger
 
         return await persistenceController.container.performBackgroundTask { context in
@@ -87,7 +89,7 @@ actor DeviceFirstContactService {
                 return false
             }
 
-            if existingDevice.address != address {
+            if existingDevice.address != cleanAddress {
                 logger.info("Fast update: IP changed for \(existingDevice.originalName ?? "Unknown") (\(macAddress))")
                 existingDevice.address = cleanAddress
 
@@ -103,31 +105,50 @@ actor DeviceFirstContactService {
 
     // MARK: - Private Helpers
 
-    /// Removes schemes (http/https) and trailing slashes to ensure we store a clean hostname/IP.
-    private func sanitize(address: String) -> String {
-        var result = address
+    /// Normalizes the provided address into a canonical base URL string.
+    /// - Preserves https and http schemes.
+    /// - Defaults to http when no scheme is provided.
+    /// - Strips user info, path, query, and fragment components.
+    private func normalizedAddress(from address: String) -> String? {
+        let trimmed = address.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
 
-        // Remove scheme if present
-        if let range = result.range(of: "://") {
-            result = String(result[range.upperBound...])
+        let lowercasedAddress = trimmed.lowercased()
+        let rawAddress: String
+
+        if lowercasedAddress.hasPrefix("http://") || lowercasedAddress.hasPrefix("https://") {
+            rawAddress = trimmed
+        } else if trimmed.contains("://") {
+            return nil
+        } else {
+            rawAddress = "http://\(trimmed)"
         }
 
-        // Remove trailing slashes
-        while result.hasSuffix("/") {
-            result.removeLast()
+        guard var components = URLComponents(string: rawAddress),
+              let scheme = components.scheme?.lowercased(),
+              scheme == "http" || scheme == "https",
+              components.host?.isEmpty == false else {
+            return nil
         }
 
-        return result
+        components.user = nil
+        components.password = nil
+        components.path = ""
+        components.query = nil
+        components.fragment = nil
+        components.scheme = scheme
+
+        return components.url?.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
     /// Fetches device information from the specified address.
     private func fetchDeviceInfo(address: String) async throws -> Info {
-        // Construct URL, ensuring http scheme and json/info path
-        let urlString = "http://\(address)/json/info"
-
-        guard let url = URL(string: urlString) else {
+        guard let base = URL(string: address) else {
             throw ServiceError.invalidURL
         }
+        let url = base
+            .appendingPathComponent("json")
+            .appendingPathComponent("info")
 
         var request = URLRequest(url: url)
         request.timeoutInterval = 10
@@ -142,7 +163,7 @@ actor DeviceFirstContactService {
     }
 
     /// Handles the Core Data logic to find, update, or create the device.
-    private func upsertDevice(macAddress: String, hostname: String, name: String?) async throws -> NSManagedObjectID {
+    private func upsertDevice(macAddress: String, address: String, name: String?) async throws -> NSManagedObjectID {
         let logger = self.logger
         return try await persistenceController.container.performBackgroundTask { context in
             context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
@@ -155,12 +176,12 @@ actor DeviceFirstContactService {
 
             if let existingDevice = try? context.fetch(request).first {
                 // Check if updates are actually needed to minimize Core Data thrashing
-                if existingDevice.address == hostname && existingDevice.originalName == name {
+                if existingDevice.address == address && existingDevice.originalName == name {
                     logger.debug("Device exists and is up to date: \(macAddress)")
                     device = existingDevice
                 } else {
                     logger.debug("Updating existing device: \(macAddress)")
-                    existingDevice.address = hostname
+                    existingDevice.address = address
                     existingDevice.originalName = name
                     device = existingDevice
                 }
@@ -168,7 +189,7 @@ actor DeviceFirstContactService {
                 logger.info("Creating new device: \(macAddress)")
                 device = Device(context: context)
                 device.macAddress = macAddress
-                device.address = hostname
+                device.address = address
                 device.originalName = name
                 device.isHidden = false
             }

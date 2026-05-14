@@ -236,7 +236,7 @@ class DeviceUpdateService: ObservableObject {
         let directory = cacheUrl.appendingPathComponent(version.tagName ?? "unknown", isDirectory: true)
         do {
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-            return directory.appendingPathExtension(asset?.name ?? "unknown")
+            return directory.appendingPathComponent(asset?.name ?? "unknown")
         } catch let writeError {
             print("error creating directory \(directory) : \(writeError)")
             return nil
@@ -255,10 +255,10 @@ class DeviceUpdateService: ObservableObject {
               FileManager.default.fileExists(atPath: binaryURL.path) else {
             throw UpdateError.fileNotFound
         }
-        guard let deviceAddress = device.device.address,
-              let url = URL(string: "http://\(deviceAddress)/update") else {
+        guard let base = device.device.url else {
             throw UpdateError.invalidURL
         }
+        let url = base.appendingPathComponent("update")
 
         let boundary = "Boundary-\(UUID().uuidString)"
         var request = URLRequest(url: url)

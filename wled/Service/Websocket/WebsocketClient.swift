@@ -56,13 +56,11 @@ class WebsocketClient: NSObject, ObservableObject, URLSessionWebSocketDelegate {
     // MARK: - Connection Logic
     
     func connect() {
-        if webSocketTask != nil || isConnecting {
-            print("\(tag): Already connected or connecting to \(deviceState.device.address ?? "nil")")
+        guard webSocketTask == nil && !isConnecting else {
             return
         }
-        
-        guard let address = deviceState.device.address, !address.isEmpty else {
-            print("\(tag): Device address is empty")
+        guard let wsURL = deviceState.device.webSocketURL else {
+            print("\(tag): Invalid WebSocket URL from \(deviceState.device.address ?? "")")
             return
         }
         
@@ -72,15 +70,9 @@ class WebsocketClient: NSObject, ObservableObject, URLSessionWebSocketDelegate {
         DispatchQueue.main.async {
             self.deviceState.websocketStatus = .connecting
         }
-        
-        let urlString = "ws://\(address)/ws"
-        guard let url = URL(string: urlString) else {
-            print("\(tag): Invalid URL \(urlString)")
-            return
-        }
-        
-        print("\(tag): Connecting to \(address)")
-        let request = URLRequest(url: url, timeoutInterval: 10)
+
+        print("\(tag): Connecting to \(wsURL.absoluteString)")
+        let request = URLRequest(url: wsURL, timeoutInterval: 10)
 
         webSocketTask = urlSession.webSocketTask(with: request)
         webSocketTask?.resume()
@@ -95,6 +87,7 @@ class WebsocketClient: NSObject, ObservableObject, URLSessionWebSocketDelegate {
         
         webSocketTask?.cancel(with: .normalClosure, reason: Data("Client disconnected".utf8))
         webSocketTask = nil
+        retryCount = 0
         
         DispatchQueue.main.async {
             self.deviceState.websocketStatus = .disconnected
@@ -240,6 +233,8 @@ class WebsocketClient: NSObject, ObservableObject, URLSessionWebSocketDelegate {
             let reasonString = reason.flatMap { String(data: $0, encoding: .utf8) } ?? "No reason"
             print("\(self.tag): WebSocket closing. Code: \(closeCode), reason: \(reasonString)")
 
+            self.webSocketTask = nil
+            self.isConnecting = false
             self.deviceState.websocketStatus = .disconnected
 
             if closeCode != .normalClosure && !self.isManuallyDisconnected {

@@ -10,7 +10,29 @@ extension Device {
         }
         return String(localized: "(New Device)")
     }
-    
+
+    var url: URL? {
+        guard let address = address?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !address.isEmpty else {
+            return nil
+        }
+        return URL(string: address)
+    }
+
+    var webSocketURL: URL? {
+        guard let url = url,
+              var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+
+        components.scheme = components.scheme?.lowercased() == "https" ? "wss" : "ws"
+        components.path = "/ws"
+        components.query = nil
+        components.fragment = nil
+
+        return components.url
+    }
+
     func getColor(state: WledState?) -> Int64 {
         guard let state = state,
               let colorInfo = state.segment?.first?.colors?.first,
