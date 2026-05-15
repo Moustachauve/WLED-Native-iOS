@@ -189,7 +189,7 @@ struct DeviceAddStep2LoadingView: View {
             ProgressView()
                 .controlSize(.large)
             
-            Text("Adding \(address)")
+            Text(String(format: NSLocalizedString("Adding %@", comment: ""), address))
                 .font(.headline)
                 .foregroundStyle(.secondary)
         }
