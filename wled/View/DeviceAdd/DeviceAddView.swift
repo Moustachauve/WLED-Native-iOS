@@ -124,12 +124,12 @@ struct DeviceAddStep1FormView: View {
                         
                         let lowercased = viewModel.address.lowercased()
                         
-                        if lowercased.hasPrefix("https://") {
-                            viewModel.address.removeFirst("https://".count)
-                            viewModel.address = "http://" + viewModel.address
-                        } else if lowercased.hasPrefix("http://") {
+                        if newValue && lowercased.hasPrefix("http://") {
                             viewModel.address.removeFirst("http://".count)
                             viewModel.address = "https://" + viewModel.address
+                        } else if !newValue && lowercased.hasPrefix("https://") {
+                            viewModel.address.removeFirst("https://".count)
+                            viewModel.address = "http://" + viewModel.address
                         }
                     }
                 ))
