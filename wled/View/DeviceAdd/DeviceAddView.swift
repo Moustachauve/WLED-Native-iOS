@@ -211,7 +211,7 @@ struct DeviceAddStep3Success: View {
             Text("Device Added")
                 .font(.title3.bold())
             
-            Text("\(device.displayName) was added")
+            Text(String(format: NSLocalizedString("%@ was added", comment: ""), device.displayName))
                 .font(.headline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
