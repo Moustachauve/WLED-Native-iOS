@@ -68,7 +68,7 @@ struct DeviceAddView: View {
 struct DeviceAddStep1FormView: View {
     @ObservedObject var viewModel: DeviceAddViewModel
     @FocusState private var focusedField: Field?
-    
+
     let errorMessage: String
     
     var body: some View {
@@ -88,7 +88,7 @@ struct DeviceAddStep1FormView: View {
             }
             
             Section {
-                TextField("Hostname, IP, or URL", text: $viewModel.address, axis: .vertical)
+                TextField("IP Address or URL", text: $viewModel.address, axis: .vertical)
                     .lineLimit(1)
                     .keyboardType(.URL)
                     .textInputAutocapitalization(.never)
@@ -134,7 +134,7 @@ struct DeviceAddStep1FormView: View {
                     }
                 ))
             } header: {
-                Text("Controller Address or URL")
+                Text("IP Address or URL")
             } footer: {
                 Text("WLED only supports HTTPS when accessed through a secure reverse proxy.")
             }
@@ -183,7 +183,7 @@ struct DeviceAddStep1FormView: View {
 
 struct DeviceAddStep2LoadingView: View {
     let address: String
-    
+
     var body: some View {
         VStack(spacing: 16) {
             ProgressView()
@@ -201,7 +201,7 @@ struct DeviceAddStep2LoadingView: View {
 
 struct DeviceAddStep3Success: View {
     let device: Device
-    
+
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "checkmark.seal")
