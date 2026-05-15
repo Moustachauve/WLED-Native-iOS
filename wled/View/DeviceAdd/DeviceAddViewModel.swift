@@ -9,50 +9,25 @@ import Foundation
 
 @MainActor
 final class DeviceAddViewModel: ObservableObject {
-
+    
     @Published var address: String = ""
     @Published var useSecure: Bool = false
     @Published var customName: String = ""
     @Published var currentStep: Step = .form()
     private let firstContactService = DeviceFirstContactService()
-
+    
     /// Returns the normalized full address including scheme using the current toggle selection.
     var normalizedAddress: String? {
-        let cleaned = address.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !cleaned.isEmpty else { return nil }
-
-        let lowercasedAddress = cleaned.lowercased()
-        let rawAddress: String
-
-        if lowercasedAddress.hasPrefix("http://") || lowercasedAddress.hasPrefix("https://") {
-            rawAddress = cleaned
-        } else if cleaned.contains("://") {
-            return nil
-        } else {
-            rawAddress = (useSecure ? "https://" : "http://") + cleaned
-        }
-
-        guard var components = URLComponents(string: rawAddress),
-              let scheme = components.scheme?.lowercased(),
-              scheme == "http" || scheme == "https",
-              components.host?.isEmpty == false else {
-            return nil
-        }
-
-        components.user = nil
-        components.password = nil
-        components.path = ""
-        components.query = nil
-        components.fragment = nil
-        components.scheme = scheme
-
-        return components.url?.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        DeviceAddressNormalizer.normalizedAddress(
+            from: address,
+            defaultScheme: useSecure ? "https" : "http"
+        )
     }
-
+    
     var isAddressValid: Bool {
         normalizedAddress != nil
     }
-
+    
     func submitCreateDevice() {
         if !isAddressValid {
             currentStep = .form(errorMessage: Error.enterValidAddress)
@@ -62,7 +37,7 @@ final class DeviceAddViewModel: ObservableObject {
             await findDevice()
         }
     }
-
+    
     /// Starts searching for the device and adds it, if one is found
     private func findDevice() async {
         currentStep = .adding
@@ -71,7 +46,7 @@ final class DeviceAddViewModel: ObservableObject {
                 currentStep = .form(errorMessage: Error.enterValidAddress)
                 return
             }
-
+            
             let newDeviceId = try await firstContactService.fetchAndUpsertDevice(
                 rawAddress: normalizedAddress
             )
@@ -89,19 +64,19 @@ final class DeviceAddViewModel: ObservableObject {
             currentStep = .form(errorMessage: Error.cantConnect)
         }
     }
-
+    
     // MARK: - State enum
     enum Step: Equatable {
         case form(errorMessage: String = "")
         case adding
         case success(device: Device)
-
+        
         var isForm: Bool {
             if case .form = self { return true }
             return false
         }
     }
-
+    
     // MARK: - Struct with magic stuff
     struct Error {
         static let enterValidAddress = String(localized: "Please enter a valid address")

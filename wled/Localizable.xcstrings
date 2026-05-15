@@ -412,7 +412,14 @@
       }
     },
     "Device Added" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Device Added"
+          }
+        }
+      }
     },
     "Device List" : {
       "comment" : "The title of the device list screen.",

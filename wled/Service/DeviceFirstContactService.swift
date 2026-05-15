@@ -12,16 +12,16 @@ import OSLog
 /// Service responsible for handling the first contact with a device.
 /// It fetches device info and handles the creation or update of the Device entity in Core Data.
 actor DeviceFirstContactService {
-
+    
     private let persistenceController: PersistenceController
     private let urlSession: URLSession
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "ca.cgagnier.wled-native", category: "DeviceFirstContactService")
-
+    
     enum ServiceError: LocalizedError {
         case invalidURL
         case missingMacAddress
         case networkError(Error)
-
+        
         var errorDescription: String? {
             switch self {
             case .invalidURL:
@@ -33,7 +33,7 @@ actor DeviceFirstContactService {
             }
         }
     }
-
+    
     /// - Parameters:
     ///   - persistenceController: The Core Data controller.
     ///   - urlSession: Injected session for testability (defaults to .shared).
@@ -41,9 +41,9 @@ actor DeviceFirstContactService {
         self.persistenceController = persistenceController
         self.urlSession = urlSession
     }
-
+    
     // MARK: - Public API
-
+    
     /// Fetches device information using its address, then ensures a corresponding
     /// device record exists in the database (creating or updating its address
     /// as necessary).
@@ -51,21 +51,21 @@ actor DeviceFirstContactService {
     /// - Parameter rawAddress: The network address input (e.g., "http://192.168.1.1/" or "wled.local").
     /// - Returns: The NSManagedObjectID of the device (to be retrieved safely on the main thread).
     func fetchAndUpsertDevice(rawAddress: String) async throws -> NSManagedObjectID {
-        guard let cleanAddress = normalizedAddress(from: rawAddress) else {
+        guard let cleanAddress = DeviceAddressNormalizer.normalizedAddress(from: rawAddress) else {
             throw ServiceError.invalidURL
         }
-
+        
         logger.debug("Initiating contact with: \(cleanAddress)")
         let info = try await fetchDeviceInfo(address: cleanAddress)
-
+        
         guard let macAddress = info.mac, !macAddress.isEmpty else {
             logger.error("Could not retrieve MAC address for device at \(cleanAddress)")
             throw ServiceError.missingMacAddress
         }
-
+        
         return try await upsertDevice(macAddress: macAddress, address: cleanAddress, name: info.name)
     }
-
+    
     /// Attempts to identify and update a device using only the MAC address from mDNS/Discovery.
     /// This avoids a network call to the device if we already know who it is.
     ///
@@ -75,24 +75,24 @@ actor DeviceFirstContactService {
     /// - Returns: true if the device was found and processed (updated or skipped), false otherwise.
     func tryUpdateAddress(macAddress: String?, address: String) async -> Bool {
         guard let macAddress, !macAddress.isEmpty else { return false }
-
+        
         // Ensure the address provided by mDNS is clean before saving
-        guard let cleanAddress = normalizedAddress(from: address) else { return false }
+        guard let cleanAddress = DeviceAddressNormalizer.normalizedAddress(from: address) else { return false }
         let logger = self.logger
-
+        
         return await persistenceController.container.performBackgroundTask { context in
             let request: NSFetchRequest<Device> = Device.fetchRequest()
             request.predicate = NSPredicate(format: "macAddress == %@", macAddress)
             request.fetchLimit = 1
-
+            
             guard let existingDevice = try? context.fetch(request).first else {
                 return false
             }
-
+            
             if existingDevice.address != cleanAddress {
                 logger.info("Fast update: IP changed for \(existingDevice.originalName ?? "Unknown") (\(macAddress))")
                 existingDevice.address = cleanAddress
-
+                
                 do {
                     try context.save()
                 } catch {
@@ -102,45 +102,9 @@ actor DeviceFirstContactService {
             return true
         }
     }
-
+    
     // MARK: - Private Helpers
-
-    /// Normalizes the provided address into a canonical base URL string.
-    /// - Preserves https and http schemes.
-    /// - Defaults to http when no scheme is provided.
-    /// - Strips user info, path, query, and fragment components.
-    private func normalizedAddress(from address: String) -> String? {
-        let trimmed = address.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return nil }
-
-        let lowercasedAddress = trimmed.lowercased()
-        let rawAddress: String
-
-        if lowercasedAddress.hasPrefix("http://") || lowercasedAddress.hasPrefix("https://") {
-            rawAddress = trimmed
-        } else if trimmed.contains("://") {
-            return nil
-        } else {
-            rawAddress = "http://\(trimmed)"
-        }
-
-        guard var components = URLComponents(string: rawAddress),
-              let scheme = components.scheme?.lowercased(),
-              scheme == "http" || scheme == "https",
-              components.host?.isEmpty == false else {
-            return nil
-        }
-
-        components.user = nil
-        components.password = nil
-        components.path = ""
-        components.query = nil
-        components.fragment = nil
-        components.scheme = scheme
-
-        return components.url?.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-    }
-
+    
     /// Fetches device information from the specified address.
     private func fetchDeviceInfo(address: String) async throws -> Info {
         guard let base = URL(string: address) else {
@@ -149,11 +113,11 @@ actor DeviceFirstContactService {
         let url = base
             .appendingPathComponent("json")
             .appendingPathComponent("info")
-
+        
         var request = URLRequest(url: url)
         request.timeoutInterval = 10
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-
+        
         do {
             let (data, _) = try await urlSession.data(for: request)
             return try JSONDecoder().decode(Info.self, from: data)
@@ -161,19 +125,19 @@ actor DeviceFirstContactService {
             throw ServiceError.networkError(error)
         }
     }
-
+    
     /// Handles the Core Data logic to find, update, or create the device.
     private func upsertDevice(macAddress: String, address: String, name: String?) async throws -> NSManagedObjectID {
         let logger = self.logger
         return try await persistenceController.container.performBackgroundTask { context in
             context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-
+            
             let request: NSFetchRequest<Device> = Device.fetchRequest()
             request.predicate = NSPredicate(format: "macAddress == %@", macAddress)
             request.fetchLimit = 1
-
+            
             let device: Device
-
+            
             if let existingDevice = try? context.fetch(request).first {
                 // Check if updates are actually needed to minimize Core Data thrashing
                 if existingDevice.address == address && existingDevice.originalName == name {
@@ -193,11 +157,11 @@ actor DeviceFirstContactService {
                 device.originalName = name
                 device.isHidden = false
             }
-
+            
             if context.hasChanges {
                 try context.save()
             }
-
+            
             return device.objectID
         }
     }
