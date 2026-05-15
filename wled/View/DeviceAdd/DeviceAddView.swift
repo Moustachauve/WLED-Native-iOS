@@ -3,7 +3,7 @@ import SwiftUI
 struct DeviceAddView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = DeviceAddViewModel()
-
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -50,7 +50,7 @@ struct DeviceAddView: View {
             }
         }
     }
-
+    
     private var currentStepAnimationID: Int {
         switch viewModel.currentStep {
         case .form:
@@ -68,14 +68,14 @@ struct DeviceAddView: View {
 struct DeviceAddStep1FormView: View {
     @ObservedObject var viewModel: DeviceAddViewModel
     @FocusState private var focusedField: Field?
-
+    
     let errorMessage: String
-
+    
     var body: some View {
         Form {
             Section {
                 LabeledContent("Custom Name") {
-                    TextField("Optional", text: $viewModel.customName)
+                    TextField("Custom Name", text: $viewModel.customName)
                         .multilineTextAlignment(.trailing)
                         .textInputAutocapitalization(.words)
                         .autocorrectionDisabled(true)
@@ -86,47 +86,44 @@ struct DeviceAddStep1FormView: View {
                         }
                 }
             }
-
+            
             Section {
-                LabeledContent("Address") {
-                    TextField("http://host[:port][path]", text: $viewModel.address, axis: .vertical)
-                        .lineLimit(1...3)
-                        .multilineTextAlignment(.trailing)
-                        .keyboardType(.URL)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
-                        .onChange(of: viewModel.address) { newValue in
-                            let lowercased = newValue.lowercased()
-
-                            if lowercased.hasPrefix("https://") {
-                                if !viewModel.useSecure {
-                                    viewModel.useSecure = true
-                                }
-                            } else if lowercased.hasPrefix("http://") {
-                                if viewModel.useSecure {
-                                    viewModel.useSecure = false
-                                }
+                TextField("Hostname, IP, or URL", text: $viewModel.address, axis: .vertical)
+                    .lineLimit(1)
+                    .keyboardType(.URL)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
+                    .onChange(of: viewModel.address) { newValue in
+                        let lowercased = newValue.lowercased()
+                        
+                        if lowercased.hasPrefix("https://") {
+                            if !viewModel.useSecure {
+                                viewModel.useSecure = true
+                            }
+                        } else if lowercased.hasPrefix("http://") {
+                            if viewModel.useSecure {
+                                viewModel.useSecure = false
                             }
                         }
-                        .focused($focusedField, equals: .address)
-                        .submitLabel(.done)
-                        .onSubmit {
-                            normalizeAddressScheme()
-                            withAnimation {
-                                viewModel.submitCreateDevice()
-                            }
+                    }
+                    .focused($focusedField, equals: .address)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        normalizeAddressScheme()
+                        withAnimation {
+                            viewModel.submitCreateDevice()
                         }
-                }
-
+                    }
+                
                 Toggle("Use Secure Connections", isOn: Binding(
                     get: {
                         viewModel.useSecure
                     },
                     set: { newValue in
                         viewModel.useSecure = newValue
-
+                        
                         let lowercased = viewModel.address.lowercased()
-
+                        
                         if lowercased.hasPrefix("https://") {
                             viewModel.address.removeFirst("https://".count)
                             viewModel.address = "http://" + viewModel.address
@@ -136,10 +133,12 @@ struct DeviceAddStep1FormView: View {
                         }
                     }
                 ))
+            } header: {
+                Text("Controller Address or URL")
             } footer: {
-                Text(verbatim: "WLED only supports HTTPS when accessed through a secure reverse proxy.")
+                Text("WLED only supports HTTPS when accessed through a secure reverse proxy.")
             }
-
+            
             if !errorMessage.isEmpty {
                 Section {
                     Text(errorMessage)
@@ -157,23 +156,23 @@ struct DeviceAddStep1FormView: View {
             }
         }
     }
-
+    
     private func normalizeAddressScheme() {
         let trimmedAddress = viewModel.address.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedAddress.isEmpty else {
             viewModel.address = ""
             return
         }
-
+        
         let lowercased = trimmedAddress.lowercased()
         guard !lowercased.hasPrefix("http://") && !lowercased.hasPrefix("https://") else {
             viewModel.address = trimmedAddress
             return
         }
-
+        
         viewModel.address = (viewModel.useSecure ? "https://" : "http://") + trimmedAddress
     }
-
+    
     enum Field: Hashable {
         case customName
         case address
@@ -184,12 +183,12 @@ struct DeviceAddStep1FormView: View {
 
 struct DeviceAddStep2LoadingView: View {
     let address: String
-
+    
     var body: some View {
         VStack(spacing: 16) {
             ProgressView()
                 .controlSize(.large)
-
+            
             Text("Adding \(address)")
                 .font(.headline)
                 .foregroundStyle(.secondary)
@@ -202,16 +201,16 @@ struct DeviceAddStep2LoadingView: View {
 
 struct DeviceAddStep3Success: View {
     let device: Device
-
+    
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "checkmark.seal")
                 .font(.system(size: 48))
                 .foregroundStyle(.green)
-
+            
             Text("Device Added")
                 .font(.title3.bold())
-
+            
             Text("\(device.displayName) was added")
                 .font(.headline)
                 .foregroundStyle(.secondary)
