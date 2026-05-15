@@ -25,10 +25,11 @@ struct DeviceInfoTwoRows: View {
             }
             HStack(spacing: 4) {
                 WebsocketStatusIndicator(currentStatus: device.websocketStatus)
-                Text(device.device.address ?? "")
+                Text(device.device.url?.absoluteString ?? "")
                     .lineLimit(1)
-                    .fixedSize()
+                    .truncationMode(.middle)
                     .lineSpacing(0)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 let signalStrength = Int(device.stateInfo?.info.wifi.signal ?? 0)
                 Label {
                     Text(
@@ -61,6 +62,7 @@ struct DeviceInfoTwoRows: View {
                     .accessibilityElement(children: .combine)
                     .accessibilityLabel("(Hidden)")
                 }
+                Spacer(minLength: 0)
             }
             .font(.subheadline.leading(.tight))
 

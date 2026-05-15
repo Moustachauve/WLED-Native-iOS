@@ -11,7 +11,7 @@ struct DeviceView: View {
 
     var body: some View {
         ZStack {
-            WebView(url: getDeviceAddress(), reload: $shouldWebViewRefresh) { _ in
+            WebView(url: device.device.url, reload: $shouldWebViewRefresh) { _ in
                 withAnimation {
                     showDownloadFinished = true
                 }
@@ -60,14 +60,6 @@ struct DeviceView: View {
                 shouldWebViewRefresh = true
             }
         }
-    }
-
-    func getDeviceAddress() -> URL? {
-        guard let deviceAddress = device.device.address,
-              let url = URL(string: "http://\(deviceAddress)") else {
-            return nil
-        }
-        return url
     }
 
     func getToolbarBadgeCount() -> Int {

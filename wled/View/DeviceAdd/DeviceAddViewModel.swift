@@ -9,34 +9,25 @@ import Foundation
 
 @MainActor
 final class DeviceAddViewModel: ObservableObject {
-
+    
     @Published var address: String = ""
+    @Published var useSecure: Bool = false
+    @Published var customName: String = ""
     @Published var currentStep: Step = .form()
     private let firstContactService = DeviceFirstContactService()
-
-    var isAddressValid: Bool {
-        let cleanedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !cleanedAddress.isEmpty else { return false }
-
-        let addressWithScheme: String
-        if cleanedAddress.lowercased().hasPrefix("http://") || cleanedAddress.lowercased().hasPrefix("https://") {
-            addressWithScheme = cleanedAddress
-        } else {
-            addressWithScheme = "http://\(cleanedAddress)"
-        }
-
-        guard let components = URLComponents(string: addressWithScheme) else {
-            return false
-        }
-
-        // This prevents valid URLs that are empty or just schemes (like "http://")
-        guard let host = components.host, !host.isEmpty else {
-            return false
-        }
-
-        return true
+    
+    /// Returns the normalized full address including scheme using the current toggle selection.
+    var normalizedAddress: String? {
+        DeviceAddressNormalizer.normalizedAddress(
+            from: address,
+            defaultScheme: useSecure ? "https" : "http"
+        )
     }
-
+    
+    var isAddressValid: Bool {
+        normalizedAddress != nil
+    }
+    
     func submitCreateDevice() {
         if !isAddressValid {
             currentStep = .form(errorMessage: Error.enterValidAddress)
@@ -46,16 +37,26 @@ final class DeviceAddViewModel: ObservableObject {
             await findDevice()
         }
     }
-
+    
     /// Starts searching for the device and adds it, if one is found
     private func findDevice() async {
         currentStep = .adding
         do {
+            guard let normalizedAddress else {
+                currentStep = .form(errorMessage: Error.enterValidAddress)
+                return
+            }
+            
             let newDeviceId = try await firstContactService.fetchAndUpsertDevice(
-                rawAddress: address
+                rawAddress: normalizedAddress
             )
             let viewContext = PersistenceController.shared.container.viewContext
             if let newDevice = viewContext.object(with: newDeviceId) as? Device {
+                let trimmedCustomName = customName.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !trimmedCustomName.isEmpty {
+                    newDevice.customName = trimmedCustomName
+                    try viewContext.save()
+                }
                 currentStep = .success(device: newDevice)
             }
         } catch let error {
@@ -63,19 +64,19 @@ final class DeviceAddViewModel: ObservableObject {
             currentStep = .form(errorMessage: Error.cantConnect)
         }
     }
-
+    
     // MARK: - State enum
     enum Step: Equatable {
         case form(errorMessage: String = "")
         case adding
         case success(device: Device)
-
+        
         var isForm: Bool {
             if case .form = self { return true }
             return false
         }
     }
-
+    
     // MARK: - Struct with magic stuff
     struct Error {
         static let enterValidAddress = String(localized: "Please enter a valid address")
